@@ -1,4 +1,4 @@
-# [team name] Team Charter
+# Team_Bark_Park Team Charter
 
 ## Instructions
 

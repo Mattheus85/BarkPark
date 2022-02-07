@@ -1,4 +1,4 @@
-# [team name] Design Document
+# Team_Bark_Park Design Document
 
 ## Instructions
 

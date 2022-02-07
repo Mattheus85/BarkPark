@@ -1,4 +1,4 @@
-# [Team Name] Project Rubric
+# Team_Bark_Park Project Rubric
 
 ## Background
 

@@ -1,4 +1,4 @@
-# [team name] Integration Test Plan
+# Team_Bark_Park Integration Test Plan
 
 ## Instructions
 
