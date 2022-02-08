@@ -1,0 +1,47 @@
+@startuml
+title Get Parks
+skinparam BoxPadding 30
+
+box "Front End" #lightyellow
+actor Client
+participant "API Gateway" as APIGateway
+end box
+
+box "Back End" #azure
+participant Lambda
+participant GetParksActivity
+participant ParksDao
+participant ModelConverter
+database DynamoDB
+end box
+
+Client -> APIGateway ++: GET /parks
+APIGateway -> Lambda ++
+Lambda -> GetParksActivity ++:  handleRequest(GetParksRequest, Context)
+GetParksActivity -> ParksDao ++ : getParks()
+ParksDao -> DynamoDB ++: retrieve all parks
+
+alt#crimson #whitesmoke if database receives an invalid request
+    ParksDao <-- DynamoDB : return with no item data
+    GetParksActivity <-- ParksDao : throw SomeKindaException?
+    Lambda <-- GetParksActivity : propagate SomeKindaException?
+    APIGateway <-- Lambda : propagate Exception?
+    Client <-- APIGateway : 400 Response, "Invalid input"
+end
+
+ParksDao <-- DynamoDB --: all parks
+GetParksActivity <-- ParksDao --: List<Parks>
+
+alt#greenyellow #whitesmoke if request.reviews is provided
+    GetParksActivity -> GetParksActivity : sort by request.reviews("enum")
+    else else continue
+end
+
+GetParksActivity -> ModelConverter ++: toParksModel(List<Parks>)
+GetParksActivity <-- ModelConverter --: ParksListModel
+GetParksActivity -> GetParksActivity : create GetParksResult
+Lambda <-- GetParksActivity --: GetParksResult
+APIGateway <-- Lambda --
+Client <-- APIGateway --: 200 Response
+
+@enduml
