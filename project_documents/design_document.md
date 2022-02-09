@@ -17,30 +17,62 @@ level of detail to aim for.*
 
 ## 1. Problem Statement
 
-*Explain clearly what problem you are trying to solve.*
+When a dog owner wants to find or learn more about a dog park, their best option right now is to do a basic web search for nearby dog parks
+on the search engine of their choice. The results of this search are often limited, cluttered with non-relevant findings and 
+lacking in valuable detail and information regarding the parks that are found.
+
+This design document details Bark Park, a new service that will provide users access to a geographically organized database
+of dog parks along with specific information and user reviews for each park. It is designed to interact with a
+client application which will allow users to search for dog parks based on location and/or other optional criteria, write and browse reviews of dog parks, and submit requests 
+to add, remove, or update existing parks.
 
 
 ## 2. Top Questions to Resolve in Review
 
-*List the most important questions you have about your design, or things that
-you are still debating internally that you might like help working through.*
-
-1.   
-2.   
-3.  
+1. What are the primary data types and associated attributes?
+   1. Should we decouple related dependent objects?
+      1. For example, should a dogpark object maintain a list of its reviews or should this be retrieved
+         on demand by a request to the reviews table?
+2. Should we include the ability for users to upload dogpark photos in the initial scope?
+3. How do we want to manage permissions for adding, removing, and updating parks?
+   1. Our initial discussions have led us to consider allowing users to submit requests that would be handled by an admin.
+   This may require an additional requests table in the database, additional admin functionality, and increased
+   complexity in general.
+4. How do we want to store location data?
+   1. Possibilities include geographical coordinates, city names, etc.
 
 ## 3. Use Cases
 
-*This is where we work backwards from the customer and define what our customers
-would like to do (and why). You may also include use cases for yourselves, or
-for the organization providing the product to customers.*
+U1. *As a Bark Park customer, I want to view a list of all parks*
 
-U1. *As a [product] customer, I want to `<result>` when I `<action>`*
-
-U2. *As a [product] customer, I want to view my grocery list when I log into the
-grocery list page*
+U2. *As a Bark Park customer, I want to view a list of all nearby parks when I search by location*
     
-U3. ...
+U3. *As a Bark Park customer, I want to view a filtered list of parks when I search by tags*
+
+U4. *As a Bark Park customer, I want to view a sorted and filtered list of parks when I search by reviews*
+
+U5. *As a Bark Park customer, I want to view details and reviews for a park*
+
+U6. *As a new Bark Park customer, I want to create a user account*
+
+U7. *As a Bark Park customer, I want to edit my user account*
+
+U8. *As a Bark Park customer, I want to delete my user account*
+
+U9. *As a Bark Park customer, I want to log in/out of my user account*
+
+U10. *As a Bark Park customer, I want to submit a park creation request*
+
+U11. *As a Bark Park customer, I want to submit a park deletion request*
+
+U12. *As a Bark Park customer, I want to submit a park update request*
+
+U13. *As a Bark Park customer, I want to create a review of a park*
+
+U14. *As a Bark Park customer, I want to edit my review of a park*
+
+U15. *As a Bark Park customer, I want to delete my review of a park*
+
 
 ## 4. Project Scope
 
@@ -51,16 +83,19 @@ your design.*
 
 ### 4.1. In Scope
 
-*Which parts of the problem defined in Sections 1 and 2 will you solve with this
-design?*
+1. Retrieve a list of all nearby parks
+2. Retrieve a list of parks sorted and/or filtered by preference
+3. Create, delete, and edit a review for a specific park
+4. Submit a request to create, remove, or edit a specific park
+
 
 ### 4.2. Out of Scope
 
-*Based on your problem description in Sections 1 and 2, are there any aspects
-you are not planning to solve? Do potential expansions or related problems occur
-to you that you want to explicitly say you are not worrying about now? Feel free
-to put anything here that you think your team can't accomplish in the unit, but
-would love to do with more time.*
+1. User ability to *favorite* a park and persist this information in the database
+2. User ability to upload photos
+3. Integration with a mapping api (like Google maps) to generate driving directions
+4. Donation option to support local government maintenance of the park
+5. Ranking system for *most popular* dogs in each park
 
 # 5. Proposed Architecture Overview
 
