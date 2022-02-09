@@ -1,0 +1,52 @@
+@startuml
+
+entity Park {
+    *id : String <<generated>>
+    --
+    *name : String
+    *tags : List<String>
+}
+
+entity Location {
+    *location : String
+    --
+    *parks : List<Park>
+}
+
+entity Review {
+    *reviewOf : String
+    ..
+    *rating : Integer
+    --
+    *date : String
+    body : String
+    *reviewedBy: String
+}
+
+entity User {
+    *id : String <<generated>>
+    --
+    *username : String
+    *email : String
+    *password : String
+}
+
+'A Park can have zero or many Reviews
+Park }o-- Review
+
+'A User can have zero or many Reviews
+User }o-- Review
+
+'A Review has exactly one User
+Review ||-- User
+
+'A Review has exactly one Park
+Review ||-- Park
+
+'A Location can have one to many Parks (can change to zero to many)
+Location }|-- Park
+
+'A Park has exactly one Location
+Park ||-- Location
+
+@enduml

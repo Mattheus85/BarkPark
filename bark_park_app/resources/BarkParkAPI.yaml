@@ -1,0 +1,79 @@
+openapi: 3.0.0
+info:
+  title: BarkParkAPI
+  version: 0.0.1
+paths:
+  "/parks":
+    get:
+      summary: Retrieve all parks
+      parameters:
+        - name: rating #We may use a different path depending on model implementation
+          in: query
+          description: Park rating for filtering
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+            maximum: 5
+        - name: location #Adding a Locations table may change this path
+          in: query
+          description: Park location for filtering
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/Park"
+        "404":
+          description: Invalid input
+        "500":
+          description: Server Error
+  "/parks/{parkId}":
+    get:
+      summary: Retrieve a single park
+      parameters:
+        - name: parkId
+          in: path
+          description: Park ID
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Park"
+        "404":
+          description: Invalid input
+        "500":
+          description: Server Error
+components:
+  schemas:
+    Park:
+      type: object
+      properties:
+        id:
+          type: string
+        dogParkName:
+          type: string
+        location:
+          type: string
+        tag:
+          type: string
+        reviews:
+          type: array
+          items:
+            type: string
+        photos:
+          type: string #url
+        createdBy:
+          type: string #userId

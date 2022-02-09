@@ -22,9 +22,8 @@ on the search engine of their choice. The results of this search are often limit
 lacking in valuable detail and information regarding the parks that are found.
 
 This design document details Bark Park, a new service that will provide users access to a geographically organized database
-of dog parks along with specific information and user reviews for each park. It is designed to interact with a
-client application which will allow users to search for dog parks based on location and/or other optional criteria, write and browse reviews of dog parks, and submit requests 
-to add, remove, or update existing parks.
+of dog parks along with specific information and reviews for each park. It is designed to interact with a
+client application which will allow customers to view all dog parks or search for dog parks based on specific criteria, write, edit, delete, and view reviews of dog parks
 
 
 ## 2. Top Questions to Resolve in Review
@@ -96,6 +95,7 @@ your design.*
 3. Integration with a mapping api (like Google maps) to generate driving directions
 4. Donation option to support local government maintenance of the park
 5. Ranking system for *most popular* dogs in each park
+6. Allow customer to submit requests to add, remove, or update existing parks
 
 # 5. Proposed Architecture Overview
 
