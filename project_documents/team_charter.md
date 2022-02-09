@@ -36,7 +36,7 @@ These resources may be helpful as you fill out your team charter. They are optio
 |Name            |Preferred Contact Method (Zoom, Slack, email, etc.) |
 |---	           |---                                           |
 |Team Member (a) |                                              |
-|Team Member (b) |                                              |
+|Team Member (b) | Matthew, Discord/Slack                                             |
 |Team Member (c) | June, Discord/slack                          |
 |Team Member (d) |                                              |
 
@@ -104,10 +104,10 @@ These resources may be helpful as you fill out your team charter. They are optio
 ## Meaning & Impact
 
 **What is personally important for each team member about joining BloomTech? About
-becoming an software engineer?**
+becoming a software engineer?**
 
 * *Team member name*:
-* *Team member name*:
+* Matthew: The opportunity to find a career with which I can support my family
 * June: Getting a SWE job. Finding a specialization to grow in (Crypto/ML/Finance).
 * *Team member name*:
 
@@ -116,7 +116,7 @@ project management skills, develop public speaking skills, speak up more, speak
 up less, etc.**
 
 * *Team member name*:
-* *Team member name*:
+* Matthew: Improve teamwork skills
 * June: Improve DSA skills
 * *Team member name*:
 
@@ -130,9 +130,9 @@ rotating or permanent roles as you go.*
 |**Role**               |**Responsibilities** |**Primary person** |**Secondary person** |
 |---                    |---                  |---                |---                  |
 |Liaison to Instructors | Main contact to instructor to give status updates, including team dynamics, project progress, etc |June||
-|SDE        |                     |                   |                     |
+|SDE        | Complete project requirements, suggest improvements, participate in R&D, write scalable implementations, etc. | Matthew                  |                     |
 |SDE      |                     |                   |                     |
-|Integration Tester        |                     |                   |                     |
+|Integration Tester        | Anticipate potential issues, develop robust testing strategy, design persistent tests, etc. | Thom                   | Matthew                    |
 |Rotating Role 4        |                     |                   |                     |
 
 ## Acknowledgement
@@ -140,6 +140,6 @@ rotating or permanent roles as you go.*
 **I agree to the terms and conditions of these team agreements:**
 
 * Team member (a) Name & Date:
-* Team member (b) Name & Date:
+* Team member (b) Name & Date: Matthew 9February2022
 * Team member (c) Name & Date: June 2/8/2022
 * Team member (d) Name & Date:
