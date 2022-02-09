@@ -2,10 +2,6 @@
 
 ## Instructions
 
-*Answer the questions below and fill out the process sections with your team’s
-mechanisms to follow your answers. Remove the italicized examples text as you
-go.*
-
 ## Purpose
 
 As we learned from the reading, highly performing teams have the following
@@ -44,61 +40,54 @@ These resources may be helpful as you fill out your team charter. They are optio
 
 * **How can we take risks on this team without feeling insecure or
   embarrassed?**
-    *E.g., Be open to opinions that differ from your own, actively ask for
-    opinions from each member of the team, do not interrupt each other, don’t
-    place blame, all suggestions or questions are encouraged, listened to,
-    considered equally, and never judged*
+    Use discord as a means of communication, it can be easier to talk through a chat application for some.
+Always ask each other if they have any thoughts or opinions on a suggested idea. Always remain open
+to new ideas and ask to explain more if it's not clear.
 
 * **How do we address situations where any team member feels unsafe?**
-    *E.g., communicate when there is a misunderstanding, don’t move forward
-    until the situation is resolved, directly address and resolve negativity,
-    give and receive feedback with a positive, strength-building mindset, if
-    necessary, escalate to a BloomTech staff member*  
+    Take a break if things get uncomfortable. If necessary, have a facilitator to talk separately to communicate
+everyone comes to a mutual understanding. At worst case, contact a Lambda instructor and request for a group change. 
 
 ### Dependability, Structure, Clarity
 
 * **How can we count on each other to do high quality work on time?**
-     *E.g., estimate task size, break down large tasks, call out tasks at risk
-     early, ask each other for help, how to ensure timely code reviews, how to
-     share knowledge, help each other hold accountability give frequent,
-     scheduled updates*  
+     Use a task tracking tool similar to Trullo. Have an organized scrum master that maintains
+an accountability of tasks. Be sure to keep eyes on a scheduled timeline and that the team
+is on track so as not to fall behind. If one is unable to finish a task, ask other team
+members to support.
 
 * **How do we address missed deadlines?**
-     *E.g., acknowledge, but don’t punish slipped dates, figure out what went
-     wrong, identify lessons for future*
+     As early as possible. Team members will support tasks that aren't finished on time.
+Ensure there is no stigma for those who can't complete a task as some tasks are harder than others
+and some individuals are better at certain things.
 
 * **How can we make goals, roles, and execution plans on our team clear?**
-     *E.g., where to track goals and when to review them, use definitive,
-     quantifiable terminology, include clear background on why this goal is
-     necessary, include “done” criteria for the goal (code is pushed with
-     integration tests, document is reviewed, etc.)*
+     Everyone keeps a same document that outlines how a finished product will look like.
+Have discussions often so that the exchange of ideas are heard by every member. Daily code/work
+review by team members once finished products are pushed to github.
 
 
 ### Goals
 
 * **Overall: What is our overall objective for the Learn & Be Curious unit?**
-    *E.g., “Apply what we’ve learned throughout BloomTech in a team project to prepare
-    ourselves for internships and full-time SDE roles.”*
+    Get familiarized with the agile process. Learn to work as a team and apply the knowledge
+that we've gained from previous units.
 
 
 * **Performance: What do we want to prioritize in terms of what we achieve?**
-    *What will be true when you have 'succeeded' on this project? E.g. enjoy
-    ourselves, maintain our energy to the end, ensure all team members
-    participate, create professional connections, exceed instructor
-    expectations, efficiently pace the project so we’re not rushing at the end,
-    etc.*
+How to communicate with other team members. How to prioritize and delegate responsibilities.
+Become comfortable with not owning the entire piece and relying on others to support a
+single goal.
 
 
 * **Learning: What are the things that our team wants to learn?**
-    *E.g., develop SDE knowledge, enhance leadership skills, master project
-    planning, improve testing skills, etc*
+ Continue to improve our familiarity with AWS technology and how to integrate it
+as part of the code. Get comfortable working in an agile environment.
 
 
 * **Task processes: What processes will our team follow to meet our goals,
   complete tasks, or to build team relationships?**
-    *E.g., leadership, meeting procedures/length of meetings, expectations for
-    meeting attendance and timeliness, other types of meetings (happy hours,
-    lunch and learns)*
+daily stand ups. Using Trullo. Offering constant support to complete the task.
 
 
 ## Meaning & Impact
@@ -134,9 +123,8 @@ rotating or permanent roles as you go.*
 |---                    |---                  |---                |---                  |
 |Liaison to Instructors | Main contact to instructor to give status updates, including team dynamics, project progress, etc |June||
 |SDE        | Complete project requirements, suggest improvements, participate in R&D, write scalable implementations, etc. | Matthew                  |                     |
-|SDE      |                     |                   |                     |
+|SDE      | Complete project requirements, suggest improvements, participate in R&D, write scalable implementations, etc.                    | Thom                  |                     |
 |Integration Tester        | Anticipate potential issues, develop robust testing strategy, design persistent tests, etc. | Thom                   | Matthew                    |
-|Rotating Role 4        |                     |                   |                     |
 
 ## Acknowledgement
 
