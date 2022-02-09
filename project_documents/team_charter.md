@@ -33,12 +33,12 @@ These resources may be helpful as you fill out your team charter. They are optio
 
 ### Administrative Information:
 
-|Name            |Preferred Contact Method (Zoom, Slack, email, etc.) |
-|---	           |---                                           |
-|Team Member (a) |                                              |
-|Team Member (b) | Matthew, Discord/Slack                                             |
-|Team Member (c) | June, Discord/slack                          |
-|Team Member (d) |                                              |
+|Name            | Preferred Contact Method (Zoom, Slack, email, etc.) |
+|---	           |-----------------------------------------------------|
+|Team Member (a) | Thom, Discord/Slack                                 |
+|Team Member (b) | Matthew, Discord/Slack                              |
+|Team Member (c) | June, Discord/slack                                 |
+|Team Member (d) |                                                     |
 
 ### Psychological safety
 
@@ -106,19 +106,22 @@ These resources may be helpful as you fill out your team charter. They are optio
 **What is personally important for each team member about joining BloomTech? About
 becoming a software engineer?**
 
-* *Team member name*:
+
+* Thom: I find software engineering to be intellectually challenging and creatively satisfying. I joined BloomTech to become career-ready for entry-level Backend SDE positions.
+
 * Matthew: The opportunity to find a career with which I can support my family
+
 * June: Getting a SWE job. Finding a specialization to grow in (Crypto/ML/Finance).
-* *Team member name*:
+
 
 **What each team member wants to achieve: e.g. improve analytical skills, learn
 project management skills, develop public speaking skills, speak up more, speak
 up less, etc.**
 
-* *Team member name*:
+
+* Thom: Improve all SDE skills
 * Matthew: Improve teamwork skills
 * June: Improve DSA skills
-* *Team member name*:
 
 ## Team Member Roles and Responsibilities
 
@@ -139,7 +142,7 @@ rotating or permanent roles as you go.*
 
 **I agree to the terms and conditions of these team agreements:**
 
-* Team member (a) Name & Date:
+* Team member (a) Name & Date: Thom 2/9/2022
 * Team member (b) Name & Date: Matthew 9February2022
 * Team member (c) Name & Date: June 2/8/2022
 * Team member (d) Name & Date:
