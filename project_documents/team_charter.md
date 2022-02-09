@@ -37,7 +37,7 @@ These resources may be helpful as you fill out your team charter. They are optio
 |---	           |---                                           |
 |Team Member (a) |                                              |
 |Team Member (b) |                                              |
-|Team Member (c) |                                              |
+|Team Member (c) | June, Discord/slack                          |
 |Team Member (d) |                                              |
 
 ### Psychological safety
@@ -108,7 +108,7 @@ becoming an software engineer?**
 
 * *Team member name*:
 * *Team member name*:
-* *Team member name*:
+* June: Getting a SWE job. Finding a specialization to grow in (Crypto/ML/Finance).
 * *Team member name*:
 
 **What each team member wants to achieve: e.g. improve analytical skills, learn
@@ -117,7 +117,7 @@ up less, etc.**
 
 * *Team member name*:
 * *Team member name*:
-* *Team member name*:
+* June: Improve DSA skills
 * *Team member name*:
 
 ## Team Member Roles and Responsibilities
@@ -129,10 +129,11 @@ rotating or permanent roles as you go.*
 
 |**Role**               |**Responsibilities** |**Primary person** |**Secondary person** |
 |---                    |---                  |---                |---                  |
-|Liaison to Instructors | Main contact to instructor to give status updates, including team dynamics, project progress, etc |||
-|Rotating Role 1        |                     |                   |                     |
-|Rotating Role 2        |                     |                   |                     |
-|Rotating Role 3        |                     |                   |                     |
+|Liaison to Instructors | Main contact to instructor to give status updates, including team dynamics, project progress, etc |June||
+|SDE        |                     |                   |                     |
+|SDE      |                     |                   |                     |
+|Integration Tester        |                     |                   |                     |
+|Rotating Role 4        |                     |                   |                     |
 
 ## Acknowledgement
 
@@ -140,5 +141,5 @@ rotating or permanent roles as you go.*
 
 * Team member (a) Name & Date:
 * Team member (b) Name & Date:
-* Team member (c) Name & Date:
+* Team member (c) Name & Date: June 2/8/2022
 * Team member (d) Name & Date:
