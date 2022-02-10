@@ -218,14 +218,14 @@ parameters) and a method to generate a new, unique user ID.
   * If the user ID is not found, will throw a `UserNotFoundException`.
   * If the park ID is not found, will throw a `ParkNotFoundException`.
 
-![CreateReviewActivityImage](..\bark_park_app\resources\images\create-review-activity.png)
+![CreateReviewActivityImage](../bark_park_app/resources/images/create-review-activity.png)
 
 ## 6.10 *GetParkReviewsActivity*
 * Accepts `GET` requests to `/parks/{parkId}/reviews`.
 * Accepts a park ID and returns the corresponding ReviewsModel.
    * If the park ID is not found, will throw a `ParkNotFoundException`.
 
-![GetReviewsActivityImage](..\bark_park_app\resources\images\get-park-reviews-activity.png)
+![GetParkReviewsActivityImage](../bark_park_app/resources/images/get-park-reviews-activity.png)
 
 ## 6.11 *UpdateReviewActivity*
 * Accepts `PUT` requests to `/users/{userId}/reviews/{parkId}`.
@@ -235,7 +235,7 @@ parameters) and a method to generate a new, unique user ID.
    * If the park ID is not found, will throw a `ParkNotFoundException`.
 * For usability, we will limit the available ratings to only the numbers `1-5`.
 
-![UpdateReviewActivityImage](..\bark_park_app\resources\images\update-review-activity.png)
+![UpdateReviewActivityImage](../bark_park_app/resources/images/update-review-activity.png)
 
 ## 6.12 *DeleteReviewActivity*
 * Accepts `DELETE` requests to `/users/{userId}/reviews/{parkId}`
@@ -244,14 +244,14 @@ parameters) and a method to generate a new, unique user ID.
    * If the user ID is not found, will throw a `UserNotFoundException`.
    * If the park ID is not found, will throw a `ParkNotFoundException`.
 
-![DeleteReviewActivityImage](..\bark_park_app\resources\images\delete-review-activity.png)
+![DeleteReviewActivityImage](../bark_park_app/resources/images/delete-review-activity.png)
 
 ## 6.13 *GetUserReviewsActivity*
 * Accepts `GET` requests to `/users/{userId}/reviews`.
 * Accepts a user ID and returns the corresponding ReviewsModel.
     * If the user ID is not found, will throw a `UserNotFoundException`.
 
-![GetReviewsActivityImage](..\bark_park_app\resources\images\get-user-reviews-activity.png)
+![GetUserReviewsActivityImage](../bark_park_app/resources/images/get-user-reviews-activity.png)
 
 # 7. Tables
 
