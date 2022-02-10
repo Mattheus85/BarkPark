@@ -124,7 +124,7 @@ List<String> tags;
 ```
 // ParksModel
 
-List<String> parksIds;
+List<String> parkIds;
 ```
 
 ```
@@ -218,14 +218,14 @@ parameters) and a method to generate a new, unique user ID.
   * If the user ID is not found, will throw a `UserNotFoundException`.
   * If the park ID is not found, will throw a `ParkNotFoundException`.
 
-![CreateReviewActivityImage](E:\backendDevelopment\unit_5\sprint_project\bd-team-project-team_bark_park\bark_park_app\resources\images\create-review-activity.png)
+![CreateReviewActivityImage](../bark_park_app/resources/images/create-review-activity.png)
 
 ## 6.10 *GetReviewsActivity*
 * Accepts `GET` requests to `/parks/{parkId}/reviews`.
 * Accepts a park ID and returns the corresponding ReviewsModel.
    * If the park ID is not found, will throw a `ParkNotFoundException`.
 
-![GetReviewsActivityImage](E:\backendDevelopment\unit_5\sprint_project\bd-team-project-team_bark_park\bark_park_app\resources\images\get-reviews-activity.png)
+![GetReviewsActivityImage](../bark_park_app/resources/images/get-reviews-activity.png)
 
 ## 6.11 *UpdateReviewActivity*
 * Accepts `PUT` requests to `/users/{userId}/reviews/{parkId}`.
@@ -235,7 +235,7 @@ parameters) and a method to generate a new, unique user ID.
    * If the park ID is not found, will throw a `ParkNotFoundException`.
 * For usability, we will limit the available ratings to only the numbers `1-5`.
 
-![UpdateReviewActivityImage](E:\backendDevelopment\unit_5\sprint_project\bd-team-project-team_bark_park\bark_park_app\resources\images\update-review-activity.png)
+![UpdateReviewActivityImage](../bark_park_app/resources/images/update-review-activity.png)
 
 ## 6.12 *DeleteReviewActivity*
 * Accepts `DELETE` requests to `/users/{userId}/reviews/{parkId}`
@@ -244,7 +244,7 @@ parameters) and a method to generate a new, unique user ID.
    * If the user ID is not found, will throw a `UserNotFoundException`.
    * If the park ID is not found, will throw a `ParkNotFoundException`.
 
-![DeleteReviewActivityImage](E:\backendDevelopment\unit_5\sprint_project\bd-team-project-team_bark_park\bark_park_app\resources\images\delete-review-activity.png)
+![DeleteReviewActivityImage](../bark_park_app/resources/images/delete-review-activity.png)
 
 # 7. Tables
 
