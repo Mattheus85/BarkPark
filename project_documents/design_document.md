@@ -124,7 +124,7 @@ List<String> tags;
 ```
 // ParksModel
 
-List<String> parksIds;
+List<String> parkIds;
 ```
 
 ```
