@@ -122,11 +122,22 @@ List<String> tags;
 ```
 
 ```
+// ParksModel
+
+List<String> parksIds;
+```
+
+```
 // LocationModel
 
-String cityName;
-Integer zipCode;
-List<String> parks;
+String locationName;
+List<String> parkIds;
+```
+
+```
+// LocationsModel
+
+List<String> locationNames;
 ```
 
 ```
@@ -138,6 +149,12 @@ Integer rating;
 String date;
 String reviewBody;
 String userId;
+```
+
+```
+// ReviewsModel
+
+List<String> reviewIds;
 ```
 
 ```
@@ -235,7 +252,7 @@ parameters) and a method to generate a new, unique user ID.
 ```
 id // partition key, string
 name // string
-location // string (cityName) or number (zipCode) or both
+location // string 
 avgRating // number
 tags // list
 reviews // list
@@ -243,8 +260,7 @@ reviews // list
 
 ### 7.2 `locations`
 ```
-cityName // partition key, string
-zipCode // sortKey, number
+locationName // partition key, string
 parks // list
 ```
 
@@ -258,12 +274,12 @@ password // string
 
 ### 7.4 `reviews`
 ```
-parkId // partition key, string
-id // sort key, string
+id // partition key, string
+parkId // string
+userId // string
 rating // number
 date // string
 reviewBody // string
-userId // string
 ```
 
 # 8. Pages
