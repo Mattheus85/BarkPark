@@ -1,0 +1,25 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Update Review Activity
+skinparam BoxPadding 30
+
+box "Front End" #lightyellow
+actor Client
+end box
+
+box "Back End" #azure
+participant "Website User Reviews Page"
+participant UpdateReviewActivity
+database Reviews
+end box
+
+Client -> "Website User Reviews Page" ++ : Visit user reviews page
+"Website User Reviews Page" -> UpdateReviewActivity ++ : Send update review request
+UpdateReviewActivity -> Reviews ++ : Update review
+Reviews -> UpdateReviewActivity -- : Review item
+UpdateReviewActivity -> "Website User Reviews Page" -- : ReviewModel
+"Website User Reviews Page" -> Client -- : Present review
+
+@enduml
+

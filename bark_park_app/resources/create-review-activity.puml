@@ -1,0 +1,25 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Create Review Activity
+skinparam BoxPadding 30
+
+box "Front End" #lightyellow
+actor Client
+end box
+
+box "Back End" #azure
+participant "Website Create Review Page"
+participant CreateReviewActivity
+database Reviews
+end box
+
+Client -> "Website Create Review Page" ++ : Visit create review page
+"Website Create Review Page" -> CreateReviewActivity ++ : Send create review request
+CreateReviewActivity -> Reviews ++ : Create review
+Reviews -> CreateReviewActivity -- : Review item
+CreateReviewActivity -> "Website Create Review Page" -- : ReviewModel
+"Website Create Review Page" -> Client -- : Present review
+
+@enduml
+

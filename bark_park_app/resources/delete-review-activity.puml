@@ -1,0 +1,25 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Delete Review Activity
+skinparam BoxPadding 30
+
+box "Front End" #lightyellow
+actor Client
+end box
+
+box "Back End" #azure
+participant "Website User Reviews Page"
+participant DeleteReviewActivity
+database Reviews
+end box
+
+Client -> "Website User Reviews Page" ++ : Visit user reviews page
+"Website User Reviews Page" -> DeleteReviewActivity ++ : Send delete review request
+DeleteReviewActivity -> Reviews ++ : Delete review
+Reviews -> DeleteReviewActivity -- : Review item
+DeleteReviewActivity -> "Website User Reviews Page" -- : ReviewModel
+"Website User Reviews Page" -> Client -- : Delete message
+
+@enduml
+
