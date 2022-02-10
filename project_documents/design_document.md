@@ -1,19 +1,6 @@
-# Team_Bark_Park Design Document
+   # Team_Bark_Park Design Document
 
-## Instructions
-
-*Save a copy of this template for your team in the same folder that contains
-this template.*
-
-*Replace italicized text (including this text!) with details of the design you
-are proposing for your team project. (Your replacement text shouldn't be in
-italics)*
-
-*You should take a look at the example design document in the same folder as
-this template for more guidance on the types of information to capture, and the
-level of detail to aim for.*
-
-## *Project Title* Design
+## *Bark Park App* Design
 
 ## 1. Problem Statement
 
@@ -22,8 +9,9 @@ on the search engine of their choice. The results of this search are often limit
 lacking in valuable detail and information regarding the parks that are found.
 
 This design document details Bark Park, a new service that will provide users access to a geographically organized database
-of dog parks along with specific information and reviews for each park. It is designed to interact with a
-client application which will allow customers to view all dog parks or search for dog parks based on specific criteria, write, edit, delete, and view reviews of dog parks
+of dog parks along with detailed information and reviews for each park. It is designed to interact with a
+client application which will allow customers to view all dog parks known to the service or search for dog parks in a specific location. Customers will
+also be able to create user accounts and review parks as well as filter parks by average review rating.
 
 
 ## 2. Top Questions to Resolve in Review
@@ -39,86 +27,96 @@ client application which will allow customers to view all dog parks or search fo
    complexity in general.
 4. How do we want to store location data?
    1. Possibilities include geographical coordinates, city names, etc.
+5. When a User deletes their account, should we also delete all reviews they have written and/or all parks they may have added?
+   1. If we leave the reviews, how do we handle the associated UserId (if this is indeed how we implement the Review model)
 
 ## 3. Use Cases
 
-U1. *As a Bark Park customer, I want to view a list of all parks*
+U1. *As a customer, I want to view a list of all parks*
 
-U2. *As a Bark Park customer, I want to view a list of all nearby parks when I search by location*
-    
-U3. *As a Bark Park customer, I want to view a filtered list of parks when I search by tags*
+U2. *As a customer, I want to view a list of all nearby parks when I specify a location*
 
-U4. *As a Bark Park customer, I want to view a sorted and filtered list of parks when I search by reviews*
+U3. *As a customer, I want to view details and reviews for a park when I select it*
 
-U5. *As a Bark Park customer, I want to view details and reviews for a park*
+U4. *As a customer, I want to view a list of all locations with parks*
+___
+U5. *As a new customer, I want to create a user account with a username, email, and password*
 
-U6. *As a new Bark Park customer, I want to create a user account*
+U6. *As a customer, I want to view my user account*
 
-U7. *As a Bark Park customer, I want to edit my user account*
+U7. *As a customer, I want to edit my user account*
 
-U8. *As a Bark Park customer, I want to delete my user account*
+U8. *As a customer, I want to delete my user account*
+___
+U8. *As a customer, I want to create a review of a park*
 
-U9. *As a Bark Park customer, I want to log in/out of my user account*
+U9. *As a customer, I want to view my review of a park*
 
-U10. *As a Bark Park customer, I want to submit a park creation request*
+U10. *As a customer, I want to edit my review of a park*
 
-U11. *As a Bark Park customer, I want to submit a park deletion request*
+U11. *As a customer, I want to delete my review of a park*
 
-U12. *As a Bark Park customer, I want to submit a park update request*
+U11. *As a customer, I want to view a sorted and filtered list of parks that each have an average rating equal to or greater than
+a review rating value I provide*
 
-U13. *As a Bark Park customer, I want to create a review of a park*
-
-U14. *As a Bark Park customer, I want to edit my review of a park*
-
-U15. *As a Bark Park customer, I want to delete my review of a park*
 
 
 ## 4. Project Scope
 
-*Clarify which parts of the problem you intend to solve. It helps reviewers know
-what questions to ask to make sure you are solving for what you say and stops
-discussions from getting sidetracked by aspects you do not intend to handle in
-your design.*
-
 ### 4.1. In Scope
 
-1. Retrieve a list of all nearby parks
-2. Retrieve a list of parks sorted and/or filtered by preference
-3. Create, delete, and edit a review for a specific park
-4. Submit a request to create, remove, or edit a specific park
-
+1. Retrieve a list of all parks known to the service
+2. Retrieve a list of parks filtered and sorted by location and/or average rating 
+3. Retrieve a list of locations with available parks
+4. Create, edit, and delete a user account
+5. Create, edit, and delete a review for a park
 
 ### 4.2. Out of Scope
 
-1. User ability to *favorite* a park and persist this information in the database
-2. User ability to upload photos
-3. Integration with a mapping api (like Google maps) to generate driving directions
-4. Donation option to support local government maintenance of the park
-5. Ranking system for *most popular* dogs in each park
-6. Allow customer to submit requests to add, remove, or update existing parks
+1. Allow users to add, remove, or update existing parks
+   1. This could be done directly with permissions or through a request system handled by admins
+2. User log in/out functionality.
+   1. Will require frontend to pass user id or name without authentication for now
+3. Require user to log in and be authenticated to edit or delete their user account
+   1. Can be added later to applicable API Gateways with AWS Cognito
+4. Require customer to log in and be authenticated to create, edit, or delete a review
+   1. Can be added later to applicable API Gateways with AWS Cognito
+5. User ability to *favorite* a park and persist this information in the database
+6. User ability to upload photos for a park
+   1. This can be integrated later with Cloudinary or a similar service
+7. Integration with an api to generate driving directions or show the park on a map
+   1. This can be integrated later with Mapbox or a similar service
+8. Donation option to support local government maintenance of the park
+9. Ranking system for *most popular* dogs in each park
+
 
 # 5. Proposed Architecture Overview
 
-*Describe broadly how you are proposing to solve for the requirements you
-described in Section 2.*
+This initial iteration will provide the minimum viable product (MVP) including retrieving a list of parks, 
+retrieving a park and its specific reviews, and creating, retrieving, updating, and deleting user accounts and user reviews.
 
-*This may include class diagram(s) showing what components you are planning to
-build.*
+We will use API Gateway and Lambda to create 11 endpoints (see API section of this document for more details) to handle the
+functionality necessary to satisfy our requirements.
 
-*You should argue why this architecture (organization of components) is
-reasonable. That is, why it represents a good data flow and a good separation of
-concerns. Where applicable, argue why this architecture satisfies the stated
-requirements.*
+We will store parks, users, reviews, and locations in tables in DynamoDB. For simpler review list retrieval, 
+we will store the list of reviews for a given park directly in the parks table.
+
+We will provide a basic web interface for customers to use the service. A main page will list all parks and provide links
+to search for parks by location and/or average rating and register a new user account. Any page listing parks will link off
+to pages per-park to view details and reviews and add a review. Review and user pages will also be provided and will provide
+links to update or delete.
+
 
 # 6. API
 
 ## 6.1. Public Models
 
-*Define the data models your service will expose in its responses via your
-*`-Model`* package. These will be equivalent to the *`PlaylistModel`* and
-*`SongModel`* from the Unit 3 project.*
+1. ParkModel
+2. LocationModel
+3. UserModel
+4. ReviewModel
 
-## 6.2. *First Endpoint*
+## Endpoints
 
 *Describe the behavior of the first endpoint you will build into your service
 API. This should include what data it requires, what data it returns, and how it
@@ -131,19 +129,39 @@ your team before building it!)*
 *(You should have a separate section for each of the endpoints you are expecting
 to build...)*
 
-## 6.3 *Second Endpoint*
-
-*(repeat, but you can use shorthand here, indicating what is different, likely
+*(repeat for each, but you can use shorthand, indicating what is different, likely
 primarily the data in/out and error conditions. If the sequence diagram is
 nearly identical, you can say in a few words how it is the same/different from
 the first endpoint)*
 
+## 6.2. *GetParksActivity*
+
+## 6.3 *GetParkActivity*
+
+## 6.4 *GetLocationsActivity*
+
+## 6.5 *CreateUserActivity*
+
+## 6.6 *GetUserActivity*
+
+## 6.7 *UpdateUserActivity*
+
+## 6.8 *DeleteUserActivity*
+
+## 6.9 *CreateReviewActivity*
+
+## 6.10 *GetReviewActivity*
+
+## 6.11 *UpdateReviewActivity*
+
+## 6.12 *DeleteReviewActivity*
+
 # 7. Tables
 
-*Define the DynamoDB tables you will need for the data your service will use. It
-may be helpful to first think of what objects your service will need, then
-translate that to a table structure, like with the *`Playlist` POJO* versus the
-`playlists` table in the Unit 3 project.*
+1. Parks
+2. Locations
+3. Users
+4. Reviews
 
 # 8. Pages
 
