@@ -1,0 +1,24 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Get User Reviews Activity
+skinparam BoxPadding 30
+
+box "Front End" #lightyellow
+actor Client
+end box
+
+box "Back End" #azure
+participant "Website User Page"
+participant GetUserReviewsActivity
+database Reviews
+end box
+
+Client -> "Website User Page" ++ : Visit user page
+"Website User Page" -> GetUserReviewsActivity ++ : Send get reviews request
+GetUserReviewsActivity -> Reviews ++ : Get reviews
+Reviews -> GetUserReviewsActivity -- : Reviews item
+GetUserReviewsActivity -> "Website User Page" -- : ReviewsModel
+"Website User Page" -> Client -- : Present reviews
+
+@enduml
