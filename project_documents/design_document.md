@@ -191,63 +191,14 @@ the first endpoint)*
   * If the user ID is not found, will throw a `UserNotFoundException`.
   * If the park ID is not found, will throw a `ParkNotFoundException`.
 
-```plantuml
-@startuml
-'https://plantuml.com/sequence-diagram
-
-title Create Review Activity
-skinparam BoxPadding 30
-
-box "Front End" #lightyellow
-actor Client
-end box
-
-box "Back End" #azure
-participant "Website Create Review Page"
-participant CreateReviewActivity
-database Reviews
-end box
-
-Client -> "Website Create Review Page" ++ : Visit create review page
-"Website Create Review Page" -> CreateReviewActivity ++ : Send create review request
-CreateReviewActivity -> Reviews ++ : Create review
-Reviews -> CreateReviewActivity -- : Review item
-CreateReviewActivity -> "Website Create Review Page" -- : ReviewModel
-"Website Create Review Page" -> Client -- : Present review
-
-@enduml
-```
+![CreateReviewActivityImage](E:\backendDevelopment\unit_5\sprint_project\bd-team-project-team_bark_park\bark_park_app\resources\images\create-review-activity.png)
 
 ## 6.10 *GetReviewsActivity*
 * Accepts `GET` requests to `/parks/{parkId}/reviews`.
 * Accepts a park ID and returns the corresponding ReviewsModel.
    * If the park ID is not found, will throw a `ParkNotFoundException`.
-```plantuml
-@startuml
-'https://plantuml.com/sequence-diagram
 
-title Get Reviews Activity
-skinparam BoxPadding 30
-
-box "Front End" #lightyellow
-actor Client
-end box
-
-box "Back End" #azure
-participant "Website Park Page"
-participant GetReviewsActivity
-database Reviews
-end box
-
-Client -> "Website Park Page" ++ : Visit park page
-"Website Park Page" -> GetReviewsActivity ++ : Send get reviews request
-GetReviewsActivity -> Reviews ++ : Get reviews
-Reviews -> GetReviewsActivity -- : Reviews item
-GetReviewsActivity -> "Website Park Page" -- : ReviewsModel
-"Website Park Page" -> Client -- : Present reviews
-
-@enduml
-```
+![GetReviewsActivityImage](E:\backendDevelopment\unit_5\sprint_project\bd-team-project-team_bark_park\bark_park_app\resources\images\get-reviews-activity.png)
 
 ## 6.11 *UpdateReviewActivity*
 * Accepts `PUT` requests to `/users/{userId}/reviews/{parkId}`.
@@ -256,32 +207,8 @@ GetReviewsActivity -> "Website Park Page" -- : ReviewsModel
    * If the user ID is not found, will throw a `UserNotFoundException`.
    * If the park ID is not found, will throw a `ParkNotFoundException`.
 * For usability, we will limit the available ratings to only the numbers `1-5`.
-```plantuml
-@startuml
-'https://plantuml.com/sequence-diagram
 
-title Update Review Activity
-skinparam BoxPadding 30
-
-box "Front End" #lightyellow
-actor Client
-end box
-
-box "Back End" #azure
-participant "Website User Reviews Page"
-participant UpdateReviewActivity
-database Reviews
-end box
-
-Client -> "Website User Reviews Page" ++ : Visit user reviews page
-"Website User Reviews Page" -> UpdateReviewActivity ++ : Send update review request
-UpdateReviewActivity -> Reviews ++ : Update review
-Reviews -> UpdateReviewActivity -- : Review item
-UpdateReviewActivity -> "Website User Reviews Page" -- : ReviewModel
-"Website User Reviews Page" -> Client -- : Present review
-
-@enduml
-```
+![UpdateReviewActivityImage](E:\backendDevelopment\unit_5\sprint_project\bd-team-project-team_bark_park\bark_park_app\resources\images\update-review-activity.png)
 
 ## 6.12 *DeleteReviewActivity*
 * Accepts `DELETE` requests to `/users/{userId}/reviews/{parkId}`
@@ -289,32 +216,8 @@ UpdateReviewActivity -> "Website User Reviews Page" -- : ReviewModel
   Returns the deleted ReviewModel.
    * If the user ID is not found, will throw a `UserNotFoundException`.
    * If the park ID is not found, will throw a `ParkNotFoundException`.
-```plantuml
-@startuml
-'https://plantuml.com/sequence-diagram
 
-title Delete Review Activity
-skinparam BoxPadding 30
-
-box "Front End" #lightyellow
-actor Client
-end box
-
-box "Back End" #azure
-participant "Website User Reviews Page"
-participant DeleteReviewActivity
-database Reviews
-end box
-
-Client -> "Website User Reviews Page" ++ : Visit user reviews page
-"Website User Reviews Page" -> DeleteReviewActivity ++ : Send delete review request
-DeleteReviewActivity -> Reviews ++ : Delete review
-Reviews -> DeleteReviewActivity -- : Review item
-DeleteReviewActivity -> "Website User Reviews Page" -- : ReviewModel
-"Website User Reviews Page" -> Client -- : Delete message
-
-@enduml
-```
+![DeleteReviewActivityImage](E:\backendDevelopment\unit_5\sprint_project\bd-team-project-team_bark_park\bark_park_app\resources\images\delete-review-activity.png)
 
 # 7. Tables
 
