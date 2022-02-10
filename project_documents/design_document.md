@@ -185,6 +185,18 @@ nearly identical, you can say in a few words how it is the same/different from
 the first endpoint)*
 
 ## 6.2. *GetParksActivity*
+* Accepts `GET` requests to `/parks`
+* Retrieves a list of parks
+    * By default, returns a list all parks in an arbitrary order
+    * If the optional `location` parameter is provided, this API will filter
+      the list to include only parks in the specified location
+        * If `location` is invalid or doesn't exist, will throw a `LocationNotFoundException`
+        * If there are no parks at the specified location, will throw a `ParksNotFoundException`
+    * If the optional `rating` parameter is provided, this API will filter
+      the list to include only parks with an average rating equal to or greater than
+      the specified rating
+        * If `rating` is invalid (e.g. less than 1 or greater than 5), will throw a `InvalidRatingException`
+        * If there are no parks that meet the specified rating criteria, will throw a `ParksNotFoundException`
 
 ## 6.3 *GetParkActivity*
 
