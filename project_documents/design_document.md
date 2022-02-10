@@ -111,10 +111,43 @@ links to update or delete.
 
 ## 6.1. Public Models
 
-1. ParkModel
-2. LocationModel
-3. UserModel
-4. ReviewModel
+```
+// ParkModel
+
+String id;
+String name;
+String location;
+Integer avgRating;
+List<String> tags;
+```
+
+```
+// LocationModel
+
+String cityName;
+Integer zipCode;
+List<String> parks;
+```
+
+```
+// ReviewModel
+
+String parkId;
+String id;
+Integer rating;
+String date;
+String reviewBody;
+String userId;
+```
+
+```
+// UserModel
+
+String id;
+String username;
+String email;
+String password;
+```
 
 ## Endpoints
 
@@ -285,10 +318,40 @@ DeleteReviewActivity -> "Website User Reviews Page" -- : ReviewModel
 
 # 7. Tables
 
-1. Parks
-2. Locations
-3. Users
-4. Reviews
+### 7.1 `parks`
+```
+id // partition key, string
+name // string
+location // string (cityName) or number (zipCode) or both
+avgRating // number
+tags // list
+reviews // list
+```
+
+### 7.2 `locations`
+```
+cityName // partition key, string
+zipCode // sortKey, number
+parks // list
+```
+
+### 7.3 `users`
+```
+id // partition key, string
+username // string
+email // string
+password // string
+```
+
+### 7.4 `reviews`
+```
+parkId // partition key, string
+id // sort key, string
+rating // number
+date // string
+reviewBody // string
+userId // string
+```
 
 # 8. Pages
 
