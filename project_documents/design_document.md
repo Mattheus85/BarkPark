@@ -174,8 +174,16 @@ the first endpoint)*
 ## 6.4 *GetLocationsActivity*
 
 ## 6.5 *CreateUserActivity*
+* Accepts POST requests to /user
+* Accepts data to create a new user with a provided name, a given email, a given password (doublecheck this). Returns the new user, including a unique user ID assigned by User Service Class (need to talk how we want to do this).
+* We will have a utility class with a string validation method (validate email has a @, validate user name is within proper parameters) and a method to generate a new, unique user ID.
+* For security concerns, we will validate that the provided username and email do not contain any invalid characters: “ ‘ \
+* If the username or email contains any of the invalid characters, will throw an InvalidAttributeValueException.
 
 ## 6.6 *GetUserActivity*
+* Accepts GET requests to /user/:id
+* Accepts a user ID and returns the corresponding UserModel
+* If the given user ID is not found, will throw an UserNotFoundException
 
 ## 6.7 *UpdateUserActivity*
 
