@@ -326,10 +326,38 @@ with some description of behaviors of the page (e.g. “When customer submits th
 submit-dog-photo button, the customer is sent to the doggie detail page”)*
 
 ## Main Parks Page with no filtering:
-### `GET /parks` 
+### `/parks` 
 ![ParksPageImage](../bark_park_app/resources/images/ParksPage.jpg)
 
 ## Park Page
-### `GET /parks/:parkId`
-![ParkPageImage](../bark_park_app/resources/images/ParkPage.jpg)
+### `/parks/:parkId`
+![ParkPageImage](../bark_park_app/resources/images/park_page.jpg)
+
+## Login/Create User Page
+### `users/login or TBD`
+![ParkPageImage](../bark_park_app/resources/images/login_or_create_user_page.jpg)
+
+## User Page
+### `users/:userId`
+![ParkPageImage](../bark_park_app/resources/images/user_page.jpg)
+
+## Edit/Delete User Page
+### `TBD`
+![ParkPageImage](../bark_park_app/resources/images/edit_or_delete_user_page.jpg)
+
+## Create Review Page
+### `TBD`
+![ParkPageImage](../bark_park_app/resources/images/create_review_page.jpg)
+
+## Login/Create User Page
+### `users/login`
+![ParkPageImage](../bark_park_app/resources/images/login_or_create_user_page.jpg)
+
+## Review Page
+### `TBD`
+![ParkPageImage](../bark_park_app/resources/images/review_page.jpg)
+
+
+
+
 
