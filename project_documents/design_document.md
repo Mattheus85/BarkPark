@@ -210,21 +210,29 @@ the first endpoint)*
 
 ## 6.5 *CreateUserActivity*
 * Accepts `POST` requests to `/user`
-* Accepts data to create a new user with a provided name, a given email, a given password (doublecheck this). 
-Returns the new user, including a unique user ID assigned by User Service Class (need to talk how we want to do this).
+* Accepts data to create a new user with a provided name, a provided email, a provided password. 
+Returns the new user, including a unique user ID assigned by User Service Class
 * We will have a utility class with a string validation method (validate email has a @, validate user name is within proper 
-parameters) and a method to generate a new, unique user ID.
-* For security concerns, we will validate that the provided username and email do not contain any invalid characters: `“ ‘ \`
-* If the username or email contains any of the invalid characters, will throw an `InvalidAttributeValueException`.
+parameters) and a method to generate a new, unique user ID
+* For security concerns, we will validate that the provided username and email do not contain any invalid characters: `“ ‘ \ `
+* If the username or email contains any of the invalid characters, will throw an `InvalidAttributeValueException`
 
 ## 6.6 *GetUserActivity*
-* Accepts 'GET' requests to `/user/:id`
+* Accepts `GET` requests to `/user/:id`
 * Accepts a user ID and returns the corresponding UserModel
-* If the given user ID is not found, will throw an `UserNotFoundException`.
+* If the given user ID is not found, will throw an `UserNotFoundException`
 
 ## 6.7 *UpdateUserActivity*
+* Accepts `PUT` requests to `/user/:id`
+* Accepts data to update user including user name and email. Returns the updated user.
+* If the user ID is not found, will throw a `UserNotFoundException`
+* For security concerns, we will validate that the provided user ID does not contain any invalid characters: `“ ‘ \ `
+* If the user ID contains any of the invalid characters, will throw an `InvalidAttributeValueException`
 
 ## 6.8 *DeleteUserActivity*
+* Accepts `DELETE` requests to `/user/:id`
+* Accepts data to delete a user ID. Returns confirmation of deleted user ID.
+* If the user ID is not found, will throw a `UserNotFoundException`
 
 ## 6.9 *CreateReviewActivity*
 * Accepts `POST` requests to `/users/{userId}/reviews/{parkId}`.
