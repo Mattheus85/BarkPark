@@ -187,7 +187,7 @@ the first endpoint)*
 ## 6.2. *GetParksActivity*
 * Accepts `GET` requests to `/parks`
 * Retrieves a list of parks
-    * By default, returns a list all parks in an arbitrary order
+    * By default, returns the corresponding ParksModel containing a list all parks in an arbitrary order
     * If the optional `location` parameter is provided, this API will filter
       the list to include only parks in the specified location
         * If `location` is invalid or doesn't exist, will throw a `LocationNotFoundException`
@@ -199,6 +199,9 @@ the first endpoint)*
         * If there are no parks that meet the specified rating criteria, will throw a `ParksNotFoundException`
 
 ## 6.3 *GetParkActivity*
+* Accepts `GET` requests to `/parks/:parkId`
+* Accepts a park ID and returns the corresponding ParkModel
+  * If the given park ID is not found, will throw a `ParkNotFoundException`
 
 ## 6.4 *GetLocationsActivity*
 
