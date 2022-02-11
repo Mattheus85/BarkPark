@@ -316,3 +316,12 @@ pages. It should be clear what the interactions will be on the page, especially
 where customers enter and submit data. You may want to accompany the mockups
 with some description of behaviors of the page (e.g. “When customer submits the
 submit-dog-photo button, the customer is sent to the doggie detail page”)*
+
+## Main Parks Page with no filtering:
+### `GET /parks` 
+![ParksPageImage](../bark_park_app/resources/images/ParksPage.jpg)
+
+## Park Page
+### `GET /parks/:parkId`
+![ParkPageImage](../bark_park_app/resources/images/ParkPage.jpg)
+
