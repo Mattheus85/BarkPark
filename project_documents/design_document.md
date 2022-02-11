@@ -325,7 +325,7 @@ with some description of behaviors of the page (e.g. “When customer submits th
 submit-dog-photo button, the customer is sent to the doggie detail page”)*
 
 ## Main Parks Page with no filtering:
-### `GET /parks` 
+### `/parks` 
 ![ParksPageImage](../bark_park_app/resources/images/ParksPage.jpg)
 
 ## Main Parks Page with no filtering:
@@ -350,7 +350,7 @@ submit-dog-photo button, the customer is sent to the doggie detail page”)*
 
 ## Create Review Page
 ### `/parks/:parkId/reviews/create`
-![ParkPageImage](../bark_park_app/resources/images/create_review_page.jpg)
+![ParkPageImage](../bark_park_app/resources/images/edit_or_delete_user_page.jpg)
 
 ## Login/Create User Page
 ### `users/login`
@@ -359,4 +359,5 @@ submit-dog-photo button, the customer is sent to the doggie detail page”)*
 ## Review Page
 ### `/parks/:parkId/reviews/:reviewId`
 ![ParkPageImage](../bark_park_app/resources/images/review_page.jpg)
+
 
