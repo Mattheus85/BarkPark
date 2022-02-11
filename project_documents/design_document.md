@@ -204,6 +204,9 @@ the first endpoint)*
   * If the given park ID is not found, will throw a `ParkNotFoundException`
 
 ## 6.4 *GetLocationsActivity*
+* Accepts `GET` requests to `/locations`
+* Retrieves a list of locations
+  * By default, returns the corresponding LocationsModel containing a list of all locations
 
 ## 6.5 *CreateUserActivity*
 * Accepts `POST` requests to `/user`
