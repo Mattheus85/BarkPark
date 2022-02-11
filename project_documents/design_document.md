@@ -95,7 +95,7 @@ a review rating value I provide*
 This initial iteration will provide the minimum viable product (MVP) including retrieving a list of parks, 
 retrieving a park and its specific reviews, and creating, retrieving, updating, and deleting user accounts and user reviews.
 
-We will use API Gateway and Lambda to create 11 endpoints (see API section of this document for more details) to handle the
+We will use API Gateway and Lambda to create 12 endpoints (see API section of this document for more details) to handle the
 functionality necessary to satisfy our requirements.
 
 We will store parks, users, reviews, and locations in tables in DynamoDB. For simpler review list retrieval, 
@@ -168,22 +168,6 @@ String password;
 
 ## Endpoints
 
-*Describe the behavior of the first endpoint you will build into your service
-API. This should include what data it requires, what data it returns, and how it
-will handle any known failure cases. You should also include a sequence diagram
-showing how a user interaction goes from user to website to service to database,
-and back. This first endpoint can serve as a template for subsequent endpoints.
-(If there is a significant difference on a subsequent endpoint, review that with
-your team before building it!)*
-
-*(You should have a separate section for each of the endpoints you are expecting
-to build...)*
-
-*(repeat for each, but you can use shorthand, indicating what is different, likely
-primarily the data in/out and error conditions. If the sequence diagram is
-nearly identical, you can say in a few words how it is the same/different from
-the first endpoint)*
-
 ## 6.2. *GetParksActivity*
 * Accepts `GET` requests to `/parks`
 * Retrieves a list of parks
@@ -246,7 +230,7 @@ parameters) and a method to generate a new, unique user ID
 ![CreateReviewActivityImage](../bark_park_app/resources/images/create-review-activity.png)
 
 ## 6.10 *GetParkReviewsActivity*
-* Accepts `GET` requests to `/parks/{parkId}/reviews`.
+* Accepts `GET` requests to `/parks/:parkId/reviews`.
 * Accepts a park ID and returns the corresponding ReviewsModel.
    * If the park ID is not found, will throw a `ParkNotFoundException`.
 
@@ -272,7 +256,7 @@ parameters) and a method to generate a new, unique user ID
 ![DeleteReviewActivityImage](../bark_park_app/resources/images/delete-review-activity.png)
 
 ## 6.13 *GetUserReviewsActivity*
-* Accepts `GET` requests to `/users/{userId}/reviews`.
+* Accepts `GET` requests to `/users/:userId/reviews`.
 * Accepts a user ID and returns the corresponding ReviewsModel.
     * If the user ID is not found, will throw a `UserNotFoundException`.
 
@@ -302,6 +286,7 @@ id // partition key, string
 username // string
 email // string
 password // string
+reviews // list
 ```
 
 ### 7.4 `reviews`
@@ -311,22 +296,11 @@ parkId // string
 userId // string
 rating // number
 date // string
+reviewTitle // string
 reviewBody // string
 ```
 
 # 8. Pages
-
-*Include mock-ups of the web pages you expect to build. These can be as
-sophisticated as mockups/wireframes using drawing software, or as simple as
-hand-drawn pictures that represent the key customer-facing components of the
-pages. It should be clear what the interactions will be on the page, especially
-where customers enter and submit data. You may want to accompany the mockups
-with some description of behaviors of the page (e.g. “When customer submits the
-submit-dog-photo button, the customer is sent to the doggie detail page”)*
-
-## Main Parks Page with no filtering:
-### `/parks` 
-![ParksPageImage](../bark_park_app/resources/images/ParksPage.jpg)
 
 ## Main Parks Page with no filtering:
 ### `/parks`
