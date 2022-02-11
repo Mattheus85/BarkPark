@@ -209,7 +209,7 @@ the first endpoint)*
   * By default, returns the corresponding LocationsModel containing a list of all locations
 
 ## 6.5 *CreateUserActivity*
-* Accepts `POST` requests to `/user`
+* Accepts `POST` requests to `/users`
 * Accepts data to create a new user with a provided name, a provided email, a provided password. 
 Returns the new user, including a unique user ID assigned by User Service Class
 * We will have a utility class with a string validation method (validate email has a @, validate user name is within proper 
@@ -218,26 +218,25 @@ parameters) and a method to generate a new, unique user ID
 * If the username or email contains any of the invalid characters, will throw an `InvalidAttributeValueException`
 
 ## 6.6 *GetUserActivity*
-* Accepts `GET` requests to `/user/:id`
+* Accepts `GET` requests to `/users/:userId`
 * Accepts a user ID and returns the corresponding UserModel
 * If the given user ID is not found, will throw an `UserNotFoundException`
 
 ## 6.7 *UpdateUserActivity*
-* Accepts `PUT` requests to `/user/:id`
+* Accepts `PUT` requests to `/users/:userId`
 * Accepts data to update user including user name and email. Returns the updated user.
 * If the user ID is not found, will throw a `UserNotFoundException`
 * For security concerns, we will validate that the provided user ID does not contain any invalid characters: `“ ‘ \ `
 * If the user ID contains any of the invalid characters, will throw an `InvalidAttributeValueException`
 
 ## 6.8 *DeleteUserActivity*
-* Accepts `DELETE` requests to `/user/:id`
+* Accepts `DELETE` requests to `/users/:userId`
 * Accepts data to delete a user ID. Returns confirmation of deleted user ID.
 * If the user ID is not found, will throw a `UserNotFoundException`
 
 ## 6.9 *CreateReviewActivity*
-* Accepts `POST` requests to `/users/{userId}/reviews/{parkId}`.
-* Accepts data to create a new review including a user ID, a review rating,
-  a park ID, and an optional text body.
+* Accepts `POST` requests to `/parks/:parkId/reviews`.
+* Accepts data to create a new review including a required user ID, a review rating, and an optional review title and review body.
 * Returns the corresponding ReviewModel, which includes a unique review ID,
   assigned by the Parks Review Service.
 * For usability, we will limit the available ratings to only the numbers `1-5`.
@@ -254,7 +253,7 @@ parameters) and a method to generate a new, unique user ID
 ![GetParkReviewsActivityImage](../bark_park_app/resources/images/get-park-reviews-activity.png)
 
 ## 6.11 *UpdateReviewActivity*
-* Accepts `PUT` requests to `/users/{userId}/reviews/{parkId}`.
+* Accepts `PUT` requests to `/users/:userId/reviews/:reviewId`.
 * Accepts data to update a review including a user ID, an updated review rating, 
   a park ID, and an optional text body. Returns the updated review.
    * If the user ID is not found, will throw a `UserNotFoundException`.
@@ -264,7 +263,7 @@ parameters) and a method to generate a new, unique user ID
 ![UpdateReviewActivityImage](../bark_park_app/resources/images/update-review-activity.png)
 
 ## 6.12 *DeleteReviewActivity*
-* Accepts `DELETE` requests to `/users/{userId}/reviews/{parkId}`
+* Accepts `DELETE` requests to `/users/:userId/reviews/:reviewId`
 * Accepts data to delete a review including a user ID and a park ID.
   Returns the deleted ReviewModel.
    * If the user ID is not found, will throw a `UserNotFoundException`.
@@ -329,7 +328,35 @@ submit-dog-photo button, the customer is sent to the doggie detail page”)*
 ### `GET /parks` 
 ![ParksPageImage](../bark_park_app/resources/images/ParksPage.jpg)
 
+## Main Parks Page with no filtering:
+### `/parks`
+![ParksPageImage](../bark_park_app/resources/images/ParksPage.jpg)
+
 ## Park Page
-### `GET /parks/:parkId`
-![ParkPageImage](../bark_park_app/resources/images/ParkPage.jpg)
+### `/parks/:parkId`
+![ParkPageImage](../bark_park_app/resources/images/park_page.jpg)
+
+## Login/Create User Page
+### `users/login`
+![ParkPageImage](../bark_park_app/resources/images/login_or_create_user_page.jpg)
+
+## User Page
+### `users/:userId`
+![ParkPageImage](../bark_park_app/resources/images/user_page.jpg)
+
+## Edit/Delete User Page
+### `users/:userId/edit`
+![ParkPageImage](../bark_park_app/resources/images/edit_or_delete_user_page.jpg)
+
+## Create Review Page
+### `/parks/:parkId/reviews/create`
+![ParkPageImage](../bark_park_app/resources/images/create_review_page.jpg)
+
+## Login/Create User Page
+### `users/login`
+![ParkPageImage](../bark_park_app/resources/images/login_or_create_user_page.jpg)
+
+## Review Page
+### `/parks/:parkId/reviews/:reviewId`
+![ParkPageImage](../bark_park_app/resources/images/review_page.jpg)
 
