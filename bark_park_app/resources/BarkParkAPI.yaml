@@ -1,79 +1,449 @@
 openapi: 3.0.0
 info:
-  title: BarkParkAPI
+  description: This is the BarkPark API.
+  title: BarkPark
   version: 0.0.1
+tags:
+  - name: Park
+    description: Park-based operations
+  - name: Location
+    description: Location-based operations
+  - name: User
+    description: User-based operations
 paths:
-  "/parks":
+  /parks:
     get:
-      summary: Retrieve all parks
+      summary: Gets all parks
+      description: >-
+        Returns a list of all parks, optionally filtered by location or
+        average rating
+      operationId: GetParksActivity
       parameters:
-        - name: rating #We may use a different path depending on model implementation
-          in: query
-          description: Park rating for filtering
+        - in: query
+          name: location
+          required: false
+          schema:
+            anyOf:
+              - type: string
+                minLength: 5
+                maxLength: 10
+              - type: integer
+                minLength: 5
+                maxLength: 9
+        - in: query
+          name: avgRating
           required: false
           schema:
             type: integer
-            format: int32
             minimum: 1
             maximum: 5
-        - name: location #Adding a Locations table may change this path
-          in: query
-          description: Park location for filtering
-          required: false
-          schema:
-            type: string
       responses:
-        "200":
-          description: Successful operation
+        200:
+          description: Successful response
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Park"
-        "404":
+                  $ref: "#/components/schemas/Park"
+        400:
           description: Invalid input
-        "500":
-          description: Server Error
-  "/parks/{parkId}":
+        500:
+          description: Server error
+      tags:
+        - Park
+  /parks/{parkId}:
     get:
-      summary: Retrieve a single park
+      summary: Gets a park
+      description: >-
+        Gets a single park by its ID
+      operationId: GetParkActivity
       parameters:
         - name: parkId
           in: path
-          description: Park ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Park"
+        400:
+          description: Invalid input
+        500:
+          description: Server error
+      tags:
+        - Park
+  /parks/{parkId}/reviews:
+    post:
+      summary: Posts a review
+      description: >-
+        Posts a review for a given parkId
+      operationId: CreateReviewActivity
+      requestBody:
+        $ref: "#/components/requestBodies/ReviewBody"
+      parameters:
+        - name: parkId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Review"
+        400:
+          description: Invalid input
+        500:
+          description: Server error
+      tags:
+        - Park
+    get:
+      summary: Gets a park's reviews
+      description: >-
+        Gets all of the reviews of the park corresponding to the required parkId
+        parameter
+      operationId: GetParkReviewsActivity
+      parameters:
+        - name: parkId
+          in: path
           required: true
           schema:
             type: string
       responses:
-        "200":
-          description: Successful operation
+        200:
+          description: Successful response
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/Park"
-        "404":
+                type: array
+                items:
+                  $ref: "#/components/schemas/Park"
+        400:
           description: Invalid input
-        "500":
-          description: Server Error
+        500:
+          description: Server error
+      tags:
+        - Park
+  /locations:
+    get:
+      summary: Returns a list of all locations
+      description: Returns a list of all locations
+      operationId: GetLocationsActivity
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Location"
+        400:
+          description: Invalid input
+        500:
+          description: Server error
+      tags:
+        - Location
+  /users:
+    post:
+      summary: Creates a new user
+      description: Creates a new user as long as a valid username and password are entered
+      operationId: CreateUserActivity
+      requestBody:
+        $ref: "#/components/requestBodies/UserBody"
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        400:
+          description: Invalid input
+        500:
+          description: Server error
+      tags:
+        - User
+  /users/{userId}:
+    get:
+      summary: Returns a user
+      description: Returns a user, provided proper credentials input
+      operationId: GetUserActivity
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        400:
+          description: Invalid input
+        500:
+          description: Server error
+      tags:
+        - User
+    put:
+      summary: Updates a user
+      description: Updates a user's information
+      operationId: UpdateUserActivity
+      requestBody:
+        $ref: "#/components/requestBodies/UserBody"
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        400:
+          description: Invalid input
+        500:
+          description: Server error
+      tags:
+        - User
+    delete:
+      summary: Deletes a user
+      description: Deletes a user and all associated information
+      operationId: DeleteUserActivity
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        400:
+          description: Invalid input
+        500:
+          description: Server error
+      tags:
+        - User
+  /users/{userId}/reviews:
+    get:
+      summary: Gets a user's reviews
+      description: Gets all of the reviews which exist for a given userId
+      operationId: GetUserReviewsActivity
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Review"
+        400:
+          description: Invalid input
+        500:
+          description: Server error
+      tags:
+        - User
+  /users/{userId}/reviews/{reviewId}:
+    put:
+      summary: Updates a user's review
+      description: >-
+        Updates the review corresponding to the given reviewId for the user
+        corresponding to the given userId
+      operationId: UpdateReviewActivity
+      requestBody:
+        $ref: "#/components/requestBodies/ReviewBody"
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: reviewId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Review"
+        400:
+          description: Invalid input
+        500:
+          description: Server error
+      tags:
+        - User
+    delete:
+      summary: Deletes a user's review
+      description: >-
+        Deletes the review corresponding to a given reviewId for the user
+        corresponding to a given userId
+      operationId: DeleteReviewActivity
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: reviewId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Review"
+        400:
+          description: Invalid input
+        500:
+          description: Server error
+      tags:
+        - User
 components:
+  requestBodies:
+    ParkBody:
+      description: A JSON object containing park information
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Park"
+    UserBody:
+      description: A JSON object containing user information
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/User"
+    ReviewBody:
+      description: A JSON object containing review information
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Review"
   schemas:
     Park:
       type: object
+      required:
+        - name
+        - location
       properties:
         id:
           type: string
-        dogParkName:
+          format: uuid
+        name:
           type: string
+          minLength: 1
         location:
-          type: string
-        tag:
-          type: string
-        reviews:
+          anyOf:
+            - type: string
+              minLength: 5
+            - type: integer
+              minLength: 5
+        avgRating:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 5
+        tags:
           type: array
           items:
             type: string
-        photos:
-          type: string #url
-        createdBy:
-          type: string #userId
+    User:
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        id:
+          type: string
+          format: uuid
+        username:
+          type: string
+        password:
+          type: string
+          format: password
+        email:
+          type: string
+          format: email
+    Review:
+      type: object
+      required:
+        - rating
+      properties:
+        id:
+          type: string
+          format: uuid
+        parkId:
+          type: string
+          format: uuid
+        rating:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 5
+        date:
+          type: string
+          format: date-time
+        reviewBody:
+          type: string
+        userId:
+          type: string
+          format: uuid
+    Location:
+      type: object
+      properties:
+        locationNames:
+          type: array
+          items:
+            type: string
