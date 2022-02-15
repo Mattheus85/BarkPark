@@ -41,7 +41,7 @@ public class GetParkRequest {
                 '}';
     }
 
-    public Builder builder() {
+    public static Builder builder() {
         return new Builder();
     }
 
