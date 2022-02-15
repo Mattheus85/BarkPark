@@ -5,6 +5,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents a record in the parks table
@@ -49,7 +50,7 @@ public class Park {
         this.location = location;
     }
 
-    @DynamoDBAttribute(attributeName = "avgRating") // What should we do when the Park has no reviews yet?
+    @DynamoDBAttribute(attributeName = "avgRating") // What should we do when the Park has no reviews yet? Also need to decide WHEN we're calculating this
     public Integer getAvgRating() {
         return avgRating;
     }
@@ -89,30 +90,18 @@ public class Park {
 
     // equals and hashCode include ALL fields, including avgRating
     // We should discuss the case when a park has no reviews and adjust this accordingly
-
+    // Also consider only checking based on required fields
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Park park = (Park) o;
-
-        if (!getId().equals(park.getId())) return false;
-        if (!getName().equals(park.getName())) return false;
-        if (!getLocation().equals(park.getLocation())) return false;
-        if (!getAvgRating().equals(park.getAvgRating())) return false;
-        if (!getTags().equals(park.getTags())) return false;
-        return getReviews().equals(park.getReviews());
+        return getId().equals(park.getId()) && getName().equals(park.getName()) && getLocation().equals(park.getLocation()) && getAvgRating().equals(park.getAvgRating()) && getTags().equals(park.getTags()) && getReviews().equals(park.getReviews());
     }
 
     @Override
     public int hashCode() {
-        int result = getId().hashCode();
-        result = 31 * result + getName().hashCode();
-        result = 31 * result + getLocation().hashCode();
-        result = 31 * result + getAvgRating().hashCode();
-        result = 31 * result + getTags().hashCode();
-        result = 31 * result + getReviews().hashCode();
-        return result;
+        return Objects.hash(getId(), getName(), getLocation(), getAvgRating(), getTags(), getReviews());
     }
 }
