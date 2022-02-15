@@ -13,6 +13,8 @@ public class ParkModel {
     private Integer avgRating;
     private List<String> tags;
 
+    // Is there any reason we would need a no-args constructor?
+
     // Should this be private since we're using the Builder pattern?
     private ParkModel(Builder builder) {
         this.id = builder.id;
@@ -64,17 +66,6 @@ public class ParkModel {
         this.tags = tags;
     }
 
-    @Override
-    public String toString() {
-        return "ParkModel{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", location='" + location + '\'' +
-                ", avgRating=" + avgRating +
-                ", tags=" + tags +
-                '}';
-    }
-
     // equals and hashCode include ALL fields, including avgRating
     // We should discuss the case when a park has no reviews and adjust this accordingly
     // Also consider only checking based on required fields
@@ -90,6 +81,17 @@ public class ParkModel {
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getName(), getLocation(), getAvgRating(), getTags());
+    }
+
+    @Override
+    public String toString() {
+        return "ParkModel{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", location='" + location + '\'' +
+                ", avgRating=" + avgRating +
+                ", tags=" + tags +
+                '}';
     }
 
     public static Builder builder() {

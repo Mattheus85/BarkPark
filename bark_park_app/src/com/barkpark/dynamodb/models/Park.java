@@ -77,21 +77,10 @@ public class Park {
         this.reviews = reviews;
     }
 
-    @Override
-    public String toString() {
-        return "Park{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", location='" + location + '\'' +
-                ", avgRating=" + avgRating +
-                ", tags=" + tags +
-                '}';
-    }
-
     // equals and hashCode include ALL fields, including avgRating
     // We should discuss the case when a park has no reviews and adjust this accordingly
     // Also consider only checking based on required fields
-    
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -103,5 +92,16 @@ public class Park {
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getName(), getLocation(), getAvgRating(), getTags(), getReviews());
+    }
+
+    @Override
+    public String toString() {
+        return "Park{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", location='" + location + '\'' +
+                ", avgRating=" + avgRating +
+                ", tags=" + tags +
+                '}';
     }
 }
