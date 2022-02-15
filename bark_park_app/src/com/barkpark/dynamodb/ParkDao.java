@@ -5,6 +5,8 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.barkpark.dynamodb.models.Park;
 import com.barkpark.exceptions.ParkNotFoundException;
 
+import javax.inject.Inject;
+
 /**
  * Accesses data for a park using {@link Park} to represent the model in DynamoDB.
  */
@@ -16,6 +18,7 @@ public class ParkDao {
      *
      * @param dynamoDbMapper the {@link DynamoDBMapper} used to interact with the parks table
      */
+    @Inject
     public ParkDao(DynamoDBMapper dynamoDbMapper) {
         this.dynamoDbMapper = dynamoDbMapper;
     }

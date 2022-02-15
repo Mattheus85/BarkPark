@@ -13,6 +13,8 @@ import com.barkpark.models.results.GetParkResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.inject.Inject;
+
 /**
  * Implementation of the GetActivityActivity for the BarkPark GetPark API.
  *
@@ -27,6 +29,7 @@ public class GetParkActivity implements RequestHandler<GetParkRequest, GetParkRe
      *
      * @param parkDao ParkDao to access the parks table.
      */
+    @Inject
     public GetParkActivity(ParkDao parkDao) {
         this.parkDao = parkDao;
     }
