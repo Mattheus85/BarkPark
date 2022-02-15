@@ -5,7 +5,7 @@ package com.barkpark.exceptions;
  */
 public class ParkNotFoundException extends RuntimeException {
 
-    private static final long serialVersionUID = 4619446731689544096L;
+    private static final long serialVersionUID = -8435207429171961888L;
 
     /**
      * Exception with no message or cause.

@@ -3,9 +3,12 @@ package com.barkpark.dynamodb.models;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverted;
+import com.barkpark.converters.ReviewLinkedListConverter;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Represents a record in the parks table
@@ -16,12 +19,8 @@ public class Park {
     private String name;
     private String location;
     private Integer avgRating;
-    private List<String> tags;
-
-    private List<String> reviews;
-    // Playlists project implementation stored AlbumTrack objects directly in a list rather than by id.
-    // This would be even better time complexity when getting reviews and may be easier to implement
-    // Review with Matt and consider same approach for reviews
+    private Set<String> tags;
+    private List<Review> reviews;
 
     @DynamoDBHashKey(attributeName = "id")
     public String getId() {
@@ -50,7 +49,7 @@ public class Park {
         this.location = location;
     }
 
-    @DynamoDBAttribute(attributeName = "avgRating") // What should we do when the Park has no reviews yet? Also need to decide WHEN we're calculating this
+    @DynamoDBAttribute(attributeName = "avgRating")
     public Integer getAvgRating() {
         return avgRating;
     }
@@ -60,38 +59,37 @@ public class Park {
     }
 
     @DynamoDBAttribute(attributeName = "tags")
-    public List<String> getTags() {
+    public Set<String> getTags() {
         return tags;
     }
 
-    public void setTags(List<String> tags) {
+    public void setTags(Set<String> tags) {
         this.tags = tags;
     }
 
-    @DynamoDBAttribute(attributeName = "reviews") // This was converted to LinkedList in Playlist project
-    public List<String> getReviews() {
+    // When a new review is created, always add to front
+    // Specify that api will return reviews in order of newest to oldest
+    @DynamoDBTypeConverted(converter = ReviewLinkedListConverter.class)
+    @DynamoDBAttribute(attributeName = "reviews")
+    public List<Review> getReviews() {
         return reviews;
     }
 
-    public void setReviews(List<String> reviews) {
+    public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
     }
-
-    // equals and hashCode include ALL fields, including avgRating
-    // We should discuss the case when a park has no reviews and adjust this accordingly
-    // Also consider only checking based on required fields
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Park park = (Park) o;
-        return getId().equals(park.getId()) && getName().equals(park.getName()) && getLocation().equals(park.getLocation()) && getAvgRating().equals(park.getAvgRating()) && getTags().equals(park.getTags()) && getReviews().equals(park.getReviews());
+        return id.equals(park.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getLocation(), getAvgRating(), getTags(), getReviews());
+        return Objects.hash(id);
     }
 
     @Override

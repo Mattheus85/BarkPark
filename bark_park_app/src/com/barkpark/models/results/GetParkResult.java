@@ -5,7 +5,6 @@ import com.barkpark.models.ParkModel;
 import java.util.Objects;
 
 public class GetParkResult {
-    // I named this parkModel rather than park for clarity, happy to change
     private ParkModel parkModel;
 
     private GetParkResult(Builder builder) {
@@ -16,21 +15,18 @@ public class GetParkResult {
         return parkModel;
     }
 
-    public void setParkModel(ParkModel parkModel) {
-        this.parkModel = parkModel;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GetParkResult that = (GetParkResult) o;
-        return getParkModel().equals(that.getParkModel());
+        return parkModel.equals(that.parkModel);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getParkModel());
+        return Objects.hash(parkModel);
     }
 
     @Override
