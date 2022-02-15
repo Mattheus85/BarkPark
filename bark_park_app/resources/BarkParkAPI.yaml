@@ -130,7 +130,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Park"
+                  $ref: "#/components/schemas/Review"
         400:
           description: Invalid input
         500:

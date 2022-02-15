@@ -1,5 +1,5 @@
 @startuml
-title Get Parks
+title Get Parks Activity
 skinparam BoxPadding 30
 
 box "Front End" #lightyellow
@@ -32,8 +32,12 @@ end
 ParksDao <-- DynamoDB --: all parks
 GetParksActivity <-- ParksDao --: List<Parks>
 
-alt#greenyellow #whitesmoke if request.reviews is provided
-    GetParksActivity -> GetParksActivity : sort by request.reviews("enum")
+alt#greenyellow #whitesmoke if request.rating is provided
+    GetParksActivity -> GetParksActivity : sort by rating
+    else else continue
+end
+alt#greenyellow #whitesmoke if request.location is provided
+    GetParksActivity -> GetParksActivity : sort by location
     else else continue
 end
 
