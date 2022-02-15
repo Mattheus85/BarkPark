@@ -5,6 +5,8 @@ import java.util.Objects;
 public class GetParkRequest {
     private String id;
 
+    public GetParkRequest() {}
+
     private GetParkRequest(Builder builder) {
         this.id = builder.id;
     }
