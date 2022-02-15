@@ -1,0 +1,35 @@
+@startuml
+entity User {
+  * username: String
+  --
+  status: String
+  interests: StringList
+}
+
+entity Friendship {
+  * followingUser: String
+  ..
+  * followedUser: String
+}
+
+entity Photo {
+  * username: String
+  ..
+  * photoId: String
+  --
+  * timeStamp: String
+}
+
+entity Reaction {
+  * photoId: String
+  ..
+  * reactingUser: String
+  --
+  * reaction: String
+  * timeStamp: String
+}
+
+User "1  " --{ "0..*" Friendship
+User "1" --{ "0..*  " Photo
+Photo "1 " --{ "0..*" Reaction
+@enduml
