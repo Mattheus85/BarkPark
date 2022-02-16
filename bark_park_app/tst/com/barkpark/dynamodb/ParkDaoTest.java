@@ -1,13 +1,21 @@
 package com.barkpark.dynamodb;
 
+
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedScanList;
 import com.barkpark.dynamodb.models.Park;
 import com.barkpark.exceptions.ParkNotFoundException;
+import com.barkpark.exceptions.ParksNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
 
@@ -64,5 +72,37 @@ public class ParkDaoTest {
 
 
         assertEquals(thrown.getMessage(), "Could not find park with id: " + testId);
+    }
+
+    @Test
+    public void getAllParks_parksExist_returnParksList() {
+        // GIVEN
+
+        PaginatedScanList<Park> mockPaginatedScanList = mock (PaginatedScanList.class);
+
+        when(dynamoDBMapper.scan(eq(Park.class), Mockito.any())).thenReturn(mockPaginatedScanList);
+
+        // WHEN
+        List<Park> result = parkDao.getAllParks();
+
+        // THEN
+        assertNotNull(result);
+    }
+
+    @Test
+    public void getAllParks_parksDoNotExist_throwsParksNotFoundException() {
+        // GIVEN - no parks in table
+
+        when(dynamoDBMapper.scan(eq(Park.class), Mockito.any())).thenReturn(null);
+
+        // WHEN & THEN
+        ParksNotFoundException thrown = assertThrows(
+                ParksNotFoundException.class,
+                () ->  parkDao.getAllParks(),
+                "Expected getAllParks to throw a ParksNotFoundException"
+        );
+
+
+        assertEquals(thrown.getMessage(), "No parks found.");
     }
 }
