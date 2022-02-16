@@ -2,6 +2,7 @@ package com.barkpark.converters;
 
 import com.barkpark.dynamodb.models.Park;
 import com.barkpark.models.ParkModel;
+import com.barkpark.models.ParksModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,18 @@ public class ModelConverter {
                 .withLocation(park.getLocation())
                 .withAvgRating(park.getAvgRating())
                 .withTags(tags)
+                .build();
+    }
+
+    public static ParksModel toParksModel(List<Park> parkList) {
+
+        List<String> parkIds = new ArrayList<>();
+        for (Park park : parkList) {
+            parkIds.add(park.getId());
+        }
+
+        return ParksModel.builder()
+                .withParkIds(parkIds)
                 .build();
     }
 }
