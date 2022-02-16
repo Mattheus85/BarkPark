@@ -10,7 +10,7 @@ public class ParkModel {
     private String id;
     private String name;
     private String location;
-    private Integer avgRating;
+    private Double avgRating;
     private List<String> tags;
 
     private ParkModel(Builder builder) {
@@ -45,11 +45,11 @@ public class ParkModel {
         this.location = location;
     }
 
-    public Integer getAvgRating() {
+    public Double getAvgRating() {
         return avgRating;
     }
 
-    public void setAvgRating(Integer avgRating) {
+    public void setAvgRating(Double avgRating) {
         this.avgRating = avgRating;
     }
 
@@ -93,7 +93,7 @@ public class ParkModel {
         private String id;
         private String name;
         private String location;
-        private Integer avgRating;
+        private Double avgRating;
         private List<String> tags;
 
         public Builder withId(String id) {
@@ -111,7 +111,7 @@ public class ParkModel {
             return this;
         }
 
-        public Builder withAvgRating(Integer avgRating) {
+        public Builder withAvgRating(Double avgRating) {
             this.avgRating = avgRating;
             return this;
         }

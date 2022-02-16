@@ -18,7 +18,7 @@ public class Park {
     private String id;
     private String name;
     private String location;
-    private Integer avgRating;
+    private Double avgRating;
     private Set<String> tags;
     private List<Review> reviews;
 
@@ -50,11 +50,11 @@ public class Park {
     }
 
     @DynamoDBAttribute(attributeName = "avgRating")
-    public Integer getAvgRating() {
+    public Double getAvgRating() {
         return avgRating;
     }
 
-    public void setAvgRating(Integer avgRating) {
+    public void setAvgRating(Double avgRating) {
         this.avgRating = avgRating;
     }
 
