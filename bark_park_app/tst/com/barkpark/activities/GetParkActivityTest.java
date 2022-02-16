@@ -2,6 +2,7 @@ package com.barkpark.activities;
 
 import com.barkpark.dynamodb.ParkDao;
 import com.barkpark.dynamodb.models.Park;
+import com.barkpark.exceptions.ParkNotFoundException;
 import com.barkpark.models.requests.GetParkRequest;
 import com.barkpark.models.results.GetParkResult;
 import com.google.common.collect.Lists;
@@ -13,6 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
 
@@ -59,5 +61,17 @@ public class GetParkActivityTest {
         assertEquals(expectedLocation, result.getParkModel().getLocation());
         assertEquals(expectedAvgRating, result.getParkModel().getAvgRating());
         assertEquals(expectedTags, result.getParkModel().getTags());
+    }
+
+    @Test
+    public void handleRequest_parkNotFound_throwsParkNotFoundException() {
+        // GIVEN
+        String id = "someId";
+        GetParkRequest request = GetParkRequest.builder().withId(id).build();
+        when(parkDao.getPark(id)).thenThrow(ParkNotFoundException.class);
+
+        // WHEN && THEN
+        assertThrows(ParkNotFoundException.class, () -> getParkActivity
+                .handleRequest(request, null));
     }
 }
