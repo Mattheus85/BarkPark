@@ -2,15 +2,10 @@ package com.barkpark.activities;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.barkpark.converters.ModelConverter;
 import com.barkpark.dynamodb.ParkDao;
-import com.barkpark.dynamodb.models.Park;
 import com.barkpark.exceptions.ParkNotFoundException;
 import com.barkpark.models.ParkModel;
-import com.barkpark.models.ParksModel;
-import com.barkpark.models.requests.GetParkRequest;
 import com.barkpark.models.requests.GetParksRequest;
-import com.barkpark.models.results.GetParkResult;
 
 import com.barkpark.models.results.GetParksResult;
 import org.apache.logging.log4j.LogManager;
@@ -45,7 +40,7 @@ public class GetParksActivity implements RequestHandler<GetParksRequest, GetPark
      * If the park does not exist, this should throw a ParkNotFoundException.
      *
      * @param getParksRequest request object containing the park ID
-     * @return getParksResult result object containing the API defined {@link ParksModel}
+     * @return getParksResult result object containing a list of API defined {@link ParkModel} objects
      */
     @Override
     public GetParksResult handleRequest(final GetParksRequest getParksRequest, Context context) throws ParkNotFoundException {
@@ -54,7 +49,7 @@ public class GetParksActivity implements RequestHandler<GetParksRequest, GetPark
         String location = getParksRequest.getLocation();
         String avgRating = getParksRequest.getAvgRating();
 
-        List<Park> parkList = new ArrayList<>();
+        List<ParkModel> parkList = new ArrayList<>();
 //        if (location != null && avgRating != null) {
 //            parkList = parkDao.getParksByLocationAndAvgRating(location, avgRating);
 //        } else if (location != null) {
@@ -65,10 +60,8 @@ public class GetParksActivity implements RequestHandler<GetParksRequest, GetPark
 //            parkList = parkDao.getAllParks();
 //        }
 
-        ParksModel parksModel = ModelConverter.toParksModel(parkList);
-
         return GetParksResult.builder()
-                .withParksModel(parksModel)
+                .withParkList(parkList)
                 .build();
     }
 }

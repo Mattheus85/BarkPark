@@ -1,18 +1,19 @@
 package com.barkpark.models.results;
 
-import com.barkpark.models.ParksModel;
+import com.barkpark.models.ParkModel;
 
+import java.util.List;
 import java.util.Objects;
 
 public class GetParksResult {
-    private ParksModel parksModel;
+    private List<ParkModel> parkList;
 
     private GetParksResult(Builder builder) {
-        this.parksModel = builder.parksModel;
+        this.parkList = builder.parkList;
     }
 
-    public ParksModel getParksModel() {
-        return parksModel;
+    public List<ParkModel> getParkList() {
+        return parkList;
     }
 
     @Override
@@ -20,18 +21,18 @@ public class GetParksResult {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GetParksResult that = (GetParksResult) o;
-        return Objects.equals(getParksModel(), that.getParksModel());
+        return parkList.equals(that.parkList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getParksModel());
+        return Objects.hash(parkList);
     }
 
     @Override
     public String toString() {
         return "GetParksResult{" +
-                "parksModel=" + parksModel +
+                "parkList=" + parkList +
                 '}';
     }
 
@@ -40,10 +41,10 @@ public class GetParksResult {
     }
 
     public static final class Builder {
-        private ParksModel parksModel;
+        private List<ParkModel> parkList;
 
-        public Builder withParksModel(ParksModel parksModel) {
-            this.parksModel = parksModel;
+        public Builder withParkList(List<ParkModel> parkList) {
+            this.parkList = parkList;
             return this;
         }
 
