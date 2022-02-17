@@ -7,13 +7,8 @@ import com.barkpark.models.requests.GetParkRequest;
 import com.barkpark.models.results.GetParkResult;
 
 public class GetParkActivityProvider implements RequestHandler<GetParkRequest, GetParkResult> {
-
     @Override
-    public GetParkResult handleRequest(GetParkRequest getParkRequest, Context context) {
-
-        return DaggerServiceComponent
-                .create()
-                .provideGetParkActivity()
-                .handleRequest(getParkRequest, context);
+    public GetParkResult handleRequest(GetParkRequest input, Context context) {
+        return DaggerServiceComponent.create().provideGetParkActivity().handleRequest(input, context);
     }
 }
