@@ -2,6 +2,8 @@ package com.barkpark.dynamodb.models;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 import java.util.Objects;
@@ -11,7 +13,7 @@ import java.util.Objects;
  */
 @DynamoDBTable(tableName = "reviews")
 public class Review {
-    String id;
+    public static final String USER_ID_INDEX = "userId-index";
     String parkId;
     String userId;
     String reviewTitle;
@@ -19,16 +21,7 @@ public class Review {
     String date;
     Double rating;
 
-    @DynamoDBHashKey(attributeName = "id")
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    @DynamoDBAttribute(attributeName = "parkId")
+    @DynamoDBHashKey(attributeName = "parkId")
     public String getParkId() {
         return parkId;
     }
@@ -37,7 +30,8 @@ public class Review {
         this.parkId = parkId;
     }
 
-    @DynamoDBAttribute(attributeName = "userId")
+    @DynamoDBRangeKey(attributeName = "userId")
+    @DynamoDBIndexHashKey(globalSecondaryIndexNames = USER_ID_INDEX)
     public String getUserId() {
         return userId;
     }
@@ -87,19 +81,18 @@ public class Review {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Review review = (Review) o;
-        return getId().equals(review.getId()) && getRating().equals(review.getRating());
+        return getParkId().equals(review.getParkId()) && getUserId().equals(review.getUserId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getRating());
+        return Objects.hash(getParkId(), getUserId());
     }
 
     @Override
     public String toString() {
         return "Review{" +
-                "id='" + id + '\'' +
-                ", parkId='" + parkId + '\'' +
+                "parkId='" + parkId + '\'' +
                 ", userId='" + userId + '\'' +
                 ", reviewTitle='" + reviewTitle + '\'' +
                 ", reviewBody='" + reviewBody + '\'' +

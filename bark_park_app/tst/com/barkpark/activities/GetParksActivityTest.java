@@ -45,7 +45,6 @@ public class GetParksActivityTest {
         openMocks(this);
         getParksActivity = new GetParksActivity(parkDao);
 
-        review1.setId("expectedReviewId1");
         review1.setParkId("expectedParkId1");
         review1.setDate("expectedDate1");
         review1.setReviewBody("expectedBody1");
@@ -53,7 +52,6 @@ public class GetParksActivityTest {
         review1.setRating(1.0);
         review1.setUserId("expectedUserId1");
 
-        review2.setId("expectedReviewId2");
         review2.setParkId("expectedParkId2");
         review2.setDate("expectedDate2");
         review2.setReviewBody("expectedBody2");
@@ -61,7 +59,6 @@ public class GetParksActivityTest {
         review2.setRating(2.0);
         review2.setUserId("expectedUserId2");
         
-        review3.setId("expectedReviewId3");
         review3.setParkId("expectedParkId3");
         review3.setDate("expectedDate3");
         review3.setReviewBody("expectedBody3");

@@ -2,6 +2,7 @@ package com.barkpark.dynamodb.models;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverted;
 import com.barkpark.converters.ReviewLinkedListConverter;
@@ -15,6 +16,8 @@ import java.util.Set;
  */
 @DynamoDBTable(tableName = "parks")
 public class Park {
+    public static final String LOCATION_INDEX = "location-index";
+    public static final String BY_LOCATION_INDEX = "byLocation-index";
     private String id;
     private String name;
     private String location;
@@ -40,7 +43,7 @@ public class Park {
         this.name = name;
     }
 
-    @DynamoDBAttribute(attributeName = "location")
+    @DynamoDBIndexHashKey(globalSecondaryIndexNames = {LOCATION_INDEX, BY_LOCATION_INDEX}, attributeName = "location")
     public String getLocation() {
         return location;
     }
