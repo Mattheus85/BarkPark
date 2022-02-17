@@ -56,4 +56,47 @@ public class ParkDao {
 
         return parks;
     }
+
+    /**
+     * Returns a {@link List<Park>} of all stored parks.
+     *
+     * @return the list of stored Parks, or throw {@link ParksNotFoundException} if none was found.
+     */
+    public List<Park> getParksByLocation(String location) throws ParksNotFoundException {
+        List<Park> parks = dynamoDbMapper.scan(Park.class, new DynamoDBScanExpression());
+
+        if (parks == null || parks.isEmpty()) {
+            throw new ParksNotFoundException("No parks found.");
+        }
+        return null;
+    }
+
+
+    /**
+     * Returns a {@link List<Park>} of all stored parks.
+     *
+     * @return the list of stored Parks, or throw {@link ParksNotFoundException} if none was found.
+     */
+    public List<Park> getParksByAvgRating(Double avgRating) throws ParksNotFoundException {
+        List<Park> parks = dynamoDbMapper.scan(Park.class, new DynamoDBScanExpression());
+
+        if (parks == null || parks.isEmpty()) {
+            throw new ParksNotFoundException("No parks found.");
+        }
+        return null;
+    }
+
+    /**
+     * Returns a {@link List<Park>} of all stored parks.
+     *
+     * @return the list of stored Parks, or throw {@link ParksNotFoundException} if none was found.
+     */
+    public List<Park> getParksByLocationAndAvgRating(String location, Double avgRating) throws ParksNotFoundException {
+        List<Park> parks = dynamoDbMapper.scan(Park.class, new DynamoDBScanExpression());
+
+        if (parks == null || parks.isEmpty()) {
+            throw new ParksNotFoundException("No parks found.");
+        }
+        return null;
+    }
 }

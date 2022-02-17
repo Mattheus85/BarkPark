@@ -2,7 +2,7 @@ package com.barkpark.models.requests;
 
 public class GetParksRequest {
     private String location;
-    private String avgRating;
+    private Double avgRating;
 
     public GetParksRequest() {}
 
@@ -19,11 +19,11 @@ public class GetParksRequest {
         this.location = location;
     }
 
-    public String getAvgRating() {
+    public Double getAvgRating() {
         return avgRating;
     }
 
-    public void setAvgRating(String avgRating) {
+    public void setAvgRating(Double avgRating) {
         this.avgRating = avgRating;
     }
 
@@ -41,14 +41,14 @@ public class GetParksRequest {
 
     public static final class Builder {
         private String location;
-        private String avgRating;
+        private Double avgRating;
 
         public Builder withLocation(String location) {
             this.location = location;
             return this;
         }
 
-        public Builder withRating(String rating) {
+        public Builder withRating(Double rating) {
             this.avgRating = rating;
             return this;
         }

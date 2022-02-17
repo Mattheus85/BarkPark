@@ -2,6 +2,7 @@ package com.barkpark.models;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Represents a park as defined by the BarkPark API
@@ -11,7 +12,7 @@ public class ParkModel {
     private String name;
     private String location;
     private Double avgRating;
-    private List<String> tags;
+    private Set<String> tags;
 
     private ParkModel(Builder builder) {
         this.id = builder.id;
@@ -53,11 +54,11 @@ public class ParkModel {
         this.avgRating = avgRating;
     }
 
-    public List<String> getTags() {
+    public Set<String> getTags() {
         return tags;
     }
 
-    public void setTags(List<String> tags) {
+    public void setTags(Set<String> tags) {
         this.tags = tags;
     }
 
@@ -94,7 +95,7 @@ public class ParkModel {
         private String name;
         private String location;
         private Double avgRating;
-        private List<String> tags;
+        private Set<String> tags;
 
         public Builder withId(String id) {
             this.id = id;
@@ -116,7 +117,7 @@ public class ParkModel {
             return this;
         }
 
-        public Builder withTags(List<String> tags) {
+        public Builder withTags(Set<String> tags) {
             this.tags = tags;
             return this;
         }

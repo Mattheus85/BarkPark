@@ -2,7 +2,9 @@ package com.barkpark.activities;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.barkpark.converters.ModelConverter;
 import com.barkpark.dynamodb.ParkDao;
+import com.barkpark.dynamodb.models.Park;
 import com.barkpark.exceptions.ParkNotFoundException;
 import com.barkpark.models.ParkModel;
 import com.barkpark.models.requests.GetParksRequest;
@@ -47,21 +49,23 @@ public class GetParksActivity implements RequestHandler<GetParksRequest, GetPark
         log.info("Received GetParkRequest {}", getParksRequest);
 
         String location = getParksRequest.getLocation();
-        String avgRating = getParksRequest.getAvgRating();
+        Double avgRating = getParksRequest.getAvgRating();
 
-        List<ParkModel> parkList = new ArrayList<>();
-//        if (location != null && avgRating != null) {
-//            parkList = parkDao.getParksByLocationAndAvgRating(location, avgRating);
-//        } else if (location != null) {
-//            parkList = parkDao.getParksByLocation(location);
-//        } else if (avgRating != null) {
-//            parkList = parkDao.getParksByAvgRating(avgRating);
-//        } else {
-//            parkList = parkDao.getAllParks();
-//        }
+        List<Park> parkList;
+        if (location != null && avgRating != null) {
+            parkList = parkDao.getParksByLocationAndAvgRating(location, avgRating);
+        } else if (location != null) {
+            parkList = parkDao.getParksByLocation(location);
+        } else if (avgRating != null) {
+            parkList = parkDao.getParksByAvgRating(avgRating);
+        } else {
+            parkList = parkDao.getAllParks();
+        }
+
+        List<ParkModel> parkModelList = ModelConverter.toParkModelList(parkList);
 
         return GetParksResult.builder()
-                .withParkList(parkList)
+                .withParkList(parkModelList)
                 .build();
     }
 }
