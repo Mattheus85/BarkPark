@@ -1,9 +1,10 @@
 package com.barkpark.activities;
 
+import com.barkpark.activities.users.UpdateUserActivity;
 import com.barkpark.dynamodb.UserDao;
 import com.barkpark.dynamodb.models.User;
-import com.barkpark.models.requests.UpdateUserRequest;
-import com.barkpark.models.results.UpdateUserResult;
+import com.barkpark.models.requests.users.UpdateUserRequest;
+import com.barkpark.models.results.users.UpdateUserResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

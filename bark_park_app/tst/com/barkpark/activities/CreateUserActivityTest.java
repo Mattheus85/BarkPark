@@ -1,9 +1,10 @@
 package com.barkpark.activities;
 
+import com.barkpark.activities.users.CreateUserActivity;
 import com.barkpark.dynamodb.UserDao;
 import com.barkpark.dynamodb.models.User;
-import com.barkpark.models.requests.CreateUserRequest;
-import com.barkpark.models.results.CreateUserResult;
+import com.barkpark.models.requests.users.CreateUserRequest;
+import com.barkpark.models.results.users.CreateUserResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

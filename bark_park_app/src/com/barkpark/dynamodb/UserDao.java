@@ -1,12 +1,10 @@
 package com.barkpark.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.barkpark.dynamodb.models.Park;
 import com.barkpark.dynamodb.models.User;
-import com.barkpark.exceptions.ParkNotFoundException;
 import com.barkpark.exceptions.UserNotFoundException;
-import com.barkpark.models.requests.CreateUserRequest;
-import com.barkpark.models.requests.UpdateUserRequest;
+import com.barkpark.models.requests.users.CreateUserRequest;
+import com.barkpark.models.requests.users.UpdateUserRequest;
 
 import javax.inject.Inject;
 

@@ -21,10 +21,12 @@ also be able to create user accounts and review parks as well as filter parks by
 2. A review in the reviews table is identified by the unique composite key of partition key: parkId and sort key: userId.
    1. Is it conventional to provide a GET method for this sort of thing?
 3. Is our implementation of GetReviews reasonable?
-4. If we have text that will potentially be long form and include formatting, how should we store this?
-5. How do we want to store location data? 
+4. If we can think of a front end use case, should we build this functionality into the API? See locations
+5. Can ModelConverter methods be static?
+6. If we have text that will potentially be long form and include formatting, how should we store this?
+7. How do we want to store location data? 
    1. Possibilities include geographical coordinates, city names, etc.
-6. When a User deletes their account, should we also delete all reviews they have written and/or all parks they may have added?
+8. When a User deletes their account, should we also delete all reviews they have written and/or all parks they may have added?
    1. If we leave the reviews, how do we handle the associated UserId (if this is indeed how we implement the Review model)
 
 ## 3. Use Cases

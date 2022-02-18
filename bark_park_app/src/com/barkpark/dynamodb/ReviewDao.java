@@ -5,8 +5,8 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.barkpark.dynamodb.models.Review;
 import com.barkpark.exceptions.ReviewNotFoundException;
 import com.barkpark.exceptions.ReviewsNotFoundException;
-import com.barkpark.models.requests.CreateReviewRequest;
-import com.barkpark.models.requests.UpdateReviewRequest;
+import com.barkpark.models.requests.reviews.CreateReviewRequest;
+import com.barkpark.models.requests.reviews.UpdateReviewRequest;
 
 import javax.inject.Inject;
 import java.util.List;
