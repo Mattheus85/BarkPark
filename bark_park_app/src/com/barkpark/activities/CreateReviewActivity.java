@@ -43,6 +43,12 @@ public class CreateReviewActivity implements RequestHandler<CreateReviewRequest,
     public CreateReviewResult handleRequest(CreateReviewRequest createReviewRequest, Context context) {
         log.info("Received CreateReviewRequest {}", createReviewRequest);
 
+        if (createReviewRequest.getParkId() == null ||
+            createReviewRequest.getUserId() == null ||
+            createReviewRequest.getRating() == null) {
+            throw new IllegalArgumentException("Must provide parkId, userId, and rating");
+        }
+
         Review review = reviewDao.createReview(createReviewRequest);
 
         return CreateReviewResult.builder()

@@ -30,7 +30,7 @@ public class CreateUserRequest {
         this.username = username;
     }
 
-    public Builder builder() {
+    public static Builder builder() {
         return new Builder();
     }
 

@@ -6,6 +6,7 @@ import com.barkpark.dynamodb.models.Review;
 import com.barkpark.exceptions.ReviewNotFoundException;
 import com.barkpark.exceptions.ReviewsNotFoundException;
 import com.barkpark.models.requests.CreateReviewRequest;
+import com.barkpark.models.requests.UpdateReviewRequest;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -107,6 +108,26 @@ public class ReviewDao {
         review.setReviewBody(createReviewRequest.getReviewBody());
         review.setDate(java.time.LocalDateTime.now().toString());
         review.setRating(createReviewRequest.getRating());
+
+        this.dynamoDBMapper.save(review);
+        return review;
+    }
+
+    /**
+     * Updates a review based on the incoming {@link UpdateReviewRequest} and saves it to the reviews table
+     *
+     * @param updateReviewRequest the request with which to update the {@link Review}
+     * @return the updated and subsequently saved {@link Review}
+     */
+    public Review updateReview(UpdateReviewRequest updateReviewRequest) {
+
+        Review review = new Review();
+        review.setParkId(updateReviewRequest.getParkId());
+        review.setUserId(updateReviewRequest.getUserId());
+        review.setReviewTitle(updateReviewRequest.getReviewTitle());
+        review.setReviewBody(updateReviewRequest.getReviewBody());
+        review.setDate(java.time.LocalDateTime.now().toString());
+        review.setRating(updateReviewRequest.getRating());
 
         this.dynamoDBMapper.save(review);
         return review;

@@ -24,6 +24,10 @@ public class CreateUserActivity implements RequestHandler<CreateUserRequest, Cre
     @Override
     public CreateUserResult handleRequest(CreateUserRequest createUserRequest, Context context) {
         log.info("Received CreateUserRequest {}", createUserRequest);
+        
+        if (createUserRequest.getId() == null || createUserRequest.getUsername() == null) {
+            throw new IllegalArgumentException("Must provide userId and username");
+        }
 
         User user = userDao.createUser(createUserRequest);
 

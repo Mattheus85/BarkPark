@@ -14,12 +14,12 @@ import java.util.Objects;
 @DynamoDBTable(tableName = "reviews")
 public class Review {
     public static final String USER_ID_INDEX = "userId-index";
-    String parkId;
-    String userId;
-    String reviewTitle;
-    String reviewBody;
-    String date;
-    Double rating;
+    private String parkId;
+    private String userId;
+    private String reviewTitle;
+    private String reviewBody;
+    private String date;
+    private Double rating;
 
     @DynamoDBHashKey(attributeName = "parkId")
     public String getParkId() {

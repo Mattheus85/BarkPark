@@ -1,9 +1,9 @@
 package com.barkpark.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.barkpark.dynamodb.models.Review;
 import com.barkpark.dynamodb.models.User;
 import com.barkpark.models.requests.CreateUserRequest;
+import com.barkpark.models.requests.UpdateUserRequest;
 
 import javax.inject.Inject;
 
@@ -34,6 +34,22 @@ public class UserDao {
         User user = new User();
         user.setId(createUserRequest.getId());
         user.setUsername(createUserRequest.getUsername());
+
+        this.dynamoDBMapper.save(user);
+        return user;
+    }
+
+    /**
+     * Updates a user based on the incoming {@link UpdateUserRequest} and saves it to the users table
+     *
+     * @param updateUserRequest the request with which to update the {@link User}
+     * @return the updated and subsequently saved {@link User}
+     */
+    public User updateUser(UpdateUserRequest updateUserRequest) {
+
+        User user = new User();
+        user.setId(updateUserRequest.getId());
+        user.setUsername(updateUserRequest.getUsername());
 
         this.dynamoDBMapper.save(user);
         return user;

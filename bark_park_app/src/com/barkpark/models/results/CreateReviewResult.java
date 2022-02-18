@@ -8,7 +8,15 @@ public class CreateReviewResult {
     private ReviewModel reviewModel;
 
     private CreateReviewResult(Builder builder) {
-        this.reviewModel = builder().reviewModel;
+        this.reviewModel = builder.reviewModel;
+    }
+
+    public ReviewModel getReviewModel() {
+        return reviewModel;
+    }
+
+    public void setReviewModel(ReviewModel reviewModel) {
+        this.reviewModel = reviewModel;
     }
 
     public static Builder builder() {

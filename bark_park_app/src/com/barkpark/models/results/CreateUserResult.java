@@ -14,6 +14,14 @@ public class CreateUserResult {
         this.userModel = builder.userModel;
     }
 
+    public UserModel getUserModel() {
+        return userModel;
+    }
+
+    public void setUserModel(UserModel userModel) {
+        this.userModel = userModel;
+    }
+
     public static Builder builder() {
         return new Builder();
     }
