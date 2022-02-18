@@ -67,6 +67,10 @@ public class ReviewModel {
         this.rating = rating;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

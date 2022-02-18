@@ -1,7 +1,11 @@
 package com.barkpark.converters;
 
 import com.barkpark.dynamodb.models.Park;
+import com.barkpark.dynamodb.models.Review;
+import com.barkpark.dynamodb.models.User;
 import com.barkpark.models.ParkModel;
+import com.barkpark.models.ReviewModel;
+import com.barkpark.models.UserModel;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -39,5 +43,35 @@ public class ModelConverter {
         }
 
         return parkModelList;
+    }
+
+    /**
+     * Converts a provided {@link Review} into a {@link ReviewModel} representation.
+     * @param review the {@link Review} to convert
+     * @return the converted {@link ReviewModel}
+     */
+    public static ReviewModel toReviewModel(Review review) {
+
+        return ReviewModel.builder()
+                .withParkId(review.getParkId())
+                .withUserId(review.getUserId())
+                .withReviewTitle(review.getReviewTitle())
+                .withReviewBody(review.getReviewBody())
+                .withDate(review.getDate())
+                .withRating(review.getRating())
+                .build();
+    }
+
+    /**
+     * Converts a provided {@link User} into a {@link UserModel} representation.
+     * @param user the {@link User} to convert
+     * @return the converted {@link UserModel}
+     */
+    public static UserModel toUserModel(User user) {
+        
+        return UserModel.builder()
+                .withId(user.getId())
+                .withUsername(user.getUsername())
+                .build();
     }
 }

@@ -1,15 +1,12 @@
-package com.barkpark.models.requests;
+package com.barkpark.models;
 
 import java.util.Objects;
 
-public class CreateUserRequest {
+public class UserModel {
     private String id;
     private String username;
 
-    public CreateUserRequest() {
-    }
-
-    private CreateUserRequest(Builder builder) {
+    private UserModel(Builder builder) {
         this.id = builder.id;
         this.username = builder.username;
     }
@@ -30,7 +27,7 @@ public class CreateUserRequest {
         this.username = username;
     }
 
-    public Builder builder() {
+    public static Builder builder() {
         return new Builder();
     }
 
@@ -38,8 +35,8 @@ public class CreateUserRequest {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CreateUserRequest that = (CreateUserRequest) o;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getUsername(), that.getUsername());
+        UserModel userModel = (UserModel) o;
+        return Objects.equals(getId(), userModel.getId()) && Objects.equals(getUsername(), userModel.getUsername());
     }
 
     @Override
@@ -49,7 +46,7 @@ public class CreateUserRequest {
 
     @Override
     public String toString() {
-        return "CreateUserRequest{" +
+        return "UserModel{" +
                 "id='" + id + '\'' +
                 ", username='" + username + '\'' +
                 '}';
@@ -69,8 +66,8 @@ public class CreateUserRequest {
             return this;
         }
 
-        public CreateUserRequest build() {
-            return new CreateUserRequest(this);
+        public UserModel build() {
+            return new UserModel(this);
         }
     }
 }
