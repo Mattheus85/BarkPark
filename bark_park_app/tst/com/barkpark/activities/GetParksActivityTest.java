@@ -79,21 +79,18 @@ public class GetParksActivityTest {
         park1.setId("expectedParkId1");
         park1.setName("expectedPark1");
         park1.setTags(expectedTags1);
-        park1.setReviews(reviewList1);
 
         park2.setAvgRating(2.0);
         park2.setLocation("expectedLocation2");
         park2.setId("expectedParkId2");
         park2.setName("expectedPark2");
         park2.setTags(expectedTags2);
-        park2.setReviews(reviewList2);
         
         park3.setAvgRating(2.0);
         park3.setLocation("expectedLocation2");
         park3.setId("expectedParkId3");
         park3.setName("expectedPark3");
         park3.setTags(expectedTags3);
-        park3.setReviews(reviewList3);
 
         parkList.add(park1);
         parkList.add(park2);

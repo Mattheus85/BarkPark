@@ -1,14 +1,22 @@
 package com.barkpark.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
+
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
+import com.amazonaws.services.dynamodbv2.model.Condition;
 import com.barkpark.dynamodb.models.Park;
 import com.barkpark.exceptions.ParkNotFoundException;
 import com.barkpark.exceptions.ParksNotFoundException;
 
 import javax.inject.Inject;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 /**
  * Accesses data for a park using {@link Park} to represent the model in DynamoDB.
@@ -58,19 +66,28 @@ public class ParkDao {
     }
 
     /**
-     * Returns a {@link List<Park>} of all stored parks.
+     * Returns a {@link List<Park>} of stored parks filtered by location.
      *
-     * @return the list of stored Parks, or throw {@link ParksNotFoundException} if none was found.
+     * @param location the location to filter by
+     * @return the list of stored Parks that match the given location, or throw {@link ParksNotFoundException} if none was found.
      */
     public List<Park> getParksByLocation(String location) throws ParksNotFoundException {
-        List<Park> parks = dynamoDbMapper.scan(Park.class, new DynamoDBScanExpression());
+
+        Park partitionKey = new Park();
+        partitionKey.setLocation(location);
+
+        DynamoDBQueryExpression<Park> queryExpression = new DynamoDBQueryExpression<Park>()
+                .withHashKeyValues(partitionKey)
+                .withIndexName(Park.LOCATION_AVG_RATING_INDEX)
+                .withConsistentRead(false);
+
+        List<Park> parks =  dynamoDbMapper.query(Park.class, queryExpression);
 
         if (parks == null || parks.isEmpty()) {
-            throw new ParksNotFoundException("No parks found.");
+            throw new ParksNotFoundException("No parks found in " + location);
         }
-        return null;
+        return parks;
     }
-
 
     /**
      * Returns a {@link List<Park>} of all stored parks.
@@ -78,12 +95,23 @@ public class ParkDao {
      * @return the list of stored Parks, or throw {@link ParksNotFoundException} if none was found.
      */
     public List<Park> getParksByAvgRating(Double avgRating) throws ParksNotFoundException {
-        List<Park> parks = dynamoDbMapper.scan(Park.class, new DynamoDBScanExpression());
+        Map<String, AttributeValue> valueMap = new HashMap<>();
+
+        // Should avgRating be a String???
+        // What does making it a Double cause any issues???
+        valueMap.put(":avgRating", new AttributeValue().withN(avgRating.toString()));
+
+        DynamoDBScanExpression dynamoDBScanExpression = new DynamoDBScanExpression()
+                .withFilterExpression("avgRating >= :avgRating")
+                .withExpressionAttributeValues(valueMap)
+                .withConsistentRead(false);
+
+        List<Park> parks = dynamoDbMapper.scan(Park.class, dynamoDBScanExpression);
 
         if (parks == null || parks.isEmpty()) {
-            throw new ParksNotFoundException("No parks found.");
+            throw new ParksNotFoundException("No parks found with rating greater than " + avgRating);
         }
-        return null;
+        return parks;
     }
 
     /**
@@ -92,11 +120,25 @@ public class ParkDao {
      * @return the list of stored Parks, or throw {@link ParksNotFoundException} if none was found.
      */
     public List<Park> getParksByLocationAndAvgRating(String location, Double avgRating) throws ParksNotFoundException {
-        List<Park> parks = dynamoDbMapper.scan(Park.class, new DynamoDBScanExpression());
+        Park partitionKey = new Park();
+        partitionKey.setLocation(location);
+        partitionKey.setAvgRating(avgRating);
+
+        Condition condition = new Condition();
+        condition.withComparisonOperator(ComparisonOperator.GE)
+                .withAttributeValueList(new AttributeValue().withN(avgRating.toString())); //Set your search value here
+
+        DynamoDBQueryExpression<Park> queryExpression = new DynamoDBQueryExpression<Park>()
+                .withHashKeyValues(partitionKey)
+                .withRangeKeyCondition("avgRating", condition)
+                .withIndexName(Park.LOCATION_AVG_RATING_INDEX)
+                .withConsistentRead(false);
+
+        List<Park> parks =  dynamoDbMapper.query(Park.class, queryExpression);
 
         if (parks == null || parks.isEmpty()) {
-            throw new ParksNotFoundException("No parks found.");
+            throw new ParksNotFoundException("No parks found in " + location);
         }
-        return null;
+        return parks;
     }
 }
