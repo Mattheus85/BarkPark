@@ -8,12 +8,22 @@ import java.util.Objects;
 public class GetParksResult {
     private List<ParkModel> parkList;
 
+    public GetParksResult() {}
+
     private GetParksResult(Builder builder) {
         this.parkList = builder.parkList;
     }
 
     public List<ParkModel> getParkList() {
         return parkList;
+    }
+
+    public void setParkList(List<ParkModel> parkList) {
+        this.parkList = parkList;
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     @Override
@@ -34,10 +44,6 @@ public class GetParksResult {
         return "GetParksResult{" +
                 "parkList=" + parkList +
                 '}';
-    }
-
-    public static Builder builder() {
-        return new Builder();
     }
 
     public static final class Builder {

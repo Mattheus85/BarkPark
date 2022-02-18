@@ -7,12 +7,23 @@ import java.util.Objects;
 public class GetUserResult {
     private UserModel userModel;
 
+    public GetUserResult() {
+    }
+
     private GetUserResult(Builder builder) {
         this.userModel = builder.userModel;
     }
 
     public UserModel getUserModel() {
         return userModel;
+    }
+
+    public void setUserModel(UserModel userModel) {
+        this.userModel = userModel;
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     @Override
@@ -33,10 +44,6 @@ public class GetUserResult {
         return "GetUserResult{" +
                 "userModel=" + userModel +
                 '}';
-    }
-
-    public static Builder builder() {
-        return new Builder();
     }
 
     public static final class Builder {

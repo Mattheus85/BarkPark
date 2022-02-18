@@ -27,16 +27,16 @@ public class GetParksRequest {
         this.avgRating = avgRating;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     @Override
     public String toString() {
         return "GetParksRequest{" +
                 "location='" + location + '\'' +
                 ", rating='" + avgRating + '\'' +
                 '}';
-    }
-
-    public static Builder builder() {
-        return new Builder();
     }
 
     public static final class Builder {

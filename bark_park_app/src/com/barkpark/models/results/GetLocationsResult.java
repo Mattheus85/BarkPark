@@ -7,6 +7,8 @@ import java.util.Objects;
 public class GetLocationsResult {
     private LocationModel locationModel;
 
+    public GetLocationsResult() {}
+
     private GetLocationsResult(Builder builder) {
         this.locationModel = builder.locationModel;
     }

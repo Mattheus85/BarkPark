@@ -8,19 +8,19 @@ import com.barkpark.dynamodb.models.Park;
 import com.barkpark.exceptions.ParksNotFoundException;
 import com.barkpark.models.ParkModel;
 import com.barkpark.models.requests.GetParksRequest;
-
 import com.barkpark.models.results.GetParksResult;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Implementation of the GetActivityActivity for the BarkPark GetPark API.
+ * Implementation of the GetParksActivity for the BarkPark GetParks API.
  *
- * This API allows the customer to get a single saved park.
+ * This API allows the customer to get list of parks, optionally filtered by
+ * location, avgRating, or both.
  */
 public class GetParksActivity implements RequestHandler<GetParksRequest, GetParksResult> {
     private final Logger log = LogManager.getLogger();
@@ -29,7 +29,7 @@ public class GetParksActivity implements RequestHandler<GetParksRequest, GetPark
     /**
      * Instantiates a new GetParkActivity object.
      *
-     * @param parkDao ParkDao to access the parks table.
+     * @param parkDao {@link ParkDao} object to access the Parks table
      */
     @Inject
     public GetParksActivity(ParkDao parkDao) {
