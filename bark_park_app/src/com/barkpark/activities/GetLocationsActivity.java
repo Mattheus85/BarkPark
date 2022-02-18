@@ -25,7 +25,7 @@ public class GetLocationsActivity implements RequestHandler<GetLocationsRequest,
         log.info("Received GetLocationsRequest {}", getLocationsRequest);
 
         return GetLocationsResult.builder()
-                .withLocationModelList(ModelConverter.toLocationModelList(parkDao.getLocations()))
+                .withLocationModel(ModelConverter.toLocationModelSet(parkDao.getLocations()))
                 .build();
     }
 }

@@ -1,22 +1,20 @@
 package com.barkpark.models;
 
-import com.barkpark.dynamodb.models.Location;
-
 import java.util.Objects;
+import java.util.Set;
 
 public class LocationModel {
-    private Location location;
+    private Set<String> locationSet;
 
     private LocationModel(Builder builder) {
-        this.location = builder.location;
+        this.locationSet = builder.locationSet;
     }
 
-    public Location getLocation() {
-        return location;
+    public Set<String> getLocationSet() {
+        return locationSet;
     }
-
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setLocationSet(Set<String> locationSet) {
+        this.locationSet = locationSet;
     }
 
     public static Builder builder() {
@@ -28,26 +26,26 @@ public class LocationModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LocationModel that = (LocationModel) o;
-        return Objects.equals(location, that.location);
+        return Objects.equals(getLocationSet(), that.getLocationSet());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(location);
+        return Objects.hash(getLocationSet());
     }
 
     @Override
     public String toString() {
         return "LocationModel{" +
-                "locationList=" + location +
+                "locationSet=" + locationSet +
                 '}';
     }
 
     public static final class Builder {
-        private Location location;
+        private Set<String> locationSet;
 
-        public Builder withLocation(Location location) {
-            this.location = location;
+        public Builder withLocationSet(Set<String> locationSet) {
+            this.locationSet = locationSet;
             return this;
         }
 

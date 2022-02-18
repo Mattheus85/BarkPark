@@ -1,6 +1,5 @@
 package com.barkpark.converters;
 
-import com.barkpark.dynamodb.models.Location;
 import com.barkpark.dynamodb.models.Park;
 import com.barkpark.dynamodb.models.Review;
 import com.barkpark.dynamodb.models.User;
@@ -78,29 +77,11 @@ public class ModelConverter {
     }
 
     /**
-     * Converts a provided {@link Location} into a {@link LocationModel} representation.
-     * @param location the {@link Location} to convert
+     * Converts a provided String Set into a {@link LocationModel} representation.
+     * @param locationSet the set of locations to be converted
      * @return the converted {@link LocationModel}
      */
-    public static LocationModel toLocationModel(Location location) {
-
-        return LocationModel.builder()
-                .withLocation(location)
-                .build();
-    }
-
-    /**
-     * Converts a provided {@link List<Location>} into a {@link List<LocationModel>} representation.
-     * @param locationList the list locations to be converted
-     * @return the converted locationModelList
-     */
-    public static List<LocationModel> toLocationModelList(List<Location> locationList) {
-        List<LocationModel> locationModelList = new ArrayList<>();
-
-        for (Location location : locationList) {
-            locationModelList.add(toLocationModel(location));
-        }
-
-        return locationModelList;
+    public static LocationModel toLocationModelSet(Set<String> locationSet) {
+        return LocationModel.builder().withLocationSet(locationSet).build();
     }
 }

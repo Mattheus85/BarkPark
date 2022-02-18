@@ -2,22 +2,21 @@ package com.barkpark.models.results;
 
 import com.barkpark.models.LocationModel;
 
-import java.util.List;
 import java.util.Objects;
 
 public class GetLocationsResult {
-    private List<LocationModel> locationModelList;
+    private LocationModel locationModel;
 
     private GetLocationsResult(Builder builder) {
-        this.locationModelList = builder.locationModelList;
+        this.locationModel = builder.locationModel;
     }
 
-    public List<LocationModel> getLocationModelList() {
-        return locationModelList;
+    public LocationModel getLocationModel() {
+        return locationModel;
     }
 
-    public void setLocationModelList(List<LocationModel> locationModelList) {
-        this.locationModelList = locationModelList;
+    public void setLocationModel(LocationModel locationModel) {
+        this.locationModel = locationModel;
     }
 
     public static Builder builder() {
@@ -29,26 +28,26 @@ public class GetLocationsResult {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GetLocationsResult result = (GetLocationsResult) o;
-        return Objects.equals(getLocationModelList(), result.getLocationModelList());
+        return Objects.equals(getLocationModel(), result.getLocationModel());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getLocationModelList());
+        return Objects.hash(getLocationModel());
     }
 
     @Override
     public String toString() {
         return "GetLocationsResult{" +
-                "locationModel=" + locationModelList +
+                "locationModel=" + locationModel +
                 '}';
     }
 
     public static final class Builder {
-        private List<LocationModel> locationModelList;
+        private LocationModel locationModel;
 
-        public Builder withLocationModelList(List<LocationModel> locationModelList) {
-            this.locationModelList = locationModelList;
+        public Builder withLocationModel(LocationModel locationModel) {
+            this.locationModel = locationModel;
             return this;
         }
 

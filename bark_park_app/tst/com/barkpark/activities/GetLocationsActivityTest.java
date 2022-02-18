@@ -1,18 +1,15 @@
 package com.barkpark.activities;
 
 import com.barkpark.dynamodb.ParkDao;
-import com.barkpark.dynamodb.models.Location;
 import com.barkpark.exceptions.LocationsNotFoundException;
-import com.barkpark.exceptions.ParkNotFoundException;
 import com.barkpark.models.requests.GetLocationsRequest;
-import com.barkpark.models.requests.GetParksRequest;
 import com.barkpark.models.results.GetLocationsResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -37,24 +34,19 @@ public class GetLocationsActivityTest {
         String city1 = "Circle, AK";
         String city2 = "Berkeley, CA";
         
-        List<Location> locationList = new ArrayList<>();
+        Set<String> locationSet = new HashSet<>();
+
+        locationSet.add(city1);
+        locationSet.add(city2);
         
-        Location location1 = new Location();
-        location1.setLocation(city1);
-        locationList.add(location1);
-        
-        Location location2 = new Location();
-        location2.setLocation(city2);
-        locationList.add(location2);
-        
-        when(parkDao.getLocations()).thenReturn(locationList);
+        when(parkDao.getLocations()).thenReturn(locationSet);
         GetLocationsRequest request = GetLocationsRequest.builder().build();
 
         // WHEN
         GetLocationsResult result = getLocationsActivity.handleRequest(request, null);
 
         // THEN
-        assertEquals(locationList.size(), result.getLocationModelList().size(),
+        assertEquals(locationSet.size(), result.getLocationModel().getLocationSet().size(),
                 "Result size should be equal to expected size");
     }
 

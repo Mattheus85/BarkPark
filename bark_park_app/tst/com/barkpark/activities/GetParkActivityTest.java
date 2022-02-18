@@ -5,13 +5,13 @@ import com.barkpark.dynamodb.models.Park;
 import com.barkpark.exceptions.ParkNotFoundException;
 import com.barkpark.models.requests.GetParkRequest;
 import com.barkpark.models.results.GetParkResult;
-import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
 import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -37,7 +37,7 @@ public class GetParkActivityTest {
         String expectedName = "expectedName";
         String expectedLocation = "expectedLocation";
         Double expectedAvgRating = 4.5;
-        List<String> expectedTags = Lists.newArrayList("tag");
+        Set<String> expectedTags = Sets.newHashSet("tag");
 
         Park park = new Park();
         park.setId(expectedId);

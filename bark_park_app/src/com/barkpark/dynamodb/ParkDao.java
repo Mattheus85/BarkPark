@@ -16,8 +16,10 @@ import com.barkpark.exceptions.ParksNotFoundException;
 import javax.inject.Inject;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static com.barkpark.dynamodb.models.Park.LOCATION_AVG_RATING_INDEX;
 
@@ -147,20 +149,26 @@ public class ParkDao {
     }
 
     /**
-     * Returns a {@link List<Location>} of all stored locations.
+     * Returns a String Set of all stored locations.
      *
-     * @return the list of stored Locations, or throw {@link LocationsNotFoundException} if none was found.
+     * @return the String set of stored Locations, or throw {@link LocationsNotFoundException} if none was found.
      */
-    public List<Location> getLocations() throws LocationsNotFoundException {
+    public Set<String> getLocations() throws LocationsNotFoundException {
         
         DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
                 .withIndexName(LOCATION_AVG_RATING_INDEX)
                 .withConsistentRead(false);
         
-        if (dynamoDbMapper.scan(Location.class, scanExpression) == null) {
+        if (dynamoDbMapper.scan(Park.class, scanExpression) == null) {
             throw new LocationsNotFoundException();
         }
 
-        return dynamoDbMapper.scan(Location.class, scanExpression);
+        Set<String> parkSet = new HashSet<>();
+        List<Park> parkList = dynamoDbMapper.scan(Park.class, scanExpression);
+        for (Park park : parkList) {
+            parkSet.add(park.getLocation());
+        }
+
+        return parkSet;
     }
 }
