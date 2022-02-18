@@ -22,7 +22,7 @@ public class ModelConverter {
                 .withName(park.getName())
                 .withLocation(park.getLocation())
                 .withAvgRating(park.getAvgRating())
-                .withTags(park.getTags().isEmpty() ? null : new HashSet<>(park.getTags()))
+                .withTags(park.getTags() == null ? null : new HashSet<>(park.getTags()))
                 .build();
     }
 

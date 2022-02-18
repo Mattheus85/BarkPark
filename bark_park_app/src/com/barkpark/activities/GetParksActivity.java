@@ -52,9 +52,9 @@ public class GetParksActivity implements RequestHandler<GetParksRequest, GetPark
         Double avgRating = getParksRequest.getAvgRating();
 
         List<Park> parkList;
-        if (location != null && avgRating != null) {
+        if ((location != null && !location.isEmpty()) && avgRating != null) {
             parkList = parkDao.getParksByLocationAndAvgRating(location, avgRating);
-        } else if (location != null) {
+        } else if (location != null && !location.isEmpty()) {
             parkList = parkDao.getParksByLocation(location);
         } else if (avgRating != null) {
             parkList = parkDao.getParksByAvgRating(avgRating);
