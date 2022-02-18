@@ -1,7 +1,10 @@
 package com.barkpark.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.barkpark.dynamodb.models.Park;
 import com.barkpark.dynamodb.models.User;
+import com.barkpark.exceptions.ParkNotFoundException;
+import com.barkpark.exceptions.UserNotFoundException;
 import com.barkpark.models.requests.CreateUserRequest;
 import com.barkpark.models.requests.UpdateUserRequest;
 
@@ -21,6 +24,22 @@ public class UserDao {
     @Inject
     public UserDao(DynamoDBMapper dynamoDBMapper) {
         this.dynamoDBMapper = dynamoDBMapper;
+    }
+
+    /**
+     * Returns the {@link User} corresponding to the specified id.
+     *
+     * @param id the User ID
+     * @return the stored User, or throw {@link UserNotFoundException} if none was found.
+     */
+    public User getUser(String id) throws UserNotFoundException {
+        User user = this.dynamoDBMapper.load(User.class, id);
+
+        if (user == null) {
+            throw new UserNotFoundException("Could not find user with id: " + id);
+        }
+
+        return user;
     }
 
     /**
