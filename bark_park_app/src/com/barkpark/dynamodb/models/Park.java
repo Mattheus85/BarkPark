@@ -37,6 +37,7 @@ public class Park {
         this.name = name;
     }
 
+
     @DynamoDBIndexHashKey(attributeName = "location", globalSecondaryIndexName = LOCATION_AVG_RATING_INDEX)
     public String getLocation() {
         return location;
