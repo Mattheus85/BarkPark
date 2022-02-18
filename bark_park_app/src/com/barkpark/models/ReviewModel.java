@@ -1,24 +1,21 @@
-package com.barkpark.models.requests;
+package com.barkpark.models;
 
 import java.util.Objects;
 
-public class CreateReviewRequest {
+public class ReviewModel {
     private String parkId;
     private String userId;
+    private String date;
     private String reviewTitle;
     private String reviewBody;
-    private String date;
     private Double rating;
 
-    public CreateReviewRequest() {
-    }
-
-    private CreateReviewRequest(Builder builder) {
+    private ReviewModel(Builder builder) {
         this.parkId = builder.parkId;
         this.userId = builder.userId;
+        this.date = builder.date;
         this.reviewTitle = builder.reviewTitle;
         this.reviewBody = builder.reviewBody;
-        this.date = builder.date;
         this.rating = builder.rating;
     }
 
@@ -30,20 +27,20 @@ public class CreateReviewRequest {
         this.parkId = parkId;
     }
 
-    public Double getRating() {
-            return rating;
-        }
-
-    public void setRating(Double rating) {
-            this.rating = rating;
-        }
-
     public String getUserId() {
         return userId;
     }
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getReviewTitle() {
@@ -62,12 +59,12 @@ public class CreateReviewRequest {
         this.reviewBody = reviewBody;
     }
 
-    public String getDate() {
-        return date;
+    public Double getRating() {
+        return rating;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setRating(Double rating) {
+        this.rating = rating;
     }
 
     public static Builder builder() {
@@ -78,7 +75,7 @@ public class CreateReviewRequest {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CreateReviewRequest that = (CreateReviewRequest) o;
+        ReviewModel that = (ReviewModel) o;
         return getParkId().equals(that.getParkId()) && getUserId().equals(that.getUserId()) && getDate().equals(that.getDate()) && getRating().equals(that.getRating());
     }
 
@@ -89,12 +86,12 @@ public class CreateReviewRequest {
 
     @Override
     public String toString() {
-        return "CreateReviewRequest{" +
+        return "ReviewModel{" +
                 "parkId='" + parkId + '\'' +
                 ", userId='" + userId + '\'' +
+                ", date='" + date + '\'' +
                 ", reviewTitle='" + reviewTitle + '\'' +
                 ", reviewBody='" + reviewBody + '\'' +
-                ", date='" + date + '\'' +
                 ", rating=" + rating +
                 '}';
     }
@@ -102,25 +99,10 @@ public class CreateReviewRequest {
     public static final class Builder {
         private String parkId;
         private String userId;
+        private String date;
         private String reviewTitle;
         private String reviewBody;
-        private String date;
         private Double rating;
-
-        public Builder withRating(Double rating) {
-            this.rating = rating;
-            return this;
-        }
-
-        public Builder withReviewBody(String reviewBody) {
-            this.reviewBody = reviewBody;
-            return this;
-        }
-
-        public Builder withReviewTitle(String reviewTitle) {
-            this.reviewTitle = reviewTitle;
-            return this;
-        }
 
         public Builder withParkId(String parkId) {
             this.parkId = parkId;
@@ -137,8 +119,23 @@ public class CreateReviewRequest {
             return this;
         }
 
-        public CreateReviewRequest build() {
-            return new CreateReviewRequest(this);
+        public Builder withReviewTitle(String reviewTitle) {
+            this.reviewTitle = reviewTitle;
+            return this;
+        }
+
+        public Builder withReviewBody(String reviewBody) {
+            this.reviewBody = reviewBody;
+            return this;
+        }
+
+        public Builder withRating(Double rating) {
+            this.rating = rating;
+            return this;
+        }
+
+        public ReviewModel build() {
+            return new ReviewModel(this);
         }
     }
 }

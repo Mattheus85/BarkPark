@@ -5,7 +5,7 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.barkpark.converters.ModelConverter;
 import com.barkpark.dynamodb.ParkDao;
 import com.barkpark.dynamodb.models.Park;
-import com.barkpark.exceptions.ParkNotFoundException;
+import com.barkpark.exceptions.ParksNotFoundException;
 import com.barkpark.models.ParkModel;
 import com.barkpark.models.requests.GetParksRequest;
 
@@ -45,7 +45,7 @@ public class GetParksActivity implements RequestHandler<GetParksRequest, GetPark
      * @return getParksResult result object containing a list of API defined {@link ParkModel} objects
      */
     @Override
-    public GetParksResult handleRequest(final GetParksRequest getParksRequest, Context context) throws ParkNotFoundException {
+    public GetParksResult handleRequest(final GetParksRequest getParksRequest, Context context) throws ParksNotFoundException {
         log.info("Received GetParkRequest {}", getParksRequest);
 
         String location = getParksRequest.getLocation();

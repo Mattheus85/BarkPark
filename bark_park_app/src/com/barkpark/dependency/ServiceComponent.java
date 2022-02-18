@@ -6,10 +6,9 @@ import com.barkpark.activities.DeleteReviewActivity;
 import com.barkpark.activities.DeleteUserActivity;
 import com.barkpark.activities.GetLocationsActivity;
 import com.barkpark.activities.GetParkActivity;
-import com.barkpark.activities.GetParkReviewsActivity;
+import com.barkpark.activities.GetReviewsActivity;
 import com.barkpark.activities.GetParksActivity;
 import com.barkpark.activities.GetUserActivity;
-import com.barkpark.activities.GetUserReviewsActivity;
 import com.barkpark.activities.UpdateReviewActivity;
 import com.barkpark.activities.UpdateUserActivity;
 import dagger.Component;
@@ -25,10 +24,9 @@ public interface ServiceComponent {
     DeleteUserActivity provideDeleteUserActivity();
     GetLocationsActivity provideGetLocationsActivity();
     GetParkActivity provideGetParkActivity();
-    GetParkReviewsActivity provideGetParkReviewsActivity();
+    GetReviewsActivity provideGetReviewsActivity();
     GetParksActivity provideGetParksActivity();
     GetUserActivity provideGetUserActivity();
-    GetUserReviewsActivity provideGetUserReviewsActivity();
     UpdateReviewActivity provideUpdateReviewActivity();
     UpdateUserActivity provideUpdateUserActivity();
 }

@@ -7,15 +7,21 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
 import com.amazonaws.services.dynamodbv2.model.Condition;
+import com.barkpark.dynamodb.models.Location;
 import com.barkpark.dynamodb.models.Park;
+import com.barkpark.exceptions.LocationsNotFoundException;
 import com.barkpark.exceptions.ParkNotFoundException;
 import com.barkpark.exceptions.ParksNotFoundException;
 
 import javax.inject.Inject;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import static com.barkpark.dynamodb.models.Park.LOCATION_AVG_RATING_INDEX;
 
 
 /**
@@ -78,7 +84,7 @@ public class ParkDao {
 
         DynamoDBQueryExpression<Park> queryExpression = new DynamoDBQueryExpression<Park>()
                 .withHashKeyValues(partitionKey)
-                .withIndexName(Park.LOCATION_AVG_RATING_INDEX)
+                .withIndexName(LOCATION_AVG_RATING_INDEX)
                 .withConsistentRead(false);
 
         List<Park> parks =  dynamoDbMapper.query(Park.class, queryExpression);
@@ -131,7 +137,7 @@ public class ParkDao {
         DynamoDBQueryExpression<Park> queryExpression = new DynamoDBQueryExpression<Park>()
                 .withHashKeyValues(partitionKey)
                 .withRangeKeyCondition("avgRating", condition)
-                .withIndexName(Park.LOCATION_AVG_RATING_INDEX)
+                .withIndexName(LOCATION_AVG_RATING_INDEX)
                 .withConsistentRead(false);
 
         List<Park> parks =  dynamoDbMapper.query(Park.class, queryExpression);
@@ -140,5 +146,29 @@ public class ParkDao {
             throw new ParksNotFoundException("No parks found in " + location);
         }
         return parks;
+    }
+
+    /**
+     * Returns a String Set of all stored locations.
+     *
+     * @return the String set of stored Locations, or throw {@link LocationsNotFoundException} if none was found.
+     */
+    public Set<String> getLocations() throws LocationsNotFoundException {
+        
+        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
+                .withIndexName(LOCATION_AVG_RATING_INDEX)
+                .withConsistentRead(false);
+        
+        if (dynamoDbMapper.scan(Park.class, scanExpression) == null) {
+            throw new LocationsNotFoundException();
+        }
+
+        Set<String> parkSet = new HashSet<>();
+        List<Park> parkList = dynamoDbMapper.scan(Park.class, scanExpression);
+        for (Park park : parkList) {
+            parkSet.add(park.getLocation());
+        }
+
+        return parkSet;
     }
 }
