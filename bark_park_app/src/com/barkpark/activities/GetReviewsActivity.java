@@ -2,6 +2,7 @@ package com.barkpark.activities;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.barkpark.converters.ModelConverter;
 import com.barkpark.dynamodb.models.Review;
 import com.barkpark.dynamodb.ReviewDao;
 import com.barkpark.models.requests.GetReviewsRequest;
@@ -12,6 +13,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Implementation of the GetReviewsActivity for the BarkPark GetReviews API.
@@ -45,7 +48,23 @@ public class GetReviewsActivity implements RequestHandler<GetReviewsRequest, Get
     public GetReviewsResult handleRequest(GetReviewsRequest getReviewsRequest, Context context) {
         log.info("Received GetReviewsRequest {}", getReviewsRequest);
 
+        String parkId = getReviewsRequest.getParkId();
+        String userId = getReviewsRequest.getUserId();
+
+        List<Review> reviewList = new ArrayList<>();
+
+        if ((parkId != null && !parkId.isEmpty()) && (userId != null && !userId.isEmpty())) {
+            reviewList.add(reviewDao.getReviewByParkIdAndUserId(parkId, userId));
+        } else if (parkId != null && !parkId.isEmpty()) {
+            reviewList = reviewDao.getReviewsByParkId(parkId);
+        } else if (userId != null && !userId.isEmpty()) {
+            reviewList = reviewDao.getReviewsByUserId(userId);
+        } else {
+            throw new IllegalArgumentException("The request must include a parkId, userId, or both");
+        }
         
-        return null;
+        return GetReviewsResult.builder()
+                .withReviewModelList(ModelConverter.toReviewModelList(reviewList))
+                .build();
     }
 }

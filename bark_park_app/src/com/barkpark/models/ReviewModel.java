@@ -76,7 +76,10 @@ public class ReviewModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ReviewModel that = (ReviewModel) o;
-        return getParkId().equals(that.getParkId()) && getUserId().equals(that.getUserId()) && getDate().equals(that.getDate()) && getRating().equals(that.getRating());
+        return getParkId().equals(that.getParkId()) &&
+                getUserId().equals(that.getUserId()) &&
+                getDate().equals(that.getDate()) &&
+                getRating().equals(that.getRating());
     }
 
     @Override

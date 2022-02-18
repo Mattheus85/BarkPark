@@ -64,6 +64,22 @@ public class ModelConverter {
     }
 
     /**
+     * Converts a provided {@link List<Review>} into a {@link List<ReviewModel>} representation.
+     *
+     * @param reviewList the {@link Review} list to be converted
+     * @return the converted {@link ReviewModel} list
+     */
+    public static List<ReviewModel> toReviewModelList(List<Review> reviewList) {
+        List<ReviewModel> reviewModelList = new ArrayList<>();
+
+        for (Review review : reviewList) {
+            reviewModelList.add(toReviewModel(review));
+        }
+
+        return reviewModelList;
+    }
+
+    /**
      * Converts a provided {@link User} into a {@link UserModel} representation.
      * @param user the {@link User} to convert
      * @return the converted {@link UserModel}
