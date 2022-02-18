@@ -16,23 +16,20 @@ also be able to create user accounts and review parks as well as filter parks by
 
 ## 2. Top Questions to Resolve in Review
 
-1. What are the primary data types and associated attributes?
-   1. Should we decouple related dependent objects?
-      1. For example, should a dogpark object maintain a list of its reviews or should this be retrieved
-         on demand by a request to the reviews table?
-2. Should we include the ability for users to upload dogpark photos in the initial scope?
-3. How do we want to manage permissions for adding, removing, and updating parks?
-   1. Our initial discussions have led us to consider allowing users to submit requests that would be handled by an admin.
-   This may require an additional requests table in the database, additional admin functionality, and increased
-   complexity in general.
-4. How do we want to store location data?
+1. If we're not trying abstract details about the underlying db table implementation, should we still utilize models 
+   in the results?
+2. A review in the reviews table is identified by the unique composite key of partition key: parkId and sort key: userId.
+   1. Is it conventional to provide a GET method for this sort of thing?
+3. Is our implementation of GetReviews reasonable?
+4. If we have text that will potentially be long form and include formatting, how should we store this?
+5. How do we want to store location data? 
    1. Possibilities include geographical coordinates, city names, etc.
-5. When a User deletes their account, should we also delete all reviews they have written and/or all parks they may have added?
+6. When a User deletes their account, should we also delete all reviews they have written and/or all parks they may have added?
    1. If we leave the reviews, how do we handle the associated UserId (if this is indeed how we implement the Review model)
 
 ## 3. Use Cases
 
-U1. *As a customer, I want to view a list of all parks*
+U1. *As a customer, I want to view a list of all stored parks*
 
 U2. *As a customer, I want to view a list of all nearby parks when I specify a location*
 
@@ -70,6 +67,7 @@ a review rating value I provide*
 3. Retrieve a list of locations with available parks
 4. Create, edit, and delete a user account
 5. Create, edit, and delete a review for a park
+6. Retrieve a list of reviews filtered by parkId and/or userId
 
 ### 4.2. Out of Scope
 
@@ -117,44 +115,26 @@ links to update or delete.
 String id;
 String name;
 String location;
-Integer avgRating;
-List<String> tags;
+Double avgRating;
+Set<String> tags;
 ```
 
-```
-// ParksModel
-
-List<String> parkIds;
-```
 
 ```
 // LocationModel
 
-String locationName;
-List<String> parkIds;
-```
-
-```
-// LocationsModel
-
-List<String> locationNames;
+Set<String> locationSet;
 ```
 
 ```
 // ReviewModel
 
 String parkId;
-String id;
-Integer rating;
-String date;
-String reviewBody;
 String userId;
-```
-
-```
-// ReviewsModel
-
-List<String> reviewIds;
+String date;
+String reviewTitle;
+String reviewBody;
+Integer rating;
 ```
 
 ```
@@ -162,8 +142,6 @@ List<String> reviewIds;
 
 String id;
 String username;
-String email;
-String password;
 ```
 
 ## Endpoints
@@ -219,35 +197,51 @@ parameters) and a method to generate a new, unique user ID
 * If the user ID is not found, will throw a `UserNotFoundException`
 
 ## 6.9 *CreateReviewActivity*
-* Accepts `POST` requests to `/parks/:parkId/reviews`.
-* Accepts data to create a new review including a required user ID, a review rating, and an optional review title and review body.
-* Returns the corresponding ReviewModel, which includes a unique review ID,
-  assigned by the Parks Review Service.
+* Accepts `POST` requests to `/reviews`.
+* Accepts data to create a new review including a required parkId, a required user ID, a required review rating, and an optional review title and review body.
+* Returns the corresponding ReviewModel.
 * For usability, we will limit the available ratings to only the numbers `1-5`.
   * If the user ID is not found, will throw a `UserNotFoundException`.
   * If the park ID is not found, will throw a `ParkNotFoundException`.
 
 ![CreateReviewActivityImage](../bark_park_app/resources/images/create-review-activity.png)
 
-## 6.10 *GetParkReviewsActivity*
-* Accepts `GET` requests to `/parks/:parkId/reviews`.
-* Accepts a park ID and returns the corresponding ReviewsModel.
-   * If the park ID is not found, will throw a `ParkNotFoundException`.
+## 6.10 *GetReviewsActivity*
+* Accepts `GET` requests to `/reviews`.
+* Retrieves a list of reviews
+  * Requires at least one query parameter of type `parkId` or `userId` 
+    * If only the `parkId` parameter is provided, this API will filter
+      the list to include only reviews for the specified park
+      * If `parkId` is invalid or doesn't exist, will throw a `ParkNotFoundException`
+      * If there are no reviews for the specified park, will return an empty list
+    * If only the `userId` parameter is provided, this API will filter
+      the list to include only reviews created by the specified user
+        * If `userId` is invalid or doesn't exist, will throw a `UserNotFoundException`
+        * If there are no reviews for the specified user, will return an empty list
+    * If both the `parkId` and `userId` parameters are provided, this API will return
+      a singleton list including the unique review specified 
+        * If `parkId` is invalid or doesn't exist, will throw a `ParkNotFoundException`
+        * If `userId` is invalid or doesn't exist, will throw a `UserNotFoundException`
+        * If there is no review that matches the specified user and park, will return an empty list
+  
 
 ![GetParkReviewsActivityImage](../bark_park_app/resources/images/get-park-reviews-activity.png)
 
 ## 6.11 *UpdateReviewActivity*
-* Accepts `PUT` requests to `/users/:userId/reviews/:reviewId`.
-* Accepts data to update a review including a user ID, an updated review rating, 
-  a park ID, and an optional text body. Returns the updated review.
-   * If the user ID is not found, will throw a `UserNotFoundException`.
-   * If the park ID is not found, will throw a `ParkNotFoundException`.
+* Accepts `PUT` requests to `/reviews/:parkId/:userId`.
+* Accepts data to update a review including the optional parameters review rating, 
+   review title, and review body. If any of these optional parameters are not included the updated review will use the
+   existing values. Returns the updated review.
+* If the user ID is not found, will throw a `UserNotFoundException`.
+* If the park ID is not found, will throw a `ParkNotFoundException`.
 * For usability, we will limit the available ratings to only the numbers `1-5`.
+* For security concerns, we will validate all provided parameters to ensure they do not contain any invalid characters: `“ ‘ \ `
+* If any of provided parameters contains any of the invalid characters, will throw an `InvalidAttributeValueException`
 
 ![UpdateReviewActivityImage](../bark_park_app/resources/images/update-review-activity.png)
 
 ## 6.12 *DeleteReviewActivity*
-* Accepts `DELETE` requests to `/users/:userId/reviews/:reviewId`
+* Accepts `DELETE` requests to `/reviews/:parkId/:userId`
 * Accepts data to delete a review including a user ID and a park ID.
   Returns the deleted ReviewModel.
    * If the user ID is not found, will throw a `UserNotFoundException`.
@@ -255,12 +249,6 @@ parameters) and a method to generate a new, unique user ID
 
 ![DeleteReviewActivityImage](../bark_park_app/resources/images/delete-review-activity.png)
 
-## 6.13 *GetUserReviewsActivity*
-* Accepts `GET` requests to `/users/:userId/reviews`.
-* Accepts a user ID and returns the corresponding ReviewsModel.
-    * If the user ID is not found, will throw a `UserNotFoundException`.
-
-![GetUserReviewsActivityImage](../bark_park_app/resources/images/get-user-reviews-activity.png)
 
 # 7. Tables
 
@@ -271,33 +259,22 @@ name // string
 location // string 
 avgRating // number
 tags // list
-reviews // list
 ```
 
-### 7.2 `locations`
-```
-locationName // partition key, string
-parks // list
-```
-
-### 7.3 `users`
+### 7.2 `users`
 ```
 id // partition key, string
 username // string
-email // string
-password // string
-reviews // list
 ```
 
-### 7.4 `reviews`
+### 7.3 `reviews`
 ```
-id // partition key, string
-parkId // string
-userId // string
-rating // number
+parkId // partition key, string
+userId // sort key, string
 date // string
 reviewTitle // string
 reviewBody // string
+rating // number
 ```
 
 # 8. Pages
