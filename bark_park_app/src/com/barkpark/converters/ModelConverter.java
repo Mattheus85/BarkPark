@@ -1,8 +1,10 @@
 package com.barkpark.converters;
 
+import com.barkpark.dynamodb.models.Location;
 import com.barkpark.dynamodb.models.Park;
 import com.barkpark.dynamodb.models.Review;
 import com.barkpark.dynamodb.models.User;
+import com.barkpark.models.LocationModel;
 import com.barkpark.models.ParkModel;
 import com.barkpark.models.ReviewModel;
 import com.barkpark.models.UserModel;
@@ -31,7 +33,7 @@ public class ModelConverter {
     }
 
     /**
-     * Converts a provided {@link List<ParkModel>} into a {@link List<ParkModel>} representation.
+     * Converts a provided {@link List<Park>} into a {@link List<ParkModel>} representation.
      * @param parkList the list parks to be converted
      * @return the converted parkModelList
      */
@@ -73,5 +75,32 @@ public class ModelConverter {
                 .withId(user.getId())
                 .withUsername(user.getUsername())
                 .build();
+    }
+
+    /**
+     * Converts a provided {@link Location} into a {@link LocationModel} representation.
+     * @param location the {@link Location} to convert
+     * @return the converted {@link LocationModel}
+     */
+    public static LocationModel toLocationModel(Location location) {
+
+        return LocationModel.builder()
+                .withLocation(location)
+                .build();
+    }
+
+    /**
+     * Converts a provided {@link List<Location>} into a {@link List<LocationModel>} representation.
+     * @param locationList the list locations to be converted
+     * @return the converted locationModelList
+     */
+    public static List<LocationModel> toLocationModelList(List<Location> locationList) {
+        List<LocationModel> locationModelList = new ArrayList<>();
+
+        for (Location location : locationList) {
+            locationModelList.add(toLocationModel(location));
+        }
+
+        return locationModelList;
     }
 }
