@@ -1,12 +1,7 @@
 package com.barkpark.dynamodb.models;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverted;
-import com.barkpark.converters.ReviewLinkedListConverter;
+import com.amazonaws.services.dynamodbv2.datamodeling.*;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -15,12 +10,14 @@ import java.util.Set;
  */
 @DynamoDBTable(tableName = "parks")
 public class Park {
+
+    public static final String LOCATION_AVG_RATING_INDEX = "location-avgRating-index";
+
     private String id;
     private String name;
     private String location;
     private Double avgRating;
     private Set<String> tags;
-    private List<Review> reviews;
 
     @DynamoDBHashKey(attributeName = "id")
     public String getId() {
@@ -40,7 +37,7 @@ public class Park {
         this.name = name;
     }
 
-    @DynamoDBAttribute(attributeName = "location")
+    @DynamoDBIndexHashKey(attributeName = "location", globalSecondaryIndexName = LOCATION_AVG_RATING_INDEX)
     public String getLocation() {
         return location;
     }
@@ -49,7 +46,7 @@ public class Park {
         this.location = location;
     }
 
-    @DynamoDBAttribute(attributeName = "avgRating")
+    @DynamoDBIndexRangeKey(attributeName = "avgRating", globalSecondaryIndexName = LOCATION_AVG_RATING_INDEX)
     public Double getAvgRating() {
         return avgRating;
     }
@@ -65,18 +62,6 @@ public class Park {
 
     public void setTags(Set<String> tags) {
         this.tags = tags;
-    }
-
-    // When a new review is created, always add to front
-    // Specify that api will return reviews in order of newest to oldest
-    @DynamoDBTypeConverted(converter = ReviewLinkedListConverter.class)
-    @DynamoDBAttribute(attributeName = "reviews")
-    public List<Review> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
     }
 
     @Override
