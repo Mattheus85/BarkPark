@@ -71,4 +71,14 @@ public class UserDao {
         this.dynamoDBMapper.save(user);
         return user;
     }
+
+    public User deleteUser(String userId) throws UserNotFoundException {
+        User user = getUser(userId);
+
+        // Should this be in a try block
+        // Review dynamodb exception handling conventions
+        dynamoDBMapper.delete(user);
+
+        return user;
+    }
 }

@@ -133,7 +133,7 @@ public class ReviewDao {
         return review;
     }
 
-    public Review deleteReview(String parkId, String userId) {
+    public Review deleteReview(String parkId, String userId) throws ReviewNotFoundException {
 
         Review review = getReviewByParkIdAndUserId(parkId, userId);
 
