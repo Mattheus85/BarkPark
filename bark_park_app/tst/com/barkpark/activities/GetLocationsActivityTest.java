@@ -1,9 +1,10 @@
 package com.barkpark.activities;
 
+import com.barkpark.activities.locations.GetLocationsActivity;
 import com.barkpark.dynamodb.ParkDao;
 import com.barkpark.exceptions.LocationsNotFoundException;
-import com.barkpark.models.requests.GetLocationsRequest;
-import com.barkpark.models.results.GetLocationsResult;
+import com.barkpark.models.requests.locations.GetLocationsRequest;
+import com.barkpark.models.results.locations.GetLocationsResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

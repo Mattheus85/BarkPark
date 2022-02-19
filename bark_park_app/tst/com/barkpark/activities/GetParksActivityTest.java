@@ -1,11 +1,12 @@
 package com.barkpark.activities;
 
+import com.barkpark.activities.parks.GetParksActivity;
 import com.barkpark.dynamodb.ParkDao;
 import com.barkpark.dynamodb.models.Park;
 import com.barkpark.dynamodb.models.Review;
 import com.barkpark.exceptions.ParkNotFoundException;
-import com.barkpark.models.requests.GetParksRequest;
-import com.barkpark.models.results.GetParksResult;
+import com.barkpark.models.requests.parks.GetParksRequest;
+import com.barkpark.models.results.parks.GetParksResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

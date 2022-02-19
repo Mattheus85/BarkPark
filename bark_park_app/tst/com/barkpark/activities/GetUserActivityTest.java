@@ -1,17 +1,14 @@
 package com.barkpark.activities;
 
+import com.barkpark.activities.users.GetUserActivity;
 import com.barkpark.dynamodb.UserDao;
 import com.barkpark.dynamodb.models.User;
 import com.barkpark.exceptions.UserNotFoundException;
-import com.barkpark.models.requests.GetUserRequest;
-import com.barkpark.models.results.GetUserResult;
-import com.google.common.collect.Lists;
+import com.barkpark.models.requests.users.GetUserRequest;
+import com.barkpark.models.results.users.GetUserResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-
-import java.util.HashSet;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

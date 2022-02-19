@@ -1,10 +1,11 @@
 package com.barkpark.activities;
 
+import com.barkpark.activities.reviews.GetReviewsActivity;
 import com.barkpark.dynamodb.ReviewDao;
 import com.barkpark.dynamodb.models.Review;
 import com.barkpark.models.ReviewModel;
-import com.barkpark.models.requests.GetReviewsRequest;
-import com.barkpark.models.results.GetReviewsResult;
+import com.barkpark.models.requests.reviews.GetReviewsRequest;
+import com.barkpark.models.results.reviews.GetReviewsResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
