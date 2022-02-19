@@ -1,5 +1,6 @@
 package com.barkpark.dependency;
 
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
@@ -19,7 +20,7 @@ public class MapperModule {
 
         return new DynamoDBMapper(AmazonDynamoDBClientBuilder
                 .standard()
-                .withCredentials(new ProfileCredentialsProvider(BARK_PARK))
+                .withCredentials(DefaultAWSCredentialsProviderChain.getInstance())
                 .withRegion(Regions.US_WEST_1)
                 .build());
     }
