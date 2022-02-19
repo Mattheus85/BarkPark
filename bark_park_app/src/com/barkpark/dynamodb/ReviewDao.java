@@ -132,4 +132,15 @@ public class ReviewDao {
         this.dynamoDBMapper.save(review);
         return review;
     }
+
+    public Review deleteReview(String parkId, String userId) {
+
+        Review review = getReviewByParkIdAndUserId(parkId, userId);
+
+        // Should this be in a try block
+        // Review dynamodb exception handling conventions
+        dynamoDBMapper.delete(review);
+
+        return review;
+    }
 }
