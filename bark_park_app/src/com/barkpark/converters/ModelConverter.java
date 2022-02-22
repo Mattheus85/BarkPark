@@ -3,7 +3,6 @@ package com.barkpark.converters;
 import com.barkpark.dynamodb.models.Park;
 import com.barkpark.dynamodb.models.Review;
 import com.barkpark.dynamodb.models.User;
-import com.barkpark.models.LocationModel;
 import com.barkpark.models.ParkModel;
 import com.barkpark.models.ReviewModel;
 import com.barkpark.models.UserModel;
@@ -11,7 +10,6 @@ import com.barkpark.models.UserModel;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ModelConverter {
     /**
@@ -90,14 +88,5 @@ public class ModelConverter {
                 .withId(user.getId())
                 .withUsername(user.getUsername())
                 .build();
-    }
-
-    /**
-     * Converts a provided String Set into a {@link LocationModel} representation.
-     * @param locationSet the set of locations to be converted
-     * @return the converted {@link LocationModel}
-     */
-    public static LocationModel toLocationModelSet(Set<String> locationSet) {
-        return LocationModel.builder().withLocationSet(locationSet).build();
     }
 }

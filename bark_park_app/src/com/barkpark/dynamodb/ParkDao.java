@@ -7,7 +7,6 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
 import com.amazonaws.services.dynamodbv2.model.Condition;
-import com.barkpark.dynamodb.models.Location;
 import com.barkpark.dynamodb.models.Park;
 import com.barkpark.exceptions.LocationsNotFoundException;
 import com.barkpark.exceptions.ParkNotFoundException;
@@ -158,17 +157,18 @@ public class ParkDao {
         DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
                 .withIndexName(LOCATION_AVG_RATING_INDEX)
                 .withConsistentRead(false);
-        
-        if (dynamoDbMapper.scan(Park.class, scanExpression) == null) {
+
+        // Very inefficient, consider alternate approaches
+        List<Park> parkList = dynamoDbMapper.scan(Park.class, scanExpression);
+        if (parkList == null || parkList.isEmpty()) {
             throw new LocationsNotFoundException();
         }
 
-        Set<String> parkSet = new HashSet<>();
-        List<Park> parkList = dynamoDbMapper.scan(Park.class, scanExpression);
+        Set<String> locations = new HashSet<>();
         for (Park park : parkList) {
-            parkSet.add(park.getLocation());
+            locations.add(park.getLocation());
         }
 
-        return parkSet;
+        return locations;
     }
 }

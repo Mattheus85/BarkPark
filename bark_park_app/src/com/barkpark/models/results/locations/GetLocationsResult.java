@@ -1,55 +1,33 @@
 package com.barkpark.models.results.locations;
 
-import com.barkpark.models.LocationModel;
-
-import java.util.Objects;
+import java.util.Set;
 
 public class GetLocationsResult {
-    private LocationModel locationModel;
+    private Set<String> locationSet;
 
     public GetLocationsResult() {}
 
     private GetLocationsResult(Builder builder) {
-        this.locationModel = builder.locationModel;
+        this.locationSet = builder.locationSet;
     }
 
-    public LocationModel getLocationModel() {
-        return locationModel;
+    public Set<String> getLocationSet() {
+        return locationSet;
     }
 
-    public void setLocationModel(LocationModel locationModel) {
-        this.locationModel = locationModel;
+    public void setLocationModel(Set<String> locationSet) {
+        this.locationSet = locationSet;
     }
 
     public static Builder builder() {
         return new Builder();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        GetLocationsResult result = (GetLocationsResult) o;
-        return Objects.equals(getLocationModel(), result.getLocationModel());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getLocationModel());
-    }
-
-    @Override
-    public String toString() {
-        return "GetLocationsResult{" +
-                "locationModel=" + locationModel +
-                '}';
-    }
-
     public static final class Builder {
-        private LocationModel locationModel;
+        private Set<String> locationSet;
 
-        public Builder withLocationModel(LocationModel locationModel) {
-            this.locationModel = locationModel;
+        public Builder withLocationSet(Set<String> locationSet) {
+            this.locationSet = locationSet;
             return this;
         }
 
