@@ -5,6 +5,7 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
+import com.barkpark.converters.LocationSetConverter;
 import com.barkpark.dynamodb.ParkDao;
 import com.barkpark.dynamodb.models.Park;
 import com.barkpark.exceptions.LocationsNotFoundException;
@@ -38,14 +39,15 @@ public class TempTest {
             throw new LocationsNotFoundException("No park locations found", parksNotFoundException);
         }
 
-        Set<String> locationSet = new HashSet<>();
-        for (Park park : parkList) {
-            locationSet.add(park.getLocation());
-        }
+        Set<String> locationSet = LocationSetConverter.convertToSet(parkList);
 
         GetLocationsResult getLocationsResult = GetLocationsResult.builder()
                 .withLocationSet(locationSet)
                 .build();
+
+        for (String loc : getLocationsResult.getLocationSet()) {
+            System.out.println(loc);
+        }
 //
 //        List<Park> parks = parkDao.getParksByLocationAndAvgRating("Berkeley, CA", 4d);
 //

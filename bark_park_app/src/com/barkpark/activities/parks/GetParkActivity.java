@@ -16,7 +16,7 @@ import org.apache.logging.log4j.Logger;
 import javax.inject.Inject;
 
 /**
- * Implementation of the GetActivityActivity for the BarkPark GetPark API.
+ * Implementation of the GetParkActivity for the BarkPark GetPark API.
  *
  * This API allows the customer to get a single saved park.
  */

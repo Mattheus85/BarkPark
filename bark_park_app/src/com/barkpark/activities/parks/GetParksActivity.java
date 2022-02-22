@@ -26,9 +26,9 @@ public class GetParksActivity implements RequestHandler<GetParksRequest, GetPark
     private final ParkDao parkDao;
 
     /**
-     * Instantiates a new GetParkActivity object.
+     * Instantiates a new GetParksActivity object.
      *
-     * @param parkDao {@link ParkDao} object to access the Parks table
+     * @param parkDao {@link ParkDao} object to access the parks table
      */
     @Inject
     public GetParksActivity(ParkDao parkDao) {
@@ -36,11 +36,11 @@ public class GetParksActivity implements RequestHandler<GetParksRequest, GetPark
     }
 
     /**
-     * This method handles the incoming request by retrieving the park from the database.
+     * This method handles the incoming request by retrieving a list of parks from the database.
      *
-     * If the park does not exist, this should throw a ParkNotFoundException.
+     * If no parks exist, this should throw a ParksNotFoundException.
      *
-     * @param getParksRequest request object containing the park ID
+     * @param getParksRequest request object containing optional filtering parameters
      * @return getParksResult result object containing a list of API defined {@link ParkModel} objects
      */
     @Override

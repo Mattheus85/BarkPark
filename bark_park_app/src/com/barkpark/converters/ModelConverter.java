@@ -17,7 +17,6 @@ public class ModelConverter {
      * @param park the park to convert
      * @return the converted parkModel
      */
-    // Discuss choice to make these methods static with staff
     public static ParkModel toParkModel(Park park) {
 
         return ParkModel.builder()
