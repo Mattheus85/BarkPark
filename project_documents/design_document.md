@@ -24,11 +24,13 @@ also be able to create user accounts and review parks as well as filter parks by
 4. If we can think of a front end use case, should we build this functionality into the API? See locations
 5. Can ModelConverter methods be static?
 6. Should handleRequest be labeled to throw?
-7. If we have text that will potentially be long form and include formatting, how should we store this?
-8. How do we want to store location data? 
-   1. Possibilities include geographical coordinates, city names, etc.
-9. When a User deletes their account, should we also delete all reviews they have written and/or all parks they may have added?
-   1. If we leave the reviews, how do we handle the associated UserId (if this is indeed how we implement the Review model)
+7. Can we use one REST method for multiple similar resources?
+8. If we have text that will potentially be long form and include formatting, how should we store this?
+9. Presentation details... What/when/etc
+10. How do we want to store location data? 
+    1. Possibilities include geographical coordinates, city names, etc.
+11. When a User deletes their account, should we also delete all reviews they have written and/or all parks they may have added?
+    1. If we leave the reviews, how do we handle the associated UserId (if this is indeed how we implement the Review model)
 
 ## 3. Use Cases
 
