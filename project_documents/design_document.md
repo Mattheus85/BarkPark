@@ -164,11 +164,15 @@ String username;
       the specified rating
         * If `rating` is invalid (e.g. less than 1 or greater than 5), will throw a `InvalidRatingException`
         * If there are no parks that meet the specified rating criteria, will throw a `ParksNotFoundException`
+      
+![CreateReviewActivityImage](../bark_park_app/resources/images/get-parks-activity-SD.png)
 
 ## 6.3 *GetParkActivity*
 * Accepts `GET` requests to `/parks/:parkId`
 * Accepts a park ID and returns the corresponding ParkModel
   * If the given park ID is not found, will throw a `ParkNotFoundException`
+
+![CreateReviewActivityImage](../bark_park_app/resources/images/get-park-activity-SD.png)
 
 ## 6.4 *GetLocationsActivity*
 * Accepts `GET` requests to `/locations`
