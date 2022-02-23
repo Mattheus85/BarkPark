@@ -1,7 +1,5 @@
 package com.barkpark.models.requests.parks;
 
-import java.util.Objects;
-
 public class GetParkRequest {
     private String id;
 
@@ -17,26 +15,6 @@ public class GetParkRequest {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        GetParkRequest that = (GetParkRequest) o;
-        return id.equals(that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return "GetParkRequest{" +
-                "id='" + id + '\'' +
-                '}';
     }
 
     public static Builder builder() {

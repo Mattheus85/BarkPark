@@ -42,8 +42,8 @@ public class ParkDao {
     /**
      * Returns the {@link Park} corresponding to the specified id.
      *
-     * @param id the Park ID
-     * @return the stored Park, or throw {@link ParkNotFoundException} if none was found.
+     * @param id the park ID
+     * @return the stored park, or throw {@link ParkNotFoundException} if none was found.
      */
     public Park getPark(String id) throws ParkNotFoundException {
         Park park = this.dynamoDbMapper.load(Park.class, id);
@@ -145,30 +145,5 @@ public class ParkDao {
             throw new ParksNotFoundException("No parks found in " + location);
         }
         return parks;
-    }
-
-    /**
-     * Returns a String Set of all stored locations.
-     *
-     * @return the String set of stored Locations, or throw {@link LocationsNotFoundException} if none was found.
-     */
-    public Set<String> getLocations() throws LocationsNotFoundException {
-        
-        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
-                .withIndexName(LOCATION_AVG_RATING_INDEX)
-                .withConsistentRead(false);
-
-        // Very inefficient, consider alternate approaches
-        List<Park> parkList = dynamoDbMapper.scan(Park.class, scanExpression);
-        if (parkList == null || parkList.isEmpty()) {
-            throw new LocationsNotFoundException();
-        }
-
-        Set<String> locations = new HashSet<>();
-        for (Park park : parkList) {
-            locations.add(park.getLocation());
-        }
-
-        return locations;
     }
 }

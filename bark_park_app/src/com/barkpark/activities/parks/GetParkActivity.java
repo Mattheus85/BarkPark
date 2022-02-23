@@ -45,8 +45,12 @@ public class GetParkActivity implements RequestHandler<GetParkRequest, GetParkRe
     @Override
     public GetParkResult handleRequest(final GetParkRequest getParkRequest, Context context) throws ParkNotFoundException {
         log.info("Received GetParkRequest {}", getParkRequest);
+
         String requestId = getParkRequest.getId();
+
+        // Throws ParkNotFoundException
         Park park = parkDao.getPark(requestId);
+
         ParkModel parkModel = ModelConverter.toParkModel(park);
 
         return GetParkResult.builder()

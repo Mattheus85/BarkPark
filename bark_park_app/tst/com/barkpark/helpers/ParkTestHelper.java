@@ -1,11 +1,23 @@
 package com.barkpark.helpers;
 
 import com.barkpark.dynamodb.models.Park;
+import com.google.common.collect.Sets;
 
 import java.util.List;
 
 public class ParkTestHelper {
     public ParkTestHelper() {
+    }
+
+    public static Park generatePark() {
+        Park park = new Park();
+        park.setId("314159");
+        park.setName("Pi Park");
+        park.setLocation("Circle, AK");
+        park.setAvgRating(5d);
+        park.setTags(Sets.newHashSet("A tag"));
+
+        return park;
     }
 
     public static List<Park> generateParkListWith3Parks() {

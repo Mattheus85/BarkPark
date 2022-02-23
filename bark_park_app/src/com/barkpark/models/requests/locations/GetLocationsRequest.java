@@ -10,11 +10,6 @@ public class GetLocationsRequest {
         return new Builder();
     }
 
-    @Override
-    public String toString() {
-        return "GetLocationsRequest{}";
-    }
-
     public static final class Builder {
 
         public GetLocationsRequest build() {
