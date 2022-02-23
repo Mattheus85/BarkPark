@@ -3,7 +3,9 @@ package com.barkpark.activities.reviews;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.barkpark.converters.ModelConverter;
+import com.barkpark.dynamodb.ParkDao;
 import com.barkpark.dynamodb.ReviewDao;
+import com.barkpark.dynamodb.models.Park;
 import com.barkpark.dynamodb.models.Review;
 import com.barkpark.models.requests.reviews.CreateReviewRequest;
 import com.barkpark.models.results.reviews.CreateReviewResult;
@@ -20,15 +22,18 @@ import javax.inject.Inject;
 public class CreateReviewActivity implements RequestHandler<CreateReviewRequest, CreateReviewResult> {
     private final Logger log = LogManager.getLogger();
     private final ReviewDao reviewDao;
+    private final ParkDao parkDao;
 
     /**
      * Instantiates a new CreateReviewActivity object.
      *
      * @param reviewDao ReviewDao to access the reviews table
+     * @param parkDao ParkDao to access the parks table
      */
     @Inject
-    public CreateReviewActivity(ReviewDao reviewDao) {
+    public CreateReviewActivity(ReviewDao reviewDao, ParkDao parkDao) {
         this.reviewDao = reviewDao;
+        this.parkDao = parkDao;
     }
 
     /**
@@ -43,13 +48,17 @@ public class CreateReviewActivity implements RequestHandler<CreateReviewRequest,
     public CreateReviewResult handleRequest(CreateReviewRequest createReviewRequest, Context context) {
         log.info("Received CreateReviewRequest {}", createReviewRequest);
 
-        if (createReviewRequest.getParkId() == null ||
-            createReviewRequest.getUserId() == null ||
-            createReviewRequest.getRating() == null) {
+        String parkId = createReviewRequest.getParkId();
+        String userId = createReviewRequest.getUserId();
+        Double rating = createReviewRequest.getRating();
+
+        if (parkId == null || userId == null || rating == null) {
             throw new IllegalArgumentException("Must provide parkId, userId, and rating");
         }
 
         Review review = reviewDao.createReview(createReviewRequest);
+
+        parkDao.updateAvgRating(parkId, reviewDao.getReviewsByParkId(parkId));
 
         return CreateReviewResult.builder()
                 .withReviewModel(ModelConverter.toReviewModel(review))

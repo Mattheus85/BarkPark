@@ -8,6 +8,7 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
 import com.amazonaws.services.dynamodbv2.model.Condition;
 import com.barkpark.dynamodb.models.Park;
+import com.barkpark.dynamodb.models.Review;
 import com.barkpark.exceptions.LocationsNotFoundException;
 import com.barkpark.exceptions.ParkNotFoundException;
 import com.barkpark.exceptions.ParksNotFoundException;
@@ -145,5 +146,25 @@ public class ParkDao {
             throw new ParksNotFoundException("No parks found in " + location);
         }
         return parks;
+    }
+
+    public void updateAvgRating(String parkId, List<Review> reviews) {
+        int reviewCount = 0;
+        Double ratingSum = 0d;
+
+        // Check for no reviews
+
+        for (Review review : reviews) {
+            ratingSum += review.getRating();
+            reviewCount++;
+        }
+
+        Double newAvgRating = ratingSum / reviewCount;
+        newAvgRating = (double) Math.round(newAvgRating * 10) / 10;
+
+        Park park = getPark(parkId);
+        park.setAvgRating(newAvgRating);
+
+        dynamoDbMapper.save(park);
     }
 }

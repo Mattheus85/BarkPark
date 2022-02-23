@@ -7,7 +7,9 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.barkpark.converters.LocationSetConverter;
 import com.barkpark.dynamodb.ParkDao;
+import com.barkpark.dynamodb.ReviewDao;
 import com.barkpark.dynamodb.models.Park;
+import com.barkpark.dynamodb.models.Review;
 import com.barkpark.exceptions.LocationsNotFoundException;
 import com.barkpark.exceptions.ParksNotFoundException;
 import com.barkpark.models.results.locations.GetLocationsResult;
@@ -30,34 +32,11 @@ public class TempTest {
                 .build());
 
         ParkDao parkDao = new ParkDao(mapper);
+        ReviewDao reviewDao = new ReviewDao(mapper);
 
-        List<Park> parkList;
+        String parkId = "4444";
+        List<Review> reviews = reviewDao.getReviewsByParkId(parkId);
 
-        try {
-            parkList = parkDao.getAllParks();
-        } catch (ParksNotFoundException parksNotFoundException) {
-            throw new LocationsNotFoundException("No park locations found", parksNotFoundException);
-        }
-
-        Set<String> locationSet = LocationSetConverter.convertToSet(parkList);
-
-        GetLocationsResult getLocationsResult = GetLocationsResult.builder()
-                .withLocationSet(locationSet)
-                .build();
-
-        for (String loc : getLocationsResult.getLocationSet()) {
-            System.out.println(loc);
-        }
-//
-//        List<Park> parks = parkDao.getParksByLocationAndAvgRating("Berkeley, CA", 4d);
-//
-//        for (Park park : parks) {
-//            System.out.println(park.getName());
-//        }
-//
-//        ReviewDao reviewDao = new ReviewDao(mapper);
-//
-//        Review deletedReview = reviewDao.deleteReview("314159", "123456");
-
+        parkDao.updateAvgRating(parkId, reviews);
     }
 }

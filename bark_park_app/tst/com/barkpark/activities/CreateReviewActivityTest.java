@@ -1,17 +1,22 @@
 package com.barkpark.activities;
 
 import com.barkpark.activities.reviews.CreateReviewActivity;
+import com.barkpark.dynamodb.ParkDao;
 import com.barkpark.dynamodb.ReviewDao;
 import com.barkpark.dynamodb.models.Review;
 import com.barkpark.models.requests.reviews.CreateReviewRequest;
 import com.barkpark.models.results.reviews.CreateReviewResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
 
@@ -19,12 +24,15 @@ public class CreateReviewActivityTest {
     @Mock
     private ReviewDao reviewDao;
 
+    @Mock
+    private ParkDao parkDao;
+
     private CreateReviewActivity createReviewActivity;
 
     @BeforeEach
     public void setUp() {
         openMocks(this);
-        createReviewActivity = new CreateReviewActivity(reviewDao);
+        createReviewActivity = new CreateReviewActivity(reviewDao, parkDao);
     }
 
     @Test
@@ -40,6 +48,7 @@ public class CreateReviewActivityTest {
         review.setRating(rating);
 
         when(reviewDao.createReview(any(CreateReviewRequest.class))).thenReturn(review);
+        doNothing().when(parkDao).updateAvgRating(any(String.class), anyList());
 
         CreateReviewRequest request = CreateReviewRequest.builder()
                 .withParkId(parkId)
