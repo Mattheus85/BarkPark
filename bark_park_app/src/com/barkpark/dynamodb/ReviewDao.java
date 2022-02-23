@@ -120,16 +120,22 @@ public class ReviewDao {
      * @return the updated and subsequently saved {@link Review}
      */
     public Review updateReview(UpdateReviewRequest updateReviewRequest) {
+        String parkId = updateReviewRequest.getParkId();
+        String userId = updateReviewRequest.getUserId();
+        Double rating = updateReviewRequest.getRating();
+        String reviewTitle = updateReviewRequest.getReviewTitle();
+        String reviewBody = updateReviewRequest.getReviewBody();
 
-        Review review = new Review();
-        review.setParkId(updateReviewRequest.getParkId());
-        review.setUserId(updateReviewRequest.getUserId());
-        review.setReviewTitle(updateReviewRequest.getReviewTitle());
-        review.setReviewBody(updateReviewRequest.getReviewBody());
+        Review review = dynamoDBMapper.load(Review.class, parkId, userId);
+
+        review.setRating(rating != null ? rating : review.getRating());
+        review.setReviewTitle(reviewTitle != null ? reviewTitle : review.getReviewTitle());
+        review.setReviewBody(reviewBody != null ? reviewBody : review.getReviewBody());
+
         review.setDate(java.time.LocalDateTime.now().toString());
-        review.setRating(updateReviewRequest.getRating());
 
         this.dynamoDBMapper.save(review);
+
         return review;
     }
 
