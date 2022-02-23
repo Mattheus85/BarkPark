@@ -1,51 +1,56 @@
 @startuml
 title Get Parks Activity
-skinparam BoxPadding 30
 
-box "Front End" #lightyellow
 actor Client
 participant "API Gateway" as APIGateway
-end box
-
-box "Back End" #azure
 participant Lambda
 participant GetParksActivity
-participant ParksDao
+participant ParkDao
 participant ModelConverter
 database DynamoDB
-end box
 
-Client -> APIGateway ++: GET /parks
-APIGateway -> Lambda ++
-Lambda -> GetParksActivity ++:  handleRequest(GetParksRequest, Context)
-GetParksActivity -> ParksDao ++ : getParks()
-ParksDao -> DynamoDB ++: retrieve all parks
+Client -> APIGateway : GET /parks
+activate Client
+APIGateway -> Lambda
+activate Lambda
+activate GetParksActivity
+activate ParkDao
+Lambda -> GetParksActivity : handleRequest(GetParksRequest, Context)
+GetParksActivity -> ParkDao : getAllParks()
+ParkDao -> DynamoDB : load a list of all parks
 
-alt#crimson #whitesmoke if database receives an invalid request
-    ParksDao <-- DynamoDB : return with no item data
-    GetParksActivity <-- ParksDao : throw SomeKindaException?
-    Lambda <-- GetParksActivity : propagate SomeKindaException?
-    APIGateway <-- Lambda : propagate Exception?
-    Client <-- APIGateway : 400 Response, "Invalid input"
+alt #lightblue if location is provided
+    GetParksActivity -> ParkDao : getParksByLocation(location : String)
+    ParkDao -> DynamoDB : load a list of parks filtered by location
+    else if avgRating is provided
+    GetParksActivity -> ParkDao : getParksByAvgRating(avgRating : Double)
+    ParkDao -> DynamoDB : load a list of parks filtered by avgRating
+    else if location and avgRating is provided
+    GetParksActivity -> ParkDao : getParksByLocationAndAvgRating(location : String, avgRating : Double)
+    ParkDao -> DynamoDB : load a list of parks filtered by location and avgRating
+    else otherwise, continue
 end
 
-ParksDao <-- DynamoDB --: all parks
-GetParksActivity <-- ParksDao --: List<Parks>
-
-alt#greenyellow #whitesmoke if request.rating is provided
-    GetParksActivity -> GetParksActivity : sort by rating
-    else else continue
-end
-alt#greenyellow #whitesmoke if request.location is provided
-    GetParksActivity -> GetParksActivity : sort by location
-    else else continue
+alt #lightpink if no parks exist
+    ParkDao <-- DynamoDB : null
+    Lambda <-- ParkDao : throw ParksNotFoundException
+    APIGateway <-- Lambda
+    Client <-- APIGateway : 400 Response
+    else otherwise, continue
 end
 
-GetParksActivity -> ModelConverter ++: toParksModel(List<Parks>)
-GetParksActivity <-- ModelConverter --: ParksListModel
-GetParksActivity -> GetParksActivity : create GetParksResult
-Lambda <-- GetParksActivity --: GetParksResult
-APIGateway <-- Lambda --
-Client <-- APIGateway --: 200 Response
+ParkDao <-- DynamoDB : ParkList
+GetParksActivity <-- ParkDao : ParkList
+GetParksActivity --> ModelConverter : toParkModelList(ParkList)
+activate ModelConverter
+GetParksActivity <-- ModelConverter : ParkModelList
+deactivate ModelConverter
+Lambda <-- GetParksActivity : GetParksResult
+APIGateway <-- Lambda
+deactivate ParkDao
+deactivate GetParksActivity
+deactivate Lambda
+Client <-- APIGateway : 200 Response
+deactivate Client
 
 @enduml
