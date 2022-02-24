@@ -59,6 +59,7 @@ public class CreateReviewActivity implements RequestHandler<CreateReviewRequest,
 
         Review review = reviewDao.createReview(createReviewRequest);
 
+        // Call to getReviews is extracted due to possible concurrency issues
         List<Review> reviews = reviewDao.getReviewsByParkId(parkId);
         parkDao.updateAvgRating(parkId, reviews);
 
