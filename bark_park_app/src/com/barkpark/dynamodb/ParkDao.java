@@ -153,17 +153,20 @@ public class ParkDao {
         Double ratingSum = 0d;
 
         // Check for no reviews
-
-        for (Review review : reviews) {
-            ratingSum += review.getRating();
-            reviewCount++;
-        }
-
-        Double newAvgRating = ratingSum / reviewCount;
-        newAvgRating = (double) Math.round(newAvgRating * 10) / 10;
-
         Park park = getPark(parkId);
-        park.setAvgRating(newAvgRating);
+        if (!reviews.isEmpty()) {
+            for (Review review : reviews) {
+                ratingSum += review.getRating();
+                reviewCount++;
+            }
+
+            Double newAvgRating = ratingSum / reviewCount;
+            newAvgRating = (double) Math.round(newAvgRating * 10) / 10;
+
+            park.setAvgRating(newAvgRating);
+        } else {
+            park.setAvgRating(null);
+        }
 
         dynamoDbMapper.save(park);
     }

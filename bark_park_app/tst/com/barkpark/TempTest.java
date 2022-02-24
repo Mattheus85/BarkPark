@@ -14,10 +14,7 @@ import com.barkpark.exceptions.LocationsNotFoundException;
 import com.barkpark.exceptions.ParksNotFoundException;
 import com.barkpark.models.results.locations.GetLocationsResult;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static com.barkpark.dynamodb.models.Park.LOCATION_AVG_RATING_INDEX;
 
@@ -34,9 +31,9 @@ public class TempTest {
         ParkDao parkDao = new ParkDao(mapper);
         ReviewDao reviewDao = new ReviewDao(mapper);
 
-        String parkId = "4444";
-        List<Review> reviews = reviewDao.getReviewsByParkId(parkId);
+        String parkId = "271828";
+//        List<Review> reviews = reviewDao.getReviewsByParkId(parkId);
 
-        parkDao.updateAvgRating(parkId, reviews);
+        parkDao.updateAvgRating(parkId, new ArrayList<>());
     }
 }
