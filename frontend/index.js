@@ -1,4 +1,5 @@
 const parksList = document.querySelector("#parks");
+const cities = document.querySelector("#cities");
 
 window.onload = async function (evt) {
   evt.preventDefault();
@@ -50,5 +51,5 @@ function populateLocations(locationsData) {
     li.appendChild(a);
     div.appendChild(li);
   }
-  parksList.appendChild(div);
+  cities.appendChild(div);
 }

@@ -57,22 +57,27 @@ createReview.onsubmit = async function (evt) {
     )
     .then((reviewRes) => {
       console.log(reviewRes);
-      //window.location.reload();
+      window.location.reload();
     });
 };
 
 function populatePark(parkData) {
+  let parkDiv = document.createElement("div");
+  parkDiv.className = "park-name-and-location";
+
   let nameDiv = document.createElement("div");
   nameDiv.className = "name-class";
   let parkName = document.createTextNode("Park name: " + parkData.name);
   nameDiv.appendChild(parkName);
-  park.appendChild(nameDiv);
+  parkDiv.appendChild(nameDiv);
 
   let locationDiv = document.createElement("div");
   locationDiv.className = "location-class";
   let cityName = document.createTextNode("Location: " + parkData.location);
   locationDiv.appendChild(cityName);
-  park.appendChild(locationDiv);
+  parkDiv.appendChild(locationDiv);
+
+  park.appendChild(parkDiv);
 }
 
 function populateReview(reviewData) {

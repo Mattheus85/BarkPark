@@ -8,6 +8,7 @@ const title = document.querySelector("#title");
 window.onload = async function (evt) {
   evt.preventDefault();
   createTitleAndHeader();
+  // createLinkToUserPage();
   console.log("Getting Parks Data...");
   axios
     .get(
@@ -43,4 +44,15 @@ function createTitleAndHeader() {
 
   let ti = document.createTextNode(currentLocation);
   title.appendChild(ti);
+}
+
+function createLinkToUserPage() {
+  let li = document.createElement("li");
+    let a = document.createElement("a");
+    let text = document.createTextNode(park.name);
+
+    a.setAttribute("href", `./park.html?id=${park.id}`);
+
+    a.appendChild(text);
+    li.appendChild(a);
 }
