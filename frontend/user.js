@@ -1,24 +1,31 @@
+const header = document.querySelector("#h2");
+const title = document.querySelector("#title");
 const reviews = document.querySelector("#reviewModel");
+const urlParams = new URLSearchParams(window.location.search);
+const user = urlParams.get("user-id");
+// const user = "User";
 
 window.onload = async function (evt) {
   evt.preventDefault();
-  console.log("Getting Data...");
+  createTitleAndHeader();
   axios
     .get(
-      "https://hdvd9zw9q5.execute-api.us-west-1.amazonaws.com/Alpha/reviews?parkId=" +
-        userId
+      "https://hdvd9zw9q5.execute-api.us-west-1.amazonaws.com/Alpha/reviews?userId=" +
+        user
     )
     .then((reviewsResult) => {
       console.log(reviewsResult);
-      if (!reviewsResult.data.reviewList) {
-        throw "No Reviews for user with id: " + userId;
+      if (
+        reviewsResult.data.errorType ===
+        "com.barkpark.exceptions.ReviewsNotFoundException"
+      ) {
+        throw "No Reviews for user with id: " + user;
       }
-      populateReview(reviewsResult.data.reviewList);
+      populateReviews(reviewsResult.data.reviewList);
     });
-  createRatings();
 };
 
-function populateReview(reviewData) {
+function populateReviews(reviewData) {
   for (let review of reviewData) {
     let titleDiv = document.createElement("div");
     titleDiv.className = "title-class";
@@ -50,4 +57,12 @@ function populateReview(reviewData) {
     dateDiv.appendChild(date);
     reviews.appendChild(dateDiv);
   }
+}
+
+function createTitleAndHeader() {
+  let h2 = document.createTextNode(user);
+  header.appendChild(h2);
+
+  let ti = document.createTextNode(user);
+  title.appendChild(ti);
 }
