@@ -13,6 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * Implementation of the CreateReviewActivity for the BarkPark CreateReview API.
@@ -58,7 +59,8 @@ public class CreateReviewActivity implements RequestHandler<CreateReviewRequest,
 
         Review review = reviewDao.createReview(createReviewRequest);
 
-        parkDao.updateAvgRating(parkId, reviewDao.getReviewsByParkId(parkId));
+        List<Review> reviews = reviewDao.getReviewsByParkId(parkId);
+        parkDao.updateAvgRating(parkId, reviews);
 
         return CreateReviewResult.builder()
                 .withReviewModel(ModelConverter.toReviewModel(review))
