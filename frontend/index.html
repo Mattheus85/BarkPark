@@ -11,10 +11,18 @@
   </head>
   <body>
     <h2 id="header">Bark Park</h2>
-    <ul id="parks"></ul>
+    <div id="parks"></div>
+    <div>
+      Filter by Rating
+      <div id="average-rating"></div>
+    </div>
+    <div>
+      <input type="radio" name="get-all-parks" value="0" id="0" />
+      <label for="0">Get All Parks</label>
+    </div>
     <ul id="cities"></ul>
     <form id="user-page-form" action="./user.html">
-      <input name="user-id" required placeholder="Enter User ID"/>
+      <input name="user-id" required placeholder="Enter User ID" />
       <button type="submit">Go to User Page</button>
     </form>
   </body>

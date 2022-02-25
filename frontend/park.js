@@ -1,6 +1,7 @@
 const createReview = document.querySelector("#create-review-form");
 const park = document.querySelector("#parkModel");
 const reviews = document.querySelector("#reviewModel");
+const noReviews = document.querySelector("#no-reviews");
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get("id");
 
@@ -32,6 +33,7 @@ window.onload = async function (evt) {
         reviewsResult.data.errorType ===
         "com.barkpark.exceptions.ReviewsNotFoundException"
       ) {
+        noReviewsFunction();
         throw "No Reviews for park with id: " + id;
       }
       populateReview(reviewsResult.data.reviewList);
@@ -44,22 +46,34 @@ createReview.onsubmit = async function (evt) {
   const title = document.querySelector("#review-title-input").value;
   const body = document.querySelector("#review-body-input").value;
   const userId = document.querySelector("#user-id-input").value;
-  const rating = getRating();
+  const chosenRating = getRating();
   const newReview = {
     reviewTitle: title,
     reviewBody: body,
-    rating: rating,
+    rating: chosenRating
   };
+  console.log(title)
+  console.log(body)
+  console.log(userId)
+  console.log(chosenRating)
+  console.log(newReview)
   axios
     .post(
-      `https://hdvd9zw9q5.execute-api.us-west-1.amazonaws.com/Alpha/reviews/?parkId=${id}&userId=${userId}`,
-      newReview
+      `https://hdvd9zw9q5.execute-api.us-west-1.amazonaws.com/Alpha/reviews?parkId=${id}&userId=${userId}`,
+      newReview 
     )
     .then((reviewRes) => {
       console.log(reviewRes);
       window.location.reload();
     });
 };
+
+function noReviewsFunction() {
+  let noReviewsText = document.createTextNode(
+    "There are no reviews for this park : ("
+  );
+  noReviews.appendChild(noReviewsText);
+}
 
 function populatePark(parkData) {
   let parkDiv = document.createElement("div");
