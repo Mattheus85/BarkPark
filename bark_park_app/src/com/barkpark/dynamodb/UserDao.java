@@ -43,14 +43,15 @@ public class UserDao {
     /**
      * Creates a user based on the incoming {@link CreateUserRequest} and saves it to the users table
      *
-     * @param createUserRequest the request with which to create the {@link User}
+     * @param userId the user ID with which to create the {@link User}
+     * @param username the username with which to create the {@link User}
      * @return the created and subsequently saved {@link User}
      */
-    public User createUser(CreateUserRequest createUserRequest) {
+    public User createUser(String userId, String username) {
 
         User user = new User();
-        user.setId(createUserRequest.getId());
-        user.setUsername(createUserRequest.getUsername());
+        user.setId(userId);
+        user.setUsername(username);
 
         this.dynamoDBMapper.save(user);
         return user;

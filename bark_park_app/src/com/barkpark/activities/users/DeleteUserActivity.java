@@ -6,7 +6,6 @@ import com.barkpark.converters.ModelConverter;
 import com.barkpark.dynamodb.UserDao;
 import com.barkpark.dynamodb.models.User;
 import com.barkpark.models.requests.users.DeleteUserRequest;
-import com.barkpark.models.results.reviews.DeleteReviewResult;
 import com.barkpark.models.results.users.DeleteUserResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
