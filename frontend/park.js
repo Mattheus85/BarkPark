@@ -4,6 +4,7 @@ const reviews = document.querySelector("#reviewModel");
 const noReviews = document.querySelector("#no-reviews");
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get("id");
+const {cognitoUsernameToSend} = require('cognito-auth');
 
 window.onload = async function (evt) {
   evt.preventDefault();
@@ -45,22 +46,16 @@ createReview.onsubmit = async function (evt) {
   evt.preventDefault();
   const title = document.querySelector("#review-title-input").value;
   const body = document.querySelector("#review-body-input").value;
-  const userId = document.querySelector("#user-id-input").value;
   const chosenRating = getRating();
   const newReview = {
     reviewTitle: title,
     reviewBody: body,
-    rating: chosenRating
+    rating: chosenRating,
   };
-  console.log(title)
-  console.log(body)
-  console.log(userId)
-  console.log(chosenRating)
-  console.log(newReview)
   axios
     .post(
-      `https://hdvd9zw9q5.execute-api.us-west-1.amazonaws.com/Alpha/reviews?parkId=${id}&userId=${userId}`,
-      newReview 
+      `https://hdvd9zw9q5.execute-api.us-west-1.amazonaws.com/Alpha/reviews?parkId=${id}&userId=${cognitoUsernameToSend}`,
+      newReview
     )
     .then((reviewRes) => {
       console.log(reviewRes);

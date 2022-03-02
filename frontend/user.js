@@ -2,7 +2,7 @@ const header = document.querySelector("#h2");
 const title = document.querySelector("#title");
 const reviews = document.querySelector("#reviewModel");
 const urlParams = new URLSearchParams(window.location.search);
-const user = urlParams.get("user-id");
+const user = urlParams.get("username");
 // const user = "User";
 
 window.onload = async function (evt) {
@@ -19,7 +19,7 @@ window.onload = async function (evt) {
         reviewsResult.data.errorType ===
         "com.barkpark.exceptions.ReviewsNotFoundException"
       ) {
-        throw "No Reviews for user with id: " + user;
+        throw "No Reviews for user: " + user;
       }
       populateReviews(reviewsResult.data.reviewList);
     });
