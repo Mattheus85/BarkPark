@@ -4,7 +4,6 @@ const reviews = document.querySelector("#reviewModel");
 const noReviews = document.querySelector("#no-reviews");
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get("id");
-const {cognitoUsernameToSend} = require('cognito-auth');
 
 window.onload = async function (evt) {
   evt.preventDefault();
