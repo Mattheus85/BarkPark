@@ -1,6 +1,4 @@
-   # Team_Bark_Park Design Document
-
-## *Bark Park App* Design
+# Bark Park Design Document
 
 ## 1. Problem Statement
 
@@ -14,25 +12,7 @@ client application which will allow customers to view all dog parks known to the
 also be able to create user accounts and review parks as well as filter parks by average review rating.
 
 
-## 2. Top Questions to Resolve in Review
-
-1. If we're not trying abstract details about the underlying db table implementation, should we still utilize models 
-   in the results?
-2. A review in the reviews table is identified by the unique composite key of partition key: parkId and sort key: userId.
-   1. Is it conventional to provide a GET method for this sort of thing?
-3. Is our implementation of GetReviews reasonable?
-4. If we can think of a front end use case, should we build this functionality into the API? See locations
-5. Can ModelConverter methods be static?
-6. Should handleRequest be labeled to throw?
-7. Can we use one REST method for multiple similar resources?
-8. If we have text that will potentially be long form and include formatting, how should we store this?
-9. Presentation details... What/when/etc
-10. How do we want to store location data? 
-    1. Possibilities include geographical coordinates, city names, etc.
-11. When a User deletes their account, should we also delete all reviews they have written and/or all parks they may have added?
-    1. If we leave the reviews, how do we handle the associated UserId (if this is indeed how we implement the Review model)
-
-## 3. Use Cases
+## 2. Use Cases
 
 U1. *As a customer, I want to view a list of all stored parks*
 
@@ -63,9 +43,9 @@ a review rating value I provide*
 
 
 
-## 4. Project Scope
+## 3. Project Scope
 
-### 4.1. In Scope
+### 3.1. In Scope
 
 1. Retrieve a list of all parks known to the service
 2. Retrieve a list of parks filtered and sorted by location and/or average rating 
@@ -74,7 +54,7 @@ a review rating value I provide*
 5. Create, edit, and delete a review for a park
 6. Retrieve a list of reviews filtered by parkId and/or userId
 
-### 4.2. Out of Scope
+### 3.2. Out of Scope
 
 1. Allow users to add, remove, or update existing parks
    1. This could be done directly with permissions or through a request system handled by admins
@@ -93,7 +73,7 @@ a review rating value I provide*
 9. Ranking system for *most popular* dogs in each park
 
 
-# 5. Proposed Architecture Overview
+## 4. Proposed Architecture Overview
 
 This initial iteration will provide the minimum viable product (MVP) including retrieving a list of parks, 
 retrieving a park and its specific reviews, and creating, retrieving, updating, and deleting user accounts and user reviews.
@@ -110,9 +90,9 @@ to pages per-park to view details and reviews and add a review. Review and user 
 links to update or delete.
 
 
-# 6. API
+## 6. API
 
-## 6.1. Public Models
+### 6.1. Public Models
 
 ```
 // ParkModel
@@ -151,7 +131,7 @@ String username;
 
 ## Endpoints
 
-## 6.2. *GetParksActivity*
+### 6.2. *GetParksActivity*
 * Accepts `GET` requests to `/parks`
 * Retrieves a list of parks
     * By default, returns the corresponding ParksModel containing a list all parks in an arbitrary order
@@ -165,21 +145,21 @@ String username;
         * If `rating` is invalid (e.g. less than 1 or greater than 5), will throw a `InvalidRatingException`
         * If there are no parks that meet the specified rating criteria, will throw a `ParksNotFoundException`
       
-![CreateReviewActivityImage](../bark_park_app/resources/images/get-parks-activity-SD.png)
+![CreateReviewActivityImage](./bark_park_app/resources/images/get-parks-activity-SD.png)
 
-## 6.3 *GetParkActivity*
+### 6.3 *GetParkActivity*
 * Accepts `GET` requests to `/parks/:parkId`
 * Accepts a park ID and returns the corresponding ParkModel
   * If the given park ID is not found, will throw a `ParkNotFoundException`
 
-![CreateReviewActivityImage](../bark_park_app/resources/images/get-park-activity-SD.png)
+![CreateReviewActivityImage](./bark_park_app/resources/images/get-park-activity-SD.png)
 
-## 6.4 *GetLocationsActivity*
+### 6.4 *GetLocationsActivity*
 * Accepts `GET` requests to `/locations`
 * Retrieves a list of locations
   * By default, returns the corresponding LocationsModel containing a list of all locations
 
-## 6.5 *CreateUserActivity*
+### 6.5 *CreateUserActivity*
 * Accepts `POST` requests to `/users`
 * Accepts data to create a new user with a provided name, a provided email, a provided password. 
 Returns the new user, including a unique user ID assigned by User Service Class
@@ -188,24 +168,24 @@ parameters) and a method to generate a new, unique user ID
 * For security concerns, we will validate that the provided username and email do not contain any invalid characters: `“ ‘ \ `
 * If the username or email contains any of the invalid characters, will throw an `InvalidAttributeValueException`
 
-## 6.6 *GetUserActivity*
+### 6.6 *GetUserActivity*
 * Accepts `GET` requests to `/users/:userId`
 * Accepts a user ID and returns the corresponding UserModel
 * If the given user ID is not found, will throw an `UserNotFoundException`
 
-## 6.7 *UpdateUserActivity*
+### 6.7 *UpdateUserActivity*
 * Accepts `PUT` requests to `/users/:userId`
 * Accepts data to update user including user name and email. Returns the updated user.
 * If the user ID is not found, will throw a `UserNotFoundException`
 * For security concerns, we will validate that the provided user ID does not contain any invalid characters: `“ ‘ \ `
 * If the user ID contains any of the invalid characters, will throw an `InvalidAttributeValueException`
 
-## 6.8 *DeleteUserActivity*
+### 6.8 *DeleteUserActivity*
 * Accepts `DELETE` requests to `/users/:userId`
 * Accepts data to delete a user ID. Returns confirmation of deleted user ID.
 * If the user ID is not found, will throw a `UserNotFoundException`
 
-## 6.9 *CreateReviewActivity*
+### 6.9 *CreateReviewActivity*
 * Accepts `POST` requests to `/reviews`.
 * Accepts data to create a new review including a required parkId, a required user ID, a required review rating, and an optional review title and review body.
 * Returns the corresponding ReviewModel.
@@ -213,9 +193,9 @@ parameters) and a method to generate a new, unique user ID
   * If the user ID is not found, will throw a `UserNotFoundException`.
   * If the park ID is not found, will throw a `ParkNotFoundException`.
 
-![CreateReviewActivityImage](../bark_park_app/resources/images/create-review-activity.png)
+![CreateReviewActivityImage](./bark_park_app/resources/images/create-review-activity.png)
 
-## 6.10 *GetReviewsActivity*
+### 6.10 *GetReviewsActivity*
 * Accepts `GET` requests to `/reviews`.
 * Retrieves a list of reviews
   * Requires at least one query parameter of type `parkId` or `userId` 
@@ -234,9 +214,9 @@ parameters) and a method to generate a new, unique user ID
         * If there is no review that matches the specified user and park, will return an empty list
   
 
-![GetParkReviewsActivityImage](../bark_park_app/resources/images/get-park-reviews-activity.png)
+![GetParkReviewsActivityImage](./bark_park_app/resources/images/get-park-reviews-activity.png)
 
-## 6.11 *UpdateReviewActivity*
+### 6.11 *UpdateReviewActivity*
 * Accepts `PUT` requests to `/reviews/:parkId/:userId`.
 * Accepts data to update a review including the optional parameters review rating, 
    review title, and review body. If any of these optional parameters are not included the updated review will use the
@@ -247,9 +227,9 @@ parameters) and a method to generate a new, unique user ID
 * For security concerns, we will validate all provided parameters to ensure they do not contain any invalid characters: `“ ‘ \ `
 * If any of provided parameters contains any of the invalid characters, will throw an `InvalidAttributeValueException`
 
-![UpdateReviewActivityImage](../bark_park_app/resources/images/update-review-activity.png)
+![UpdateReviewActivityImage](./bark_park_app/resources/images/update-review-activity.png)
 
-## 6.12 *DeleteReviewActivity*
+### 6.12 *DeleteReviewActivity*
 * Accepts `DELETE` requests to `/reviews/:parkId/:userId`
 * Accepts data to delete a review including a user ID and a park ID.
   Returns the deleted ReviewModel.
@@ -259,7 +239,7 @@ parameters) and a method to generate a new, unique user ID
 ![DeleteReviewActivityImage](../bark_park_app/resources/images/delete-review-activity.png)
 
 
-# 7. Tables
+## 7. Tables
 
 ### 7.1 `parks`
 ```
@@ -286,38 +266,38 @@ reviewBody // string
 rating // number
 ```
 
-# 8. Pages
+## 8. Pages
 
-## Main Parks Page with no filtering:
+### Main Parks Page
 ### `/parks`
-![ParksPageImage](../bark_park_app/resources/images/ParksPage.jpg)
+![ParksPageImage](./bark_park_app/resources/images/ParksPage.jpg)
 
-## Park Page
+### Park Page
 ### `/parks/:parkId`
-![ParkPageImage](../bark_park_app/resources/images/park_page.jpg)
+![ParkPageImage](./bark_park_app/resources/images/park_page.jpg)
 
-## Login/Create User Page
+### Login/Create User Page
 ### `users/login`
-![ParkPageImage](../bark_park_app/resources/images/login_or_create_user_page.jpg)
+![ParkPageImage](./bark_park_app/resources/images/login_or_create_user_page.jpg)
 
-## User Page
+### User Page
 ### `users/:userId`
-![ParkPageImage](../bark_park_app/resources/images/user_page.jpg)
+![ParkPageImage](./bark_park_app/resources/images/user_page.jpg)
 
-## Edit/Delete User Page
+### Edit/Delete User Page
 ### `users/:userId/edit`
-![ParkPageImage](../bark_park_app/resources/images/edit_or_delete_user_page.jpg)
+![ParkPageImage](./bark_park_app/resources/images/edit_or_delete_user_page.jpg)
 
-## Create Review Page
+### Create Review Page
 ### `/parks/:parkId/reviews/create`
-![ParkPageImage](../bark_park_app/resources/images/edit_or_delete_user_page.jpg)
+![ParkPageImage](./bark_park_app/resources/images/edit_or_delete_user_page.jpg)
 
-## Login/Create User Page
+### Login/Create User Page
 ### `users/login`
-![ParkPageImage](../bark_park_app/resources/images/login_or_create_user_page.jpg)
+![ParkPageImage](./bark_park_app/resources/images/login_or_create_user_page.jpg)
 
-## Review Page
+### Review Page
 ### `/parks/:parkId/reviews/:reviewId`
-![ParkPageImage](../bark_park_app/resources/images/review_page.jpg)
+![ParkPageImage](./bark_park_app/resources/images/review_page.jpg)
 
 
